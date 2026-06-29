@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUMT数院电子资料</title>
+    <style>
+        /* --- 基础重置与全局样式 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7f9;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* --- 头部区域 --- */
+        header {
+            background: linear-gradient(135deg, #003366 0%, #0055a4 100%); /* 矿大深蓝配色 */
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; letter-spacing: 2px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* --- 主内容区 --- */
+        .container {
+            max-width: 1200px; /* 资料较多，稍微加宽容器 */
+            margin: -30px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- 搜索框 --- */
+        .search-box {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+        .search-box svg { width: 20px; height: 20px; margin-right: 12px; color: #95a5a6; }
+        #searchInput { border: none; outline: none; font-size: 1rem; width: 100%; color: #333; }
+        #searchInput::placeholder { color: #bdc3c7; }
+
+        /* --- 资料卡片网格 --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f5;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #0055a4;
+        }
+        .card-icon {
+            width: 48px; height: 48px;
+            background-color: #ffeaea;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: #2c3e50; }
+        .card p { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 20px; flex-grow: 1; }
+        
+        .card-tags { margin-bottom: 20px; }
+        .tag {
+            display: inline-block;
+            background: #e8f4f8;
+            color: #0055a4;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        .btn-group { display: flex; gap: 10px; }
+        .btn {
+            flex: 1; text-align: center; padding: 10px 0;
+            border-radius: 8px; text-decoration: none;
+            font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+        }
+        .btn-primary { background-color: #0055a4; color: white; }
+        .btn-primary:hover { background-color: #003366; }
+        .btn-secondary { background-color: #f1f3f5; color: #2c3e50; }
+        .btn-secondary:hover { background-color: #e9ecef; }
+
+        /* --- 底部 --- */
+        footer {
+            text-align: center; padding: 40px 20px;
+            color: #95a5a6; font-size: 0.9rem;
+            border-top: 1px solid #eef2f5; background: white;
+        }
+        footer a { color: #0055a4; text-decoration: none; }
+
+        /* --- 无结果提示 --- */
+        .no-results { text-align: center; padding: 60px 20px; color: #95a5a6; display: none; grid-column: 1 / -1; }
+
+        /* --- 响应式调整 --- */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { margin-top: -20px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CUMT数院电子资料</h1>
+        <p>中国矿业大学数学学院 · 核心课程历年试题共享库</p>
+    </header>
+
+    <main class="container">
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" id="searchInput" placeholder="搜索资料名称、课程或标签 (如：大一、实变、试题)...">
+        </div>
+
+        <!-- 资料卡片网格 -->
+        <div class="grid" id="documentGrid">
+            
+            <!-- 1. 数学分析 (1) -->
+            <div class="card" data-tags="数学分析(1)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数学分析(1)</h3>
+                <div class="card-tags"><span class="tag">数学分析</span><span class="tag">大一上</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/math-analysis-1.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/math-analysis-1.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 2. 数学分析 (2) -->
+            <div class="card" data-tags="数学分析(2)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数学分析(2)</h3>
+                <div class="card-tags"><span class="tag">数学分析</span><span class="tag">大一下</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/math-analysis-2.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/math-analysis-2.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 3. 数学分析 (3) -->
+            <div class="card" data-tags="数学分析(3)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数学分析(3)</h3>
+                <div class="card-tags"><span class="tag">数学分析</span><span class="tag">大二上</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/math-analysis-3.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/math-analysis-3.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 4. 高等代数 (1) -->
+            <div class="card" data-tags="高等代数(1)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>高等代数(1)</h3>
+                <div class="card-tags"><span class="tag">高等代数</span><span class="tag">大一上</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/high-algebra-1.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/high-algebra-1.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 5. 高等代数 (2) -->
+            <div class="card" data-tags="高等代数(2)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>高等代数(2)</h3>
+                <p>涵盖线性空间、线性变换、欧氏空间、双线性函数等核心内容的试题集。</p>
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>高等代数(2)</h3>
+                <div class="card-tags"><span class="tag">高等代数</span><span class="tag">大一下</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/high-algebra-2.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/high-algebra-2.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 6. 常微分方程 -->
+            <div class="card" data-tags="常微分方程">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>常微分方程 试题集</h3>
+                <div class="card-tags"><span class="tag">常微分方程</span><span class="tag">大二</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/ode.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/ode.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 7. 概率论 -->
+            <div class="card" data-tags="概率论">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>概率论 试题集</h3>
+                <div class="card-tags"><span class="tag">概率论</span><span class="tag">大二</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/probability.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/probability.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 8. 数理统计 -->
+            <div class="card" data-tags="数理统计">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数理统计 试题集</h3>
+                <div class="card-tags"><span class="tag">数理统计</span><span class="tag">大二</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/math-statistics.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/math-statistics.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 9. 数值分析 -->
+            <div class="card" data-tags="数值分析">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数值分析 试题集</h3>
+                <div class="card-tags"><span class="tag">数值分析</span><span class="tag">大二</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/numerical-analysis.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/numerical-analysis.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 10. 实变函数 -->
+            <div class="card" data-tags="实变函数">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>实变函数 试题集</h3>
+                <div class="card-tags"><span class="tag">实变函数</span><span class="tag">大二</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/real-analysis.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/real-analysis.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 11. 数学物理方程A -->
+            <div class="card" data-tags="数学物理方程(A)">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>数学物理方程A 试题集</h3>
+                <div class="card-tags"><span class="tag">数理方程</span><span class="tag">大三</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/math-physics-equations.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/math-physics-equations.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 12. 泛函分析 -->
+            <div class="card" data-tags="泛函分析">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>泛函分析 试题集</h3>
+                <p>暂无试题回忆.</p>
+            </div>
+
+            <!-- 13. 抽象代数 -->
+            <div class="card" data-tags="抽象代数">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>抽象代数 试题集</h3>
+                <p>暂无试题回忆.</p>
+            </div>
+            </div>
+
+            <!-- 14. 拓扑学 -->
+            <div class="card" data-tags="拓扑学 拓扑 大三 大四 试题 点集拓扑 紧致性 连通性">
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg></div>
+                <h3>拓扑学 试题集</h3>
+                <p>点集拓扑基础、连通性、紧致性及分离公理等核心概念的历年真题。</p>
+                <div class="card-tags"><span class="tag">拓扑学</span><span class="tag">高年级</span><span class="tag">试题</span></div>
+                <div class="btn-group">
+                    <a href="docs/topology.pdf" target="_blank" class="btn btn-primary">在线预览</a>
+                    <a href="docs/topology.pdf" download class="btn btn-secondary">下载</a>
+                </div>
+            </div>
+
+            <!-- 无搜索结果提示 -->
+            <div class="no-results" id="noResults">
+                <p>😔 没有找到匹配的资料，请尝试其他关键词 (如输入"大一"或"代数")。</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CUMT数院电子资料库 | 维护者: <a href="https://github.com/VesperaZephyr" target="_blank">VesperaZephyr</a></p>
+        <p style="margin-top: 8px; font-size: 0.8rem;">本站资料仅供学习交流使用，请勿用于商业用途。</p>
+    </footer>
+
+    <!-- 搜索过滤逻辑 -->
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const textContent = card.textContent.toLowerCase();
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                
+                if (textContent.includes(searchTerm) || tags.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
