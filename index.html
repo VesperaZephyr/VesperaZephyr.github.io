@@ -1,784 +1,147 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CUMT数院电子资料库</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
-    <style>
-        /* ===== Reset & Base ===== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: #f0f2f5;
-            color: #2c3e50;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        a { text-decoration: none; color: inherit; }
-
-        /* ===== Navigation ===== */
-        nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            padding: 0 24px;
-            display: flex; align-items: center; justify-content: space-between;
-            height: 56px;
-            transition: box-shadow 0.3s;
-        }
-        nav.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-        .nav-brand {
-            font-weight: 700; font-size: 1.1rem;
-            color: #003366;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .nav-brand svg { width: 22px; height: 22px; }
-        .nav-links { display: flex; gap: 4px; }
-        .nav-links a {
-            padding: 8px 16px; border-radius: 8px;
-            font-size: 0.9rem; font-weight: 500;
-            color: #555; transition: all 0.2s;
-        }
-        .nav-links a:hover,
-        .nav-links a.active { background: #eef3f9; color: #003366; }
-
-        /* ===== Hero ===== */
-        header.hero {
-            background: linear-gradient(135deg, #002244 0%, #003366 40%, #0055a4 100%);
-            color: white;
-            padding: 72px 24px 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        header.hero::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero h1 {
-            font-size: 2.6rem; font-weight: 800;
-            letter-spacing: 3px; margin-bottom: 10px;
-            position: relative; z-index: 1;
-        }
-        .hero p {
-            font-size: 1.1rem; opacity: 0.85;
-            max-width: 600px; margin: 0 auto 6px;
-            position: relative; z-index: 1;
-        }
-        .hero .subtitle {
-            font-size: 0.9rem; opacity: 0.6;
-            position: relative; z-index: 1;
-        }
-        .hero .motto {
-            margin-top: 24px; font-size: 0.95rem; opacity: 0.5;
-            letter-spacing: 6px;
-            font-style: italic;
-            position: relative; z-index: 1;
-        }
-
-        /* ===== Container ===== */
-        .container {
-            max-width: 1280px;
-            margin: -32px auto 40px;
-            padding: 0 20px;
-            position: relative; z-index: 10;
-        }
-
-        /* ===== Toolbar: search + filters ===== */
-        .toolbar {
-            background: white;
-            border-radius: 14px;
-            padding: 20px 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            margin-bottom: 28px;
-        }
-        .search-box {
-            display: flex; align-items: center;
-            background: #f5f7fa; border-radius: 10px;
-            padding: 10px 16px; margin-bottom: 16px;
-        }
-        .search-box svg { width: 18px; height: 18px; color: #999; margin-right: 10px; flex-shrink: 0; }
-        #searchInput {
-            border: none; outline: none; background: transparent;
-            font-size: 0.95rem; width: 100%; color: #333;
-        }
-        #searchInput::placeholder { color: #b0b8c1; }
-
-        .filter-row {
-            display: flex; flex-wrap: wrap; gap: 8px;
-            align-items: center;
-        }
-        .filter-row .label {
-            font-size: 0.8rem; color: #999; font-weight: 500;
-            margin-right: 4px;
-        }
-        .filter-btn {
-            padding: 6px 16px; border-radius: 20px;
-            border: 1px solid #e0e4e8; background: transparent;
-            font-size: 0.85rem; color: #666; cursor: pointer;
-            transition: all 0.2s; font-family: inherit;
-        }
-        .filter-btn:hover { border-color: #0055a4; color: #0055a4; }
-        .filter-btn.active {
-            background: #003366; color: white;
-            border-color: #003366;
-        }
-        .filter-btn[data-type="exam"].active { background: #c0392b; border-color: #c0392b; }
-        .filter-btn[data-type="review"].active { background: #27ae60; border-color: #27ae60; }
-        .filter-btn[data-type="material"].active { background: #2980b9; border-color: #2980b9; }
-        .filter-btn[data-type="teacher"].active { background: #8e44ad; border-color: #8e44ad; }
-
-        .filter-divider { width: 1px; height: 24px; background: #e0e4e8; margin: 0 4px; }
-
-        /* ===== Stats bar ===== */
-        .stats {
-            font-size: 0.85rem; color: #888;
-            margin-bottom: 16px; padding: 0 4px;
-        }
-
-        /* ===== Course List (Vertical) ===== */
-        .grid { display: block; }
-
-        /* ===== Course Row ===== */
-        .card {
-            background: transparent;
-            border: none; border-radius: 0;
-            padding: 20px 0;
-            box-shadow: none;
-            border-bottom: 1px solid #eef2f5;
-            transition: none;
-            display: block;
-        }
-        .card:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: #eef2f5;
-        }
-        .card:last-child { border-bottom: none; }
-
-        .card-header {
-            display: flex; align-items: flex-start; gap: 14px;
-            margin-bottom: 16px;
-        }
-        .card-icon {
-            width: 44px; height: 44px; flex-shrink: 0;
-            background: #eef3f9; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: #003366; font-size: 1.2rem;
-        }
-        .card-title { flex: 1; }
-        .card-title h3 { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
-        .card-title .semester {
-            font-size: 0.8rem; color: #888;
-            display: inline-block; background: #f0f2f5;
-            padding: 2px 10px; border-radius: 10px;
-            margin-top: 4px;
-        }
-        .card-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
-        .card-tags .tag {
-            font-size: 0.72rem; padding: 2px 8px; border-radius: 8px;
-            background: #eef3f9; color: #555;
-        }
-        .card-desc {
-            font-size: 0.88rem; color: #666;
-            margin-bottom: 14px; line-height: 1.5;
-        }
-
-        /* Resource list inside card */
-        .resource-list { list-style: none; margin-top: auto; }
-        .resource-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 8px 10px; border-radius: 8px;
-            transition: background 0.15s; cursor: default;
-            font-size: 0.85rem;
-        }
-        .resource-item:hover { background: #f8f9fb; }
-        .resource-item .type-badge {
-            font-size: 0.7rem; padding: 2px 8px; border-radius: 10px;
-            font-weight: 600; flex-shrink: 0;
-        }
-        .type-exam { background: #fde8e8; color: #c0392b; }
-        .type-review { background: #e4f5e9; color: #27ae60; }
-        .type-material { background: #deedf7; color: #2980b9; }
-        .type-teacher { background: #ede0f4; color: #8e44ad; }
-        .resource-item .name { flex: 1; color: #444; }
-        .resource-item .name.placeholder { color: #bbb; font-style: italic; }
-        .resource-item .actions { display: flex; gap: 6px; flex-shrink: 0; }
-        .resource-item .actions a {
-            padding: 4px 10px; border-radius: 6px;
-            font-size: 0.75rem; font-weight: 500; transition: all 0.15s;
-        }
-        .resource-item .actions .btn-view {
-            background: #003366; color: white;
-        }
-        .resource-item .actions .btn-view:hover { background: #002244; }
-        .resource-item .actions .btn-dl {
-            background: #f0f2f5; color: #555;
-        }
-        .resource-item .actions .btn-dl:hover { background: #e4e8ec; }
-
-        /* ===== No results ===== */
-        .no-results {
-            text-align: center; padding: 60px 20px; color: #999;
-            display: none; grid-column: 1 / -1;
-        }
-        .no-results p { font-size: 1rem; }
-
-        /* ===== Friend Links Section ===== */
-        #links {
-            background: white; border-radius: 14px;
-            padding: 36px 32px; margin-top: 36px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #eef2f5;
-        }
-        #links h2 {
-            font-size: 1.3rem; font-weight: 700; color: #1a1a2e;
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
-        }
-        #links h2 svg { width: 22px; height: 22px; color: #003366; }
-        .links-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        .links-grid a {
-            display: flex; align-items: center; gap: 10px;
-            padding: 12px 16px; border-radius: 10px;
-            border: 1px solid #eef2f5;
-            color: #444; font-size: 0.9rem; font-weight: 500;
-            transition: all 0.2s;
-        }
-        .links-grid a:hover {
-            border-color: #003366; color: #003366;
-            background: #f0f5fc;
-            transform: translateY(-2px);
-        }
-        .links-grid a .link-icon {
-            width: 28px; height: 28px; border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            background: #eef3f9; flex-shrink: 0;
-        }
-        .links-grid a .link-desc {
-            font-size: 0.75rem; color: #999; font-weight: 400;
-            display: block; margin-top: 1px;
-        }
-
-        /* ===== Footer ===== */
-        footer {
-            text-align: center; padding: 32px 20px;
-            color: #999; font-size: 0.85rem;
-            border-top: 1px solid #eef2f5; background: white;
-            margin-top: 40px;
-        }
-        footer a { color: #003366; font-weight: 500; }
-        footer .footer-links { margin-bottom: 8px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        footer .footer-links a { font-weight: 400; color: #777; font-size: 0.8rem; }
-        footer .footer-links a:hover { color: #003366; }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
-            .hero { padding: 48px 20px 60px; }
-            .container { margin-top: -24px; }
-            .grid { display: block; }
-            .toolbar { padding: 16px; }
-            .filter-row { gap: 6px; }
-            .filter-btn { font-size: 0.8rem; padding: 4px 12px; }
-            .filter-divider { display: none; }
-            #links { padding: 24px 20px; }
-            .links-grid { grid-template-columns: 1fr 1fr; }
-            nav { padding: 0 16px; }
-            .nav-links a { padding: 6px 12px; font-size: 0.82rem; }
-        }
-        @media (max-width: 480px) {
-            .links-grid { grid-template-columns: 1fr; }
-            .resource-item { flex-wrap: wrap; }
-            .resource-item .actions { margin-left: auto; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUMT 数院资料库 | 中国矿业大学数学学院</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- ===== Navigation ===== -->
-    <nav id="navbar">
-        <div class="nav-brand">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            <span>CUMT数院资料库</span>
+<!-- ===== 导航栏 ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 32 32" width="28" height="28">
+        <rect x="2" y="20" width="6" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="13" y="14" width="6" height="16" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="24" y="8" width="6" height="22" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+      <span class="logo-text">CUMT 数院资料库</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#courses" class="active">课程资料</a></li>
+      <li><a href="#friends">友情链接</a></li>
+      <li><a href="https://github.com/VesperaZephyr" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== Hero 区域 ===== -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>CUMT 数院电子资料库</h1>
+    <p class="hero-subtitle">中国矿业大学数学学院 · 核心课程资源共享平台</p>
+    <p class="hero-desc">历年试题 · 期末复习 · 平时资料 · 教材推荐</p>
+    <div class="hero-quote">
+      <span class="quote-mark">"</span>
+      学而时习之，不亦说乎
+      <span class="quote-mark">"</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 筛选栏 ===== -->
+<section class="filter-section" id="courses">
+  <div class="container">
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">📂 年级</span>
+        <div class="filter-options" id="gradeFilter">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="大一">大一</button>
+          <button class="filter-btn" data-filter="大二">大二</button>
+          <button class="filter-btn" data-filter="大三">大三</button>
+          <button class="filter-btn" data-filter="大四">大四</button>
         </div>
-        <div class="nav-links">
-            <a href="#hero" class="active">首页</a>
-            <a href="#courses">课程资料</a>
-            <a href="#links">友情链接</a>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">📌 类别</span>
+        <div class="filter-options" id="categoryFilter">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="基础课">基础课</button>
+          <button class="filter-btn" data-filter="核心课">核心课</button>
+          <button class="filter-btn" data-filter="选修课">选修课</button>
         </div>
-    </nav>
+      </div>
+    </div>
+    <div class="filter-stats">
+      共 <span id="courseCount">0</span> 门课程
+    </div>
+  </div>
+</section>
 
-    <!-- ===== Hero ===== -->
-    <header class="hero" id="hero">
-        <h1>CUMT数院电子资料库</h1>
-        <p>中国矿业大学数学学院 · 核心课程资源共享平台</p>
-        <div class="subtitle">历年试题 · 期末复习 · 平时资料 · 老师推荐</div>
-        <div class="motto">学而时习之，不亦说乎</div>
-    </header>
+<!-- ===== 课程卡片网格 ===== -->
+<section class="courses-section">
+  <div class="container">
+    <div class="courses-grid" id="coursesGrid">
+      <!-- 由 JavaScript 动态渲染 -->
+    </div>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">📭</div>
+      <h3>没有找到匹配的课程</h3>
+      <p>请尝试调整筛选条件</p>
+    </div>
+  </div>
+</section>
 
-    <!-- ===== Main ===== -->
-    <main class="container" id="courses">
+<!-- ===== 友情链接 ===== -->
+<section class="friends-section" id="friends">
+  <div class="container">
+    <h2 class="section-title">友情链接</h2>
+    <div class="friends-grid">
+      <a href="https://math.cumt.edu.cn/" target="_blank" class="friend-card">
+        <span class="friend-icon">🏛</span>
+        <span class="friend-name">CUMT 数学学院官网</span>
+        <span class="friend-desc">学院通知与师资介绍</span>
+      </a>
+      <a href="https://yyhmuke.com/" target="_blank" class="friend-card">
+        <span class="friend-icon">📓</span>
+        <span class="friend-name">慕可的数学笔记</span>
+        <span class="friend-desc">代数几何学习笔记</span>
+      </a>
+      <a href="https://kzhu.net/" target="_blank" class="friend-card">
+        <span class="friend-icon">👤</span>
+        <span class="friend-name">Kai Zhu's Homepage</span>
+        <span class="friend-desc">个人学术主页</span>
+      </a>
+      <a href="https://space.bilibili.com/3496863977806212" target="_blank" class="friend-card">
+        <span class="friend-icon">📺</span>
+        <span class="friend-name">CUMT 数学 Bilibili</span>
+        <span class="friend-desc">数学学院 B 站账号</span>
+      </a>
+      <a href="https://github.com/VesperaZephyr" target="_blank" class="friend-card">
+        <span class="friend-icon">🐙</span>
+        <span class="friend-name">GitHub @VesperaZephyr</span>
+        <span class="friend-desc">本站维护者</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-        <!-- Toolbar -->
-        <div class="toolbar">
-            <div class="search-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                </svg>
-                <input type="text" id="searchInput" placeholder="搜索课程、资料名称或标签 (如：数学分析、大一、代数)...">
-            </div>
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+      <p class="footer-note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank">📦 GitHub 仓库</a>
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io/issues" target="_blank">💬 反馈与建议</a>
+      <a href="https://math.cumt.edu.cn/" target="_blank">🏛 CUMT 数学学院</a>
+    </div>
+  </div>
+</footer>
 
-            <div class="filter-row">
-                <span class="label">资源类型</span>
-                <button class="filter-btn active" data-type="all">🌟 全部</button>
-                <button class="filter-btn" data-type="exam">📝 历年试题</button>
-                <button class="filter-btn" data-type="review">📖 期末复习</button>
-                <button class="filter-btn" data-type="material">📂 平时资料</button>
-                <button class="filter-btn" data-type="teacher">💡 老师推荐</button>
-
-                <span class="filter-divider"></span>
-
-                <span class="label">年级</span>
-                <button class="filter-btn active" data-semester="all">全部</button>
-                <button class="filter-btn" data-semester="大一">大一</button>
-                <button class="filter-btn" data-semester="大二">大二</button>
-                <button class="filter-btn" data-semester="大三">大三</button>
-                <button class="filter-btn" data-semester="大四">大四</button>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats" id="stats"></div>
-
-        <!-- Course Grid -->
-        <div class="grid" id="courseGrid"></div>
-
-        <!-- No Results -->
-        <div class="no-results" id="noResults">
-            <p>😔 没有找到匹配的资料，请尝试其他关键词或筛选条件。</p>
-        </div>
-
-        <!-- ===== Friend Links ===== -->
-        <section id="links">
-            <h2>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                </svg>
-                友情链接
-            </h2>
-            <div class="links-grid">
-                <a href="https://math.cumt.edu.cn/" target="_blank" rel="noopener">
-                    <span class="link-icon">🏛</span>
-                    <span>CUMT数学学院官网<span class="link-desc">学院通知与师资介绍</span></span>
-                </a>
-                <a href="https://yyhmuke.com/" target="_blank" rel="noopener">
-                    <span class="link-icon">📓</span>
-                    <span>慕可的数学笔记<span class="link-desc">代数几何学习笔记</span></span>
-                </a>
-                <a href="https://mmkaymath.github.io/KaiZhu2003.github.io/" target="_blank" rel="noopener">
-                    <span class="link-icon">👤</span>
-                    <span>Kai Zhu's Homepage<span class="link-desc">个人学术主页</span></span>
-                </a>
-                <a href="https://space.bilibili.com/3494361558727339" target="_blank" rel="noopener">
-                    <span class="link-icon">📺</span>
-                    <span>CUMT数学Bilibili<span class="link-desc">数学学院B站账号</span></span>
-                </a>
-                <a href="https://github.com/VesperaZephyr" target="_blank" rel="noopener">
-                    <span class="link-icon">🐙</span>
-                    <span>GitHub @VesperaZephyr<span class="link-desc">本站维护者</span></span>
-                </a>
-                <!-- 还可添加更多友情链接 -->
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ===== Footer ===== -->
-    <footer>
-        <div class="footer-links">
-            <a href="https://github.com/VesperaZephyr/VesperaZephyr.github.io" target="_blank" rel="noopener">📦 GitHub 仓库</a>
-            <a href="https://github.com/VesperaZephyr/VesperaZephyr.github.io/issues" target="_blank" rel="noopener">💬 反馈与建议</a>
-            <a href="https://math.cumt.edu.cn/" target="_blank" rel="noopener">🏛 CUMT数学学院</a>
-        </div>
-        <p>&copy; 2026 CUMT数院电子资料库 · 由 <a href="https://github.com/VesperaZephyr" target="_blank" rel="noopener">VesperaZephyr</a> 维护</p>
-        <p style="margin-top: 4px; font-size: 0.78rem; opacity: 0.7;">本站资料仅供学习交流使用，请勿用于商业用途。</p>
-    </footer>
-
-    <script>
-    // ============================================================
-    //  COURSE DATA — 在这里添加/修改课程和资料
-    // ============================================================
-    const courses = [
-        {
-            id: "math-analysis-1", name: "数学分析(1)", semester: "大一上",
-            desc: "极限、连续、一元函数微分学入门",
-            tags: ["数学分析", "大一", "基础课"],
-            resources: [
-                { type: "exam",  name: "2025-2026(1) 期末试题 B卷", file: "resources/数学分析(1)/试题/2025-2026-1数学分析(1)B卷.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-                { type: "teacher", name: "老师推荐书目 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "math-analysis-2", name: "数学分析(2)", semester: "大一下",
-            desc: "一元函数积分学、级数、多元函数微分学",
-            tags: ["数学分析", "大一", "基础课"],
-            resources: [
-                { type: "exam",  name: "2023-2024 期末试题 A卷及解答", file: "resources/数学分析(2)/试题/2023-2024数分2期末试题A及解答.pdf" },
-                { type: "exam",  name: "2023-2024 期末试题 B卷及解答", file: "resources/数学分析(2)/试题/2023-2024数分2期末试题B及解答.pdf" },
-                { type: "exam",  name: "2024-2025(2) 期末试题 B卷", file: "resources/数学分析(2)/试题/2024-2025学年2数学分析2期末试题(B卷).pdf" },
-                { type: "exam",  name: "2024-2025 数分2期末试题B及解答", file: "resources/数学分析(2)/试题/2024-2025数分2期末试题B及解答.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "math-analysis-3", name: "数学分析(3)", semester: "大二上",
-            desc: "多元函数积分学、曲线曲面积分、含参积分",
-            tags: ["数学分析", "大二", "基础课"],
-            resources: [
-                { type: "exam",  name: "2024-2025(1) 期末试题 A卷解答", file: "resources/数学分析(3)/试题/2024-2025-1数学分析(3)A卷试题解答.pdf" },
-                { type: "exam",  name: "2025-2026(1) 数学分析(3)模拟卷A卷", file: "resources/数学分析(3)/试题/2025-2026-1数学分析(3)模拟卷A卷.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "high-algebra-1", name: "高等代数(1)", semester: "大一上",
-            desc: "多项式、行列式、线性方程组、矩阵",
-            tags: ["高等代数", "大一", "基础课"],
-            resources: [
-                { type: "exam",  name: "2024-2025(1) 期末试题 A卷", file: "resources/高等代数(1)/试题/2024-2025-1高等代数1（A）.pdf" },
-                { type: "exam",  name: "2024-2025(1) 期末试题 B卷", file: "resources/高等代数(1)/试题/2024-2025-1高等代数1（B）.pdf" },
-                { type: "exam",  name: "2025-2026(1) 期末试题 B卷", file: "resources/高等代数(1)/试题/2025-2026-1高等代数(1)B卷.pdf" },
-                { type: "exam",  name: "2024-2025 高代1期末试题及解答", file: "resources/高等代数(1)/试题/2024-2025高代1期末试题及解答.pdf" },
-                { type: "exam",  name: "高代期末试题解析", file: "resources/高等代数(1)/试题/高代期末试题解析.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "high-algebra-2", name: "高等代数(2)", semester: "大一下",
-            desc: "线性空间、线性变换、欧氏空间、双线性函数",
-            tags: ["高等代数", "大一", "基础课"],
-            resources: [
-                { type: "exam",  name: "2023-2024 期末试题 A卷及解答", file: "resources/高等代数(2)/试题/2023-2024高代2期末试题A及解答.pdf" },
-                { type: "exam",  name: "2023-2024 期末试题 B卷及解答", file: "resources/高等代数(2)/试题/2023-2024高代2期末试题B及解答.pdf" },
-                { type: "exam",  name: "2024-2025(2) 期末试题 A卷", file: "resources/高等代数(2)/试题/2024-2025-2高等代数2(A).pdf" },
-                { type: "exam",  name: "2024-2025学年2 高代2押题A卷", file: "resources/高等代数(2)/试题/2024-2025学年2高等代数2押题A卷.pdf" },
-                { type: "exam",  name: "2024-2025学年2 高代2试题A卷", file: "resources/高等代数(2)/试题/2024-2025学年2高等代数2试题A卷.pdf" },
-                { type: "exam",  name: "2024-2025 高代2期末试题A及解答", file: "resources/高等代数(2)/试题/2024-2025高代2期末试题A及解答.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "geometry", name: "空间解析几何", semester: "大一上",
-            desc: "向量代数、直线与平面、曲面与曲线",
-            tags: ["解析几何", "大一", "基础课"],
-            resources: [
-                { type: "exam",  name: "2024-2025(2) 期末试题 A卷", file: "resources/空间解析几何/试题/2024-2025学年(2)空间解析几何A卷.pdf" },
-                { type: "exam",  name: "2025-2026 期末试题 A卷", file: "resources/空间解析几何/试题/2025-2026空间解析几何A卷.pdf" },
-                { type: "exam",  name: "一套往年试卷", file: "resources/空间解析几何/试题/一套往年试卷.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "math-practice", name: "数分高代实践", semester: "大一",
-            desc: "数学分析与高等代数上机实践，Matlab/数学软件应用",
-            tags: ["数分高代实践", "大一", "实践课"],
-            resources: [
-                { type: "exam",  name: "2024-2025(2) 数分高代实践B卷", file: "resources/数分高代实践/试题/2024-2025学年(2)数学分析与高等代数实践(2)B卷.pdf" },
-                { type: "exam",  name: "2025-2026(1) 数分高代实践A卷", file: "resources/数分高代实践/试题/2025-2026学年(1)数学分析与高等代数实践(1) A卷.pdf" },
-                { type: "exam",  name: "2025-2026(1) 数学分析实践0002 B卷", file: "resources/数分高代实践/试题/2025-2026学年(1)数学分析实践-0002 B卷.pdf" },
-            ]
-        },
-        {
-            id: "ode", name: "常微分方程", semester: "大二",
-            desc: "一阶微分方程、高阶线性方程、微分方程组",
-            tags: ["常微分方程", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "2025-2026 双语A卷回忆版", file: "resources/常微分方程/试题/2025-2026常微分方程(双语)A卷回忆版.pdf" },
-                { type: "exam",  name: "常微分方程模拟卷", file: "resources/常微分方程/试题/常微分方程模拟卷.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "probability", name: "概率论", semester: "大二",
-            desc: "随机事件、随机变量、大数定律与中心极限定理",
-            tags: ["概率论", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "2023-2024 期末试题 A卷", file: "resources/概率论/试题/2023-2024概率论A卷.pdf" },
-                { type: "exam",  name: "2023-2024 期末试题A卷及解答", file: "resources/概率论/试题/2023-2024概率论A卷试题及解答.pdf" },
-                { type: "exam",  name: "2024-2025 期末试题 A卷", file: "resources/概率论/试题/2024-2025概率论A卷.pdf" },
-                { type: "exam",  name: "2024-2025 期末试题A卷及解答", file: "resources/概率论/试题/2024-2025概率论A卷试题及解答.pdf" },
-                { type: "exam",  name: "2025-2026 概率论模拟卷A卷", file: "resources/概率论/试题/2025-2026概率论模拟卷A卷.pdf" },
-                { type: "exam",  name: "2025-2026 概率论模拟卷B卷", file: "resources/概率论/试题/2025-2026概率论模拟卷B卷.pdf" },
-                { type: "exam",  name: "2025-2026 概率论模拟A卷解答", file: "resources/概率论/试题/2025-2026概率论模拟A卷解答.pdf" },
-                { type: "exam",  name: "2025-2026 概率论模拟B卷解答", file: "resources/概率论/试题/2025-2026概率论模拟B卷解答.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "math-statistics", name: "数理统计", semester: "大二",
-            desc: "参数估计、假设检验、回归分析",
-            tags: ["数理统计", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "2021-2022(2) 期末试题 A卷", file: "resources/数理统计/试题/2021-2022-2数理统计A卷.pdf" },
-                { type: "exam",  name: "2022-2023(2) 期末试题 A卷", file: "resources/数理统计/试题/2022-2023-2数理统计A卷.pdf" },
-                { type: "exam",  name: "2023-2024(2) 期末试题 A卷", file: "resources/数理统计/试题/2023-2024-2数理统计A卷.pdf" },
-                { type: "exam",  name: "2024-2025(2) 期末试题 A卷", file: "resources/数理统计/试题/2024-2025-2数理统计A卷.pdf" },
-                { type: "exam",  name: "2024-2025(2) 期末试题 B卷", file: "resources/数理统计/试题/2024-2025-2数理统计B卷.pdf" },
-                { type: "exam",  name: "数理统计近四年5套真题参考答案", file: "resources/数理统计/试题/数理统计近四年5套真题参考答案.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "numerical-analysis", name: "数值分析", semester: "大二",
-            desc: "插值、数值积分、线性方程组数值解法",
-            tags: ["数值分析", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "2024-2025(2) 试题 A卷(复刻)", file: "resources/数值分析/试题/2024-2025-2-数值分析-试题(A)(复刻).pdf" },
-                { type: "exam",  name: "2024-2025第二学期A卷试题及保姆级解析", file: "resources/数值分析/试题/2024-2025第二学期数值分析A卷试题及保姆级式解析.pdf" },
-                { type: "exam",  name: "2025-2026(2) 试题 A卷(回忆)", file: "resources/数值分析/试题/2025-2026-2数值分析A卷(回忆).pdf" },
-                { type: "exam",  name: "2025-2026 数值分析预测A卷", file: "resources/数值分析/试题/2025-2026数值分析预测A卷.pdf" },
-                { type: "exam",  name: "中国矿业大学课程考试试卷A", file: "resources/数值分析/试题/数值分析_中国矿业大学课程考试试卷A.pdf" },
-                { type: "exam",  name: "中国矿业大学课程考试试卷B", file: "resources/数值分析/试题/数值分析_中国矿业大学课程考试试卷B.pdf" },
-                { type: "exam",  name: "数值分析练习A卷解答", file: "resources/数值分析/试题/数值分析练习A卷解答.pdf" },
-                { type: "exam",  name: "数值分析练习B卷解答", file: "resources/数值分析/试题/数值分析练习B卷解答.pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时作业精选 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "real-analysis", name: "实变函数", semester: "大二",
-            desc: "Lebesgue测度与积分理论",
-            tags: ["实变函数", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "2022春 实变函数 A卷(回忆)", file: "resources/实变函数/试题/2022春-实变函数-A卷（回忆）.pdf" },
-                { type: "exam",  name: "2024-2025(2) 实变函数试题A卷(回忆)", file: "resources/实变函数/试题/2024-2025-2-实变函数-试题(A)(回忆).pdf" },
-                { type: "exam",  name: "实变函数模拟试卷(1)", file: "resources/实变函数/试题/实变函数模拟试卷(1).pdf" },
-                { type: "exam",  name: "实变函数模拟试卷(2)", file: "resources/实变函数/试题/实变函数模拟试卷(2).pdf" },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "math-physics-equations", name: "数学物理方程A", semester: "大三",
-            desc: "波动方程、热传导方程、位势方程",
-            tags: ["数理方程", "大三", "专业课"],
-            resources: [
-                { type: "exam",  name: "暂无试题回忆", file: null },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "functional-analysis", name: "泛函分析", semester: "大三",
-            desc: "Banach空间、Hilbert空间、算子理论",
-            tags: ["泛函分析", "大三", "专业课"],
-            resources: [
-                { type: "exam",  name: "暂无试题回忆", file: null },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "abstract-algebra", name: "抽象代数", semester: "大三",
-            desc: "群、环、域的基本理论",
-            tags: ["抽象代数", "大三", "专业课"],
-            resources: [
-                { type: "exam",  name: "暂无试题回忆", file: null },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "topology", name: "拓扑学", semester: "大三",
-            desc: "点集拓扑基础、连通性、紧致性及分离公理",
-            tags: ["拓扑学", "大三", "专业课"],
-            resources: [
-                { type: "exam",  name: "暂无试题回忆", file: null },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-        {
-            id: "complex-analysis", name: "复变函数", semester: "大二",
-            desc: "复变函数微积分、留数定理、共形映射",
-            tags: ["复变函数", "大二", "专业课"],
-            resources: [
-                { type: "exam",  name: "暂无试题回忆", file: null },
-                { type: "review",  name: "期末复习资料 (待补充)", file: null },
-                { type: "material", name: "平时资料 (待补充)", file: null },
-            ]
-        },
-    ];
-
-    // ============================================================
-    //  RENDER ENGINE
-    // ============================================================
-    const TYPE_LABELS = { exam: "试题", review: "复习", material: "资料", teacher: "推荐" };
-    const TYPE_CLASS = { exam: "type-exam", review: "type-review", material: "type-material", teacher: "type-teacher" };
-
-    const grid = document.getElementById('courseGrid');
-    const noResults = document.getElementById('noResults');
-    const searchInput = document.getElementById('searchInput');
-    const statsEl = document.getElementById('stats');
-
-    let currentType = 'all';
-    let currentSemester = 'all';
-    let searchTerm = '';
-
-    function filterMatches(course) {
-        if (currentType !== 'all') {
-            const hasMatchingType = course.resources.some(r => r.type === currentType);
-            if (!hasMatchingType) return false;
-        }
-        if (currentSemester !== 'all' && course.semester !== currentSemester) return false;
-        if (searchTerm) {
-            const haystack = (course.name + ' ' + course.desc + ' ' + course.tags.join(' ') + ' ' + course.semester).toLowerCase();
-            const resMatch = course.resources.some(r => r.name.toLowerCase().includes(searchTerm));
-            if (!haystack.includes(searchTerm) && !resMatch) return false;
-        }
-        return true;
-    }
-
-    function getVisibleResources(course) {
-        if (currentType === 'all') return course.resources;
-        return course.resources.filter(r => r.type === currentType);
-    }
-
-    function render() {
-        const filtered = courses.filter(filterMatches);
-        let html = '';
-        let totalResources = 0;
-
-        filtered.forEach(course => {
-            const visibleResources = getVisibleResources(course);
-            totalResources += visibleResources.length;
-
-            const resourceHtml = visibleResources.map(r => {
-                const isPlaceholder = !r.file;
-                return `
-                    <li class="resource-item">
-                        <span class="type-badge ${TYPE_CLASS[r.type]}">${TYPE_LABELS[r.type]}</span>
-                        <span class="name ${isPlaceholder ? 'placeholder' : ''}">${r.name}</span>
-                        <span class="actions">
-                            ${r.file
-                                ? `<a href="${r.file}" target="_blank" class="btn-view">预览</a><a href="${r.file}" download class="btn-dl">下载</a>`
-                                : `<span style="color:#ccc;font-size:0.75rem;">⌛征集</span>`
-                            }
-                        </span>
-                    </li>
-                `;
-            }).join('');
-
-            const iconMap = {
-                "数学分析": "📊", "高等代数": "Σ", "解析几何": "📐",
-                "常微分方程": "∫", "概率论": "🎲", "数理统计": "📈",
-                "数值分析": "🖥", "实变函数": "📏", "数理方程": "🌊",
-                "泛函分析": "∞", "抽象代数": "◇", "拓扑学": "🔗",
-                "复变函数": "🌀", "数分高代实践": "💻"
-            };
-            const icon = iconMap[course.tags[0]] || "📘";
-
-            html += `
-                <div class="card" data-course="${course.id}">
-                    <div class="card-header">
-                        <div class="card-icon">${icon}</div>
-                        <div class="card-title">
-                            <h3>${course.name}</h3>
-                            <span class="semester">${course.semester}</span>
-                            <div class="card-tags">
-                                ${course.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-desc">${course.desc}</div>
-                    <ul class="resource-list">${resourceHtml}</ul>
-                </div>
-            `;
-        });
-
-        grid.innerHTML = html;
-
-        const total = courses.length;
-        const visible = filtered.length;
-        statsEl.textContent = `共 ${total} 门课程 · 当前显示 ${visible} 门 · ${totalResources} 份资料`;
-
-        noResults.style.display = visible === 0 ? 'block' : 'none';
-    }
-
-    // ============================================================
-    //  FILTER / SEARCH EVENTS
-    // ============================================================
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const type = btn.dataset.type;
-            const semester = btn.dataset.semester;
-
-            if (type) {
-                currentType = type;
-                document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            if (semester) {
-                currentSemester = semester;
-                document.querySelectorAll('.filter-btn[data-semester]').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            render();
-        });
-    });
-
-    searchInput.addEventListener('input', (e) => {
-        searchTerm = e.target.value.toLowerCase().trim();
-        render();
-    });
-
-    // ============================================================
-    //  NAVBAR SCROLL EFFECT
-    // ============================================================
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
-    });
-
-    const sections = ['hero', 'courses', 'links'];
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY + 120;
-        let active = 'hero';
-        sections.forEach(id => {
-            const el = document.getElementById(id);
-            if (el && el.offsetTop <= scrollY) active = id;
-        });
-        document.querySelectorAll('.nav-links a').forEach(a => {
-            a.classList.toggle('active', a.getAttribute('href') === '#' + active);
-        });
-    });
-
-    // ============================================================
-    //  INIT
-    // ============================================================
-    render();
-    </script>
+<!-- ===== 脚本 ===== -->
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

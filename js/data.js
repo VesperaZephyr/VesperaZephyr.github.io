@@ -1,0 +1,428 @@
+/**
+ * CUMT 数院资料库 — 课程数据
+ *
+ * 数据模型：
+ *   id        — 唯一标识
+ *   name      — 课程中文名
+ *   nameEn    — 课程英文名（可选）
+ *   grade     — 年级：大一 | 大二 | 大三 | 大四
+ *   category  — 类别：基础课 | 核心课 | 选修课
+ *   teacher   — 授课教师姓名
+ *   teacherUrl — 教师个人主页 URL（可选，点击可跳转）
+ *   textbooks — 参考教材数组
+ *   exams     — 试题数组，每项 { title, url }，url 为 PDF 路径
+ */
+
+const COURSES = [
+  // ==================== 大 一 ====================
+  {
+    id: 'math-analysis-1',
+    name: '数学分析(1)',
+    nameEn: 'Mathematical Analysis I',
+    grade: '大一',
+    category: '基础课',
+    teacher: '江龙',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2024-2025(1) 期末试题 B卷', url: '/pdfs/2024-2025-1_数学分析（1）_B卷.pdf' },
+      { title: '2025-2026(1) 期末试题 B卷', url: '/pdfs/2025-2026-1数学分析(1)B卷.pdf' }
+    ]
+  },
+  {
+    id: 'math-analysis-2',
+    name: '数学分析(2)',
+    nameEn: 'Mathematical Analysis II',
+    grade: '大一',
+    category: '基础课',
+    teacher: '张玉峰',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2023-2024 期末试题 A卷及解答', url: '/pdfs/2023-2024数分2期末试题A及解答.pdf' },
+      { title: '2023-2024 期末试题 B卷及解答', url: '/pdfs/2023-2024数分2期末试题B及解答.pdf' },
+      { title: '2024-2025(2) 期末试题 B卷', url: '/pdfs/2024-2025学年2数学分析2期末试题(B卷).pdf' },
+      { title: '2024-2025 数分2期末试题B及解答', url: '/pdfs/2024-2025数分2期末试题B及解答.pdf' }
+    ]
+  },
+  {
+    id: 'math-analysis-3',
+    name: '数学分析(3)',
+    nameEn: 'Mathematical Analysis III',
+    grade: '大二',
+    category: '核心课',
+    teacher: '张玉峰',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2024-2025(1) 期末试题 A卷解答', url: '/pdfs/2024-2025-1数学分析(3)A卷试题解答.pdf' },
+      { title: '2025-2026(1) 模拟卷 A卷', url: '/pdfs/2025-2026-1数学分析(3)模拟卷A卷.pdf' }
+    ]
+  },
+  {
+    id: 'advanced-algebra-1',
+    name: '高等代数(1)',
+    nameEn: 'Advanced Algebra I',
+    grade: '大一',
+    category: '基础课',
+    teacher: '王登银',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2024-2025(1) 期末试题 A卷', url: '/pdfs/2024-2025-1高等代数1（A）.pdf' },
+      { title: '2024-2025(1) 期末试题 B卷', url: '/pdfs/2024-2025-1高等代数1（B）.pdf' },
+      { title: '2025-2026(1) 期末试题 B卷', url: '/pdfs/2025-2026-1高等代数(1)B卷.pdf' },
+      { title: '2024-2025 高代1期末试题及解答', url: '/pdfs/2024-2025高代1期末试题及解答.pdf' },
+      { title: '高代期末试题解析', url: '/pdfs/高代期末试题解析.pdf' }
+    ]
+  },
+  {
+    id: 'advanced-algebra-2',
+    name: '高等代数(2)',
+    nameEn: 'Advanced Algebra II',
+    grade: '大一',
+    category: '基础课',
+    teacher: '王登银',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2023-2024 期末试题 A卷及解答', url: '/pdfs/2023-2024高代2期末试题A及解答.pdf' },
+      { title: '2023-2024 期末试题 B卷及解答', url: '/pdfs/2023-2024高代2期末试题B及解答.pdf' },
+      { title: '2024-2025(2) 期末试题 A卷', url: '/pdfs/2024-2025-2高等代数2(A).pdf' },
+      { title: '2024-2025(2) 高代2押题A卷', url: '/pdfs/2024-2025学年2高等代数2押题A卷.pdf' },
+      { title: '2024-2025(2) 高代2试题A卷', url: '/pdfs/2024-2025学年2高等代数2试题A卷.pdf' },
+      { title: '2024-2025 高代2期末试题A及解答', url: '/pdfs/2024-2025高代2期末试题A及解答.pdf' },
+      { title: '2025-2026(2) 高代2 A卷试题', url: '/pdfs/2025-2026学年高等代数2 A卷试题.pdf' }
+    ]
+  },
+  {
+    id: 'analytic-geometry',
+    name: '空间解析几何',
+    nameEn: 'Analytic Geometry',
+    grade: '大一',
+    category: '基础课',
+    teacher: '刘淑君',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《解析几何》(第四版) 吕林根、许子道 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2016-2017(2) 期末试题 A卷', url: '/pdfs/2016-2017-2空间解析几何A卷.pdf' },
+      { title: '2016-2017(2) 期末试题 A卷答案', url: '/pdfs/2016-2017-2空间解析几何A卷答案.pdf' },
+      { title: '2018-2019(2) 期末试题 A卷', url: '/pdfs/2018-2019-2-空间解析几何A卷.pdf' },
+      { title: '2018-2019 解析几何 A卷', url: '/pdfs/2018-2019解析几何A..pdf' },
+      { title: '2021-2022(2) 期末试题 A卷', url: '/pdfs/2021-2022-2空间解析几何A卷.pdf' },
+      { title: '2021-2022(2) 期末试题 B卷', url: '/pdfs/2021-2022-2空间解析几何B卷.pdf' },
+      { title: '2022-2023(2) 期末试题 A卷', url: '/pdfs/2022-2023-2空间解析几何A卷.pdf' },
+      { title: '2022-2023(2) 期末试题 B卷', url: '/pdfs/2022-2023-2空间解析几何B卷.pdf' },
+      { title: '2024-2025(2) 期末试题 A卷', url: '/pdfs/2024-2025学年(2)空间解析几何A卷.pdf' },
+      { title: '2025-2026(2) 期末试题 A卷', url: '/pdfs/2025-2026空间解析几何A卷.pdf' },
+      { title: '一套往年试卷', url: '/pdfs/一套往年试卷.pdf' }
+    ]
+  },
+  {
+    id: 'math-practice',
+    name: '数分高代实践',
+    nameEn: 'Math Analysis & Algebra Practice',
+    grade: '大一',
+    category: '基础课',
+    teacher: '实践教学组',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学分析习题课讲义》 谢惠民 等，高等教育出版社',
+      '《高等代数习思精解》 王登银 编，中国矿业大学出版社'
+    ],
+    exams: [
+      { title: '2024-2025(2) 数分高代实践 B卷', url: '/pdfs/2024-2025学年(2)数学分析与高等代数实践(2)B卷.pdf' },
+      { title: '2025-2026(1) 数分高代实践 A卷', url: '/pdfs/2025-2026学年(1)数学分析与高等代数实践(1) A卷.pdf' },
+      { title: '2025-2026(1) 数学分析实践-0002 B卷', url: '/pdfs/2025-2026学年(1)数学分析实践-0002 B卷.pdf' }
+    ]
+  },
+
+  // ==================== 大 二 ====================
+  {
+    id: 'odes',
+    name: '常微分方程',
+    nameEn: 'Ordinary Differential Equations',
+    grade: '大二',
+    category: '核心课',
+    teacher: '陈兴成',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《常微分方程》(第四版) 王高雄 等 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2025-2026 常微分方程(双语) A卷回忆版', url: '/pdfs/2025-2026常微分方程(双语)A卷回忆版.pdf' },
+      { title: '常微分方程模拟卷', url: '/pdfs/常微分方程模拟卷.pdf' }
+    ]
+  },
+  {
+    id: 'probability',
+    name: '概率论',
+    nameEn: 'Probability Theory',
+    grade: '大二',
+    category: '核心课',
+    teacher: '周圣武',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2023-2024(1) 期末试题 A卷', url: '/pdfs/2023-2024概率论A卷.pdf' },
+      { title: '2023-2024(1) 期末试题 A卷及解答', url: '/pdfs/2023-2024概率论A卷试题及解答.pdf' },
+      { title: '2024-2025(1) 期末试题 A卷', url: '/pdfs/2024-2025概率论A卷.pdf' },
+      { title: '2024-2025(1) 期末试题 A卷及解答', url: '/pdfs/2024-2025概率论A卷试题及解答.pdf' },
+      { title: '2025-2026(1) 模拟卷 A卷', url: '/pdfs/2025-2026概率论模拟卷A卷.pdf' },
+      { title: '2025-2026(1) 模拟卷 B卷', url: '/pdfs/2025-2026概率论模拟卷B卷.pdf' },
+      { title: '2025-2026(1) 模拟卷 A卷解答', url: '/pdfs/2025-2026概率论模拟A卷解答.pdf' },
+      { title: '2025-2026(1) 模拟卷 B卷解答', url: '/pdfs/2025-2026概率论模拟B卷解答.pdf' }
+    ]
+  },
+  {
+    id: 'math-statistics',
+    name: '数理统计',
+    nameEn: 'Mathematical Statistics',
+    grade: '大二',
+    category: '核心课',
+    teacher: '周圣武',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2021-2022(2) 期末试题 A卷', url: '/pdfs/2021-2022-2数理统计A卷.pdf' },
+      { title: '2022-2023(2) 期末试题 A卷', url: '/pdfs/2022-2023-2数理统计A卷.pdf' },
+      { title: '2023-2024(2) 期末试题 A卷', url: '/pdfs/2023-2024-2数理统计A卷.pdf' },
+      { title: '2024-2025(2) 期末试题 A卷', url: '/pdfs/2024-2025-2数理统计A卷.pdf' },
+      { title: '2024-2025(2) 期末试题 B卷', url: '/pdfs/2024-2025-2数理统计B卷.pdf' },
+      { title: '近四年5套真题参考答案', url: '/pdfs/数理统计近四年5套真题参考答案.pdf' }
+    ]
+  },
+  {
+    id: 'numerical-analysis',
+    name: '数值分析',
+    nameEn: 'Numerical Analysis',
+    grade: '大二',
+    category: '核心课',
+    teacher: '王海军',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数值分析》(第五版) 李庆扬 等 编，清华大学出版社'
+    ],
+    exams: [
+      { title: '2024-2025(2) 试题 A卷(复刻)', url: '/pdfs/2024-2025-2-数值分析-试题(A)(复刻).pdf' },
+      { title: '2024-2025(2) A卷试题及保姆级解析', url: '/pdfs/2024-2025第二学期数值分析A卷试题及保姆级式解析.pdf' },
+      { title: '2025-2026(2) 试题 A卷(回忆)', url: '/pdfs/2025-2026-2数值分析A卷(回忆).pdf' },
+      { title: '2025-2026 数值分析预测A卷', url: '/pdfs/2025-2026数值分析预测A卷.pdf' },
+      { title: '中国矿业大学课程考试试卷A', url: '/pdfs/数值分析_中国矿业大学课程考试试卷A.pdf' },
+      { title: '中国矿业大学课程考试试卷B', url: '/pdfs/数值分析_中国矿业大学课程考试试卷B.pdf' },
+      { title: '数值分析练习A卷解答', url: '/pdfs/数值分析练习A卷解答.pdf' },
+      { title: '数值分析练习B卷解答', url: '/pdfs/数值分析练习B卷解答.pdf' }
+    ]
+  },
+  {
+    id: 'real-analysis',
+    name: '实变函数',
+    nameEn: 'Functions of Real Variables',
+    grade: '大二',
+    category: '核心课',
+    teacher: '朱凯',
+    teacherUrl: 'https://kzhu.net/',
+    textbooks: [
+      '《实变函数与泛函分析》(上册·实变函数) 曹广福 编，高等教育出版社',
+      '《实变函数论》 周民强 编，北京大学出版社'
+    ],
+    exams: [
+      { title: '2022春 实变函数 A卷(回忆)', url: '/pdfs/2022春-实变函数-A卷（回忆）.pdf' },
+      { title: '2024-2025(2) 实变函数试题 A卷(回忆)', url: '/pdfs/2024-2025-2-实变函数-试题(A)(回忆).pdf' },
+      { title: '实变函数模拟试卷(1)', url: '/pdfs/实变函数模拟试卷(1).pdf' },
+      { title: '实变函数模拟试卷(2)', url: '/pdfs/实变函数模拟试卷(2).pdf' }
+    ]
+  },
+  {
+    id: 'complex-analysis',
+    name: '复变函数',
+    nameEn: 'Complex Analysis',
+    grade: '大二',
+    category: '核心课',
+    teacher: '刘红彬',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《复变函数》(第五版) 钟玉泉 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2024-2025(2) 复变函数 A卷', url: '/pdfs/2024-2025-2复变函数A卷.pdf' },
+      { title: '2024-2025(2) 复变函数 B卷', url: '/pdfs/2024-2025-2复变函数B卷.pdf' }
+    ]
+  },
+  {
+    id: 'pde',
+    name: '数学物理方程',
+    nameEn: 'Partial Differential Equations',
+    grade: '大二',
+    category: '核心课',
+    teacher: '刘红彬',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学物理方程》(第四版) 谷超豪 等 编，高等教育出版社'
+    ],
+    exams: []
+  },
+
+  // ==================== 大 三 ====================
+  {
+    id: 'functional-analysis',
+    name: '泛函分析',
+    nameEn: 'Functional Analysis',
+    grade: '大三',
+    category: '核心课',
+    teacher: '朱凯',
+    teacherUrl: 'https://kzhu.net/',
+    textbooks: [
+      '《实变函数与泛函分析》(下册·泛函分析) 曹广福 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2025-2026(1) 泛函分析', url: '/pdfs/2025-2026-1泛函分析.pdf' }
+    ]
+  },
+  {
+    id: 'abstract-algebra',
+    name: '抽象代数',
+    nameEn: 'Abstract Algebra',
+    grade: '大三',
+    category: '核心课',
+    teacher: '徐思奥',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《近世代数基础》(修订本) 张禾瑞 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2021-2022(1) 抽象代数 A卷', url: '/pdfs/2021-2022-1抽象代数(A).pdf' },
+      { title: '2021-2022(1) 抽象代数 B卷', url: '/pdfs/2021-2022-1抽象代数(B).pdf' },
+      { title: '2022-2023(1) 抽象代数 A卷', url: '/pdfs/2022-2023-1抽象代数(A).pdf' },
+      { title: '2022-2023(1) 抽象代数 B卷', url: '/pdfs/2022-2023-1抽象代数(B).pdf' },
+      { title: '2023-2024(1) 抽象代数 A卷', url: '/pdfs/2023-2024-1抽象代数(A).pdf' },
+      { title: '2023-2024(1) 抽象代数 B卷', url: '/pdfs/2023-2024-1抽象代数(B).pdf' },
+      { title: '2024-2025(1) 抽象代数 A卷', url: '/pdfs/2024-2025-1抽象代数(A).pdf' },
+      { title: '2024-2025(1) 抽象代数 B卷', url: '/pdfs/2024-2025-1抽象代数(B).pdf' }
+    ]
+  },
+  {
+    id: 'topology',
+    name: '拓扑学',
+    nameEn: 'Topology',
+    grade: '大三',
+    category: '选修课',
+    teacher: '王林',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《点集拓扑讲义》(第四版) 熊金城 编，高等教育出版社'
+    ],
+    exams: [
+      { title: '2025-2026(2) 拓扑学 试题 A卷(回忆)', url: '/pdfs/2025-2026-2-拓扑学-试题(A)(回忆).pdf' }
+    ]
+  },
+  {
+    id: 'modern-algebra',
+    name: '近世代数',
+    nameEn: 'Modern Algebra',
+    grade: '大三',
+    category: '核心课',
+    teacher: '徐思奥',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《近世代数》(第二版) 吴品三 编，高等教育出版社'
+    ],
+    exams: []
+  },
+  {
+    id: 'differential-geometry',
+    name: '微分几何',
+    nameEn: 'Differential Geometry',
+    grade: '大三',
+    category: '选修课',
+    teacher: '张玉峰',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《微分几何》(第四版) 梅向明、黄敬之 编，高等教育出版社'
+    ],
+    exams: []
+  },
+  {
+    id: 'operations-research',
+    name: '运筹学',
+    nameEn: 'Operations Research',
+    grade: '大三',
+    category: '选修课',
+    teacher: '王海军',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《运筹学》(第四版) 运筹学教材编写组 编，清华大学出版社'
+    ],
+    exams: []
+  },
+  {
+    id: 'math-modeling',
+    name: '数学建模',
+    nameEn: 'Mathematical Modeling',
+    grade: '大三',
+    category: '选修课',
+    teacher: '陈太勇',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《数学模型》(第五版) 姜启源 等 编，高等教育出版社'
+    ],
+    exams: []
+  },
+
+  // ==================== 大 四 ====================
+  {
+    id: 'adv-probability',
+    name: '高等概率论',
+    nameEn: 'Advanced Probability Theory',
+    grade: '大四',
+    category: '选修课',
+    teacher: '周圣武',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《概率论基础》(第三版) 李贤平 编，高等教育出版社'
+    ],
+    exams: []
+  },
+  {
+    id: 'lie-groups',
+    name: '李群与李代数',
+    nameEn: 'Lie Groups and Lie Algebras',
+    grade: '大四',
+    category: '选修课',
+    teacher: '朱凯',
+    teacherUrl: 'https://kzhu.net/',
+    textbooks: [
+      '《李群基础》 项武义 编，高等教育出版社'
+    ],
+    exams: []
+  },
+  {
+    id: 'algebraic-topology',
+    name: '代数拓扑',
+    nameEn: 'Algebraic Topology',
+    grade: '大四',
+    category: '选修课',
+    teacher: '王林',
+    teacherUrl: 'https://math.cumt.edu.cn/',
+    textbooks: [
+      '《Algebraic Topology》 Allen Hatcher, Cambridge University Press'
+    ],
+    exams: []
+  }
+];
