@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUMT 数院资料库 | 中国矿业大学数学学院</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== 导航栏 ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 32 32" width="28" height="28">
+        <rect x="2" y="20" width="6" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="13" y="14" width="6" height="16" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="24" y="8" width="6" height="22" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+      <span class="logo-text">CUMT 数院资料库</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#courses" class="active">课程资料</a></li>
+      <li><a href="#friends">友情链接</a></li>
+      <li><a href="https://github.com/VesperaZephyr" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== Hero 区域 ===== -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>CUMT 数院电子资料库</h1>
+    <p class="hero-subtitle">中国矿业大学数学学院 · 核心课程资源共享平台</p>
+    <p class="hero-desc">历年试题 · 期末复习 · 平时资料 · 教材推荐</p>
+    <div class="hero-quote">
+      <span class="quote-mark">"</span>
+      学而时习之，不亦说乎
+      <span class="quote-mark">"</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 筛选栏 ===== -->
+<section class="filter-section" id="courses">
+  <div class="container">
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">📂 年级</span>
+        <div class="filter-options" id="gradeFilter">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="大一">大一</button>
+          <button class="filter-btn" data-filter="大二">大二</button>
+          <button class="filter-btn" data-filter="大三">大三</button>
+          <button class="filter-btn" data-filter="大四">大四</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">📌 类别</span>
+        <div class="filter-options" id="categoryFilter">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="基础课">基础课</button>
+          <button class="filter-btn" data-filter="核心课">核心课</button>
+          <button class="filter-btn" data-filter="选修课">选修课</button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-stats">
+      共 <span id="courseCount">0</span> 门课程
+    </div>
+  </div>
+</section>
+
+<!-- ===== 课程卡片网格 ===== -->
+<section class="courses-section">
+  <div class="container">
+    <div class="courses-grid" id="coursesGrid">
+      <!-- 由 JavaScript 动态渲染 -->
+    </div>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">📭</div>
+      <h3>没有找到匹配的课程</h3>
+      <p>请尝试调整筛选条件</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 友情链接 ===== -->
+<section class="friends-section" id="friends">
+  <div class="container">
+    <h2 class="section-title">友情链接</h2>
+    <div class="friends-grid">
+      <a href="https://math.cumt.edu.cn/" target="_blank" class="friend-card">
+        <span class="friend-icon">🏛</span>
+        <span class="friend-name">CUMT 数学学院官网</span>
+        <span class="friend-desc">学院通知与师资介绍</span>
+      </a>
+      <a href="https://yyhmuke.com/" target="_blank" class="friend-card">
+        <span class="friend-icon">📓</span>
+        <span class="friend-name">慕可的数学笔记</span>
+        <span class="friend-desc">代数几何学习笔记</span>
+      </a>
+      <a href="https://kzhu.net/" target="_blank" class="friend-card">
+        <span class="friend-icon">👤</span>
+        <span class="friend-name">Kai Zhu's Homepage</span>
+        <span class="friend-desc">个人学术主页</span>
+      </a>
+      <a href="https://space.bilibili.com/3496863977806212" target="_blank" class="friend-card">
+        <span class="friend-icon">📺</span>
+        <span class="friend-name">CUMT 数学 Bilibili</span>
+        <span class="friend-desc">数学学院 B 站账号</span>
+      </a>
+      <a href="https://github.com/VesperaZephyr" target="_blank" class="friend-card">
+        <span class="friend-icon">🐙</span>
+        <span class="friend-name">GitHub @VesperaZephyr</span>
+        <span class="friend-desc">本站维护者</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+      <p class="footer-note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank">📦 GitHub 仓库</a>
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io/issues" target="_blank">💬 反馈与建议</a>
+      <a href="https://math.cumt.edu.cn/" target="_blank">🏛 CUMT 数学学院</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== 脚本 ===== -->
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
