@@ -142,23 +142,25 @@
             margin-bottom: 16px; padding: 0 4px;
         }
 
-        /* ===== Course Grid ===== */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+        /* ===== Course List (Vertical) ===== */
+        .grid { display: block; }
 
-        /* ===== Card ===== */
+        /* ===== Course Row ===== */
         .card {
-            background: white; border-radius: 14px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #eef2f5;
-            transition: all 0.25s ease;
-            display: flex; flex-direction: column;
+            background: transparent;
+            border: none; border-radius: 0;
+            padding: 20px 0;
+            box-shadow: none;
+            border-bottom: 1px solid #eef2f5;
+            transition: none;
+            display: block;
         }
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-            border-color: #d0d8e0;
+            transform: none;
+            box-shadow: none;
+            border-color: #eef2f5;
         }
+        .card:last-child { border-bottom: none; }
 
         .card-header {
             display: flex; align-items: flex-start; gap: 14px;
@@ -283,7 +285,7 @@
             .hero h1 { font-size: 1.8rem; }
             .hero { padding: 48px 20px 60px; }
             .container { margin-top: -24px; }
-            .grid { grid-template-columns: 1fr; }
+            .grid { display: block; }
             .toolbar { padding: 16px; }
             .filter-row { gap: 6px; }
             .filter-btn { font-size: 0.8rem; padding: 4px 12px; }
