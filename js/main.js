@@ -1,47 +1,73 @@
 /**
- * CUMT 数院资料库 — 主要交互逻辑
+ * CUMT 数院资料库 — MkDocs Material 风格交互逻辑
+ * - 侧边栏筛选器（年级 + 类别）
  * - 课程卡片渲染
- * - 筛选功能（年级 + 类别）
- * - 导航移动端菜单
+ * - 移动端侧边栏 / 遮罩 / 回到顶部
  */
 
 (function () {
   'use strict';
 
   // ---- DOM 引用 ----
-  const grid = document.getElementById('coursesGrid');
-  const emptyState = document.getElementById('emptyState');
-  const countEl = document.getElementById('courseCount');
-  const gradeBtns = document.querySelectorAll('#gradeFilter .filter-btn');
-  const categoryBtns = document.querySelectorAll('#categoryFilter .filter-btn');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
+  var grid = document.getElementById('coursesGrid');
+  var emptyState = document.getElementById('emptyState');
+  var countEl = document.getElementById('courseCount');
+  var sidebar = document.getElementById('mdSidebar');
+  var overlay = document.getElementById('mdOverlay');
+  var sidebarToggle = document.getElementById('sidebarToggle');
+  var backToTop = document.getElementById('myBtn');
+  var tabs = document.getElementById('mdTabs');
 
   // ---- 状态 ----
-  let activeGrade = 'all';
-  let activeCategory = 'all';
+  var activeGrade = 'all';
+  var activeCategory = 'all';
 
-  // ---- 导航移动端 ----
-  if (navToggle) {
-    navToggle.addEventListener('click', function () {
-      navLinks.classList.toggle('open');
-    });
-    // 点击导航链接后关闭菜单
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-      });
-    });
-  }
+  // ============================================================
+  //  Sidebar section toggle (no-op for now)
+  // ============================================================
+  window.toggleNavSection = function (e) {
+    // 保留以备后续折叠/展开侧边栏分组
+    e.preventDefault();
+  };
 
-  // ---- 渲染课程卡片 ----
+  // ============================================================
+  //  侧边栏筛选器
+  // ============================================================
+
+  window.setFilter = function (el, type) {
+    if (!el) return;
+
+    // 更新 active 样式
+    var parent = el.parentElement.parentElement; // ul.md-nav__list
+    var links = parent.querySelectorAll('.md-nav__link');
+    for (var i = 0; i < links.length; i++) {
+      links[i].classList.remove('md-nav__link--active');
+    }
+    el.classList.add('md-nav__link--active');
+
+    // 更新筛选状态
+    if (type === 'grade') {
+      activeGrade = el.getAttribute('data-filter');
+    } else if (type === 'category') {
+      activeCategory = el.getAttribute('data-filter');
+    }
+
+    filterCourses();
+  };
+
+  // ============================================================
+  //  课程卡片渲染
+  // ============================================================
+
   function renderCards(courses) {
     if (!grid) return;
 
     if (courses.length === 0) {
       grid.innerHTML = '';
       emptyState.classList.add('show');
-      countEl.textContent = '0';
+      if (countEl) {
+        countEl.innerHTML = '共 <strong>0</strong> 门课程';
+      }
       return;
     }
 
@@ -104,10 +130,15 @@
     }
 
     grid.innerHTML = html;
-    countEl.textContent = courses.length;
+    if (countEl) {
+      countEl.innerHTML = '共 <strong>' + courses.length + '</strong> 门课程';
+    }
   }
 
-  // ---- 筛选逻辑 ----
+  // ============================================================
+  //  筛选逻辑
+  // ============================================================
+
   function filterCourses() {
     var filtered = COURSES.filter(function (c) {
       var matchGrade = activeGrade === 'all' || c.grade === activeGrade;
@@ -117,32 +148,105 @@
     renderCards(filtered);
   }
 
-  // ---- 按钮事件绑定 ----
-  function bindFilterButtons(buttons, callback) {
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].addEventListener('click', function () {
-        var parent = this.parentElement;
-        var currentActive = parent.querySelector('.active');
-        if (currentActive) {
-          currentActive.classList.remove('active');
-        }
-        this.classList.add('active');
-        callback(this.getAttribute('data-filter'));
-      });
-    }
+  // ============================================================
+  //  移动端侧边栏开关
+  // ============================================================
+
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('open');
   }
 
-  bindFilterButtons(gradeBtns, function (val) {
-    activeGrade = val;
-    filterCourses();
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', function () {
+      if (sidebar && sidebar.classList.contains('open')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  // 点击侧边栏内链接后关闭（移动端）
+  if (sidebar) {
+    sidebar.addEventListener('click', function (e) {
+      if (e.target.classList.contains('md-nav__link') && e.target.hasAttribute('data-filter')) {
+        // 移动端筛选后关闭侧边栏
+        if (window.innerWidth <= 959) { // 59.9375em
+          closeSidebar();
+        }
+      }
+    });
+  }
+
+  // ============================================================
+  //  回到顶部按钮
+  // ============================================================
+
+  window.addEventListener('scroll', function () {
+    if (backToTop) {
+      backToTop.style.display = (document.documentElement.scrollTop > 400) ? 'block' : 'none';
+    }
   });
 
-  bindFilterButtons(categoryBtns, function (val) {
-    activeCategory = val;
-    filterCourses();
-  });
+  // ============================================================
+  //  Tab 激活状态（根据滚动位置）
+  // ============================================================
 
-  // ---- 工具函数 ----
+  if (tabs) {
+    var tabLinks = tabs.querySelectorAll('.md-tabs__link');
+    var friendsSection = document.getElementById('friends');
+
+    window.addEventListener('scroll', function () {
+      if (!friendsSection || !tabLinks.length) return;
+
+      var scrollPos = window.scrollY + 100;
+      var friendsTop = friendsSection.offsetTop;
+
+      var items = tabs.querySelectorAll('.md-tabs__item');
+      for (var i = 0; i < items.length; i++) {
+        items[i].classList.remove('md-tabs__item--active');
+      }
+
+      if (scrollPos >= friendsTop) {
+        // 友情链接 tab active
+        if (items.length >= 2) items[1].classList.add('md-tabs__item--active');
+      } else {
+        // 课程资料 tab active
+        if (items.length >= 1) items[0].classList.add('md-tabs__item--active');
+      }
+    });
+  }
+
+  // ============================================================
+  //  Tab 点击（手动设置 active）
+  // ============================================================
+  if (tabs) {
+    tabs.addEventListener('click', function (e) {
+      var link = e.target.closest('.md-tabs__link');
+      if (!link) return;
+
+      var items = tabs.querySelectorAll('.md-tabs__item');
+      for (var i = 0; i < items.length; i++) {
+        items[i].classList.remove('md-tabs__item--active');
+      }
+      var item = link.closest('.md-tabs__item');
+      if (item) item.classList.add('md-tabs__item--active');
+    });
+  }
+
+  // ============================================================
+  //  工具函数
+  // ============================================================
   function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
@@ -153,7 +257,9 @@
     return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
-  // ---- 初始渲染 ----
+  // ============================================================
+  //  初始渲染
+  // ============================================================
   filterCourses();
 
 })();
