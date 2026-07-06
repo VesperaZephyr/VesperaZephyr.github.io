@@ -829,6 +829,47 @@ img {
   color: var(--md-default-fg-color--light);
 }
 
+/* ---------- 工具页 ---------- */
+.toc-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.toc-list li::before {
+  content: '»';
+  color: var(--md-default-fg-color--lighter);
+  margin-right: 0.25rem;
+}
+
+.toc-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.link-list li {
+  font-size: 0.82rem;
+}
+
+.link-list a {
+  font-weight: 500;
+}
+
+.link-desc {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+}
+
 /* ---------- 联系与声明 ---------- */
 .contact-card {
   max-width: 28rem;
