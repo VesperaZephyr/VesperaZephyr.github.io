@@ -850,8 +850,8 @@ img {
 }
 
 .link-list {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding-left: 1.2rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;

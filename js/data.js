@@ -137,6 +137,9 @@ const COURSES = [
     textbooks: [
       '《解析几何教程》(第三版) 廖华奎、王宝富 编，科学出版社'
     ],
+    reviewMaterials: [
+      { title: '空间解析几何复习', url: '/pdfs/空间解析几何复习.pdf' }
+    ],
     examScope: '向量代数(第一章)、直线与平面(第二章)、常见曲面(第三章)、二次曲线和二次曲面(第四章)',
     exams: [
       { year: '2016-2017', title: '2016-2017-2空间解析几何A卷', url: '/pdfs/2016-2017-2空间解析几何A卷.pdf' },
@@ -214,6 +217,9 @@ const COURSES = [
     textbooks: [
       '《Ordinary Differential Equations》(第二版) 张慧星 杨晓波等 主编，中国矿业大学出版社'
     ],
+    reviewMaterials: [
+      { title: 'Solutions to Ordinary Differential Equations (By Fingolfin)', url: '/pdfs/Solutions to Ordinary Differential Equations (By Fingolfin).pdf' }
+    ],
     examScope: 'Elementary Integration Method(Chapter 1), Linear Systems of Differential Equations(Chapter 2), High Order Linear Differential Equations(Chapter 3), Existence and Uniqueness of Solutions(Chapter 4, 4.2)',
     exams: [
       { year: '2025-2026', title: '2025-2026常微分方程(双语)A卷回忆版', url: '/pdfs/2025-2026常微分方程(双语)A卷回忆版.pdf' },
@@ -268,6 +274,9 @@ const COURSES = [
     textbooks: [
       '《概率论与数理统计教程》(第四版) 茆诗松 程依明 濮晓龙 等 编，高等教育出版社'
     ],
+    reviewMaterials: [
+      { title: '数理统计基础知识清单(必背)', url: '/pdfs/数理统计基础知识清单(必背).pdf' }
+    ],
     examScope: '统计量及其分布(第五章)、参数估计(第六章)、假设检验(第七章)、方差分析与回归分析(第八章)',
     exams: [
       { year: '2021-2022', title: '2021-2022-2数理统计A卷', url: '/pdfs/2021-2022-2数理统计A卷.pdf' },
@@ -296,6 +305,10 @@ const COURSES = [
     ],
     textbooks: [
       '《计算方法》(第三版) 曹德欣 曹璎珞 等 编，中国矿业大学出版社'
+    ],
+    reviewMaterials: [
+      { title: '数值分析基础知识清单(必背)', url: '/pdfs/数值分析基础知识清单(必背).pdf' },
+      { title: '(数值分析典型例题) 差分格式截断误差的首项的求法和绝对稳定区间', url: '/pdfs/(数值分析典型例题) 差分格式截断误差的首项的求法和绝对稳定区间.pdf' }
     ],
     examScope: '绪论(第一章)、非线性方程求解(第二章)、线性方程组解法(第三章)、插值法(第四章)、曲线拟合和函数逼近(第五章)、数值积分和数值微分(第六章)、常微分方程数值解法(第七章)',
     exams: [
