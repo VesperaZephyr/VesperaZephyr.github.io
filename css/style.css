@@ -680,6 +680,13 @@ img {
   text-decoration: underline;
 }
 
+.review-empty {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--lighter);
+  font-style: italic;
+}
+
 /* ---- 试题资源 ---- */
 .exams-section {
   /* nothing extra */

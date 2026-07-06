@@ -130,16 +130,18 @@
       }
 
       // 复习资料
+      html += '  <div class="review-section">';
+      html += '    <div class="review-section-title">📖 复习资料</div>';
       if (c.reviewMaterials && c.reviewMaterials.length > 0) {
-        html += '  <div class="review-section">';
-        html += '    <div class="review-section-title">📖 复习资料</div>';
         html += '    <ul class="review-list">';
         for (var ri = 0; ri < c.reviewMaterials.length; ri++) {
           html += '      <li><a href="' + escapeAttr(c.reviewMaterials[ri].url) + '" target="_blank" class="review-link">' + escapeHtml(c.reviewMaterials[ri].title) + '</a></li>';
         }
         html += '    </ul>';
-        html += '  </div>';
+      } else {
+        html += '    <p class="review-empty">暂无，待补充</p>';
       }
+      html += '  </div>';
 
       // 试题资源 — 按年份分组
       if (c.exams && c.exams.length > 0) {
