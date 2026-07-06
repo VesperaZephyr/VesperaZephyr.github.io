@@ -609,6 +609,28 @@ img {
   font-size: 0.75rem;
 }
 
+/* ---- 考试范围 ---- */
+.exam-scope {
+  margin-bottom: 0.8rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+  border-left: 3px solid var(--md-accent-fg-color);
+}
+
+.exam-scope-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+.exam-scope-text {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  line-height: 1.5;
+}
+
 /* ---- 试题资源 ---- */
 .exams-section {
   /* nothing extra */

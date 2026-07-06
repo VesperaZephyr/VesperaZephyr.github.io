@@ -114,6 +114,14 @@
         html += '  </div>';
       }
 
+      // 考试范围
+      if (c.examScope) {
+        html += '  <div class="exam-scope">';
+        html += '    <span class="exam-scope-label">📋 考试范围</span>';
+        html += '    <p class="exam-scope-text">' + escapeHtml(c.examScope) + '</p>';
+        html += '  </div>';
+      }
+
       // 试题资源 — 按年份分组
       if (c.exams && c.exams.length > 0) {
         // 按年份分组
