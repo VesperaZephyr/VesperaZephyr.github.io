@@ -30,7 +30,7 @@ const COURSES = [
     textbooks: [
       '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025-1_数学分析（1）_B卷', url: '/pdfs/2024-2025-1_数学分析（1）_B卷.pdf' },
       { year: '2025-2026', title: '2025-2026-1数学分析(1)B卷', url: '/pdfs/2025-2026-1数学分析(1)B卷.pdf' }
@@ -51,7 +51,7 @@ const COURSES = [
     textbooks: [
       '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025-1高等代数1（A）', url: '/pdfs/2024-2025-1高等代数1（A）.pdf' },
       { year: '2024-2025', title: '2024-2025-1高等代数1（B）', url: '/pdfs/2024-2025-1高等代数1（B）.pdf' },
@@ -75,7 +75,7 @@ const COURSES = [
     textbooks: [
       '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2023-2024', title: '2023-2024数分2期末试题A及解答', url: '/pdfs/2023-2024数分2期末试题A及解答.pdf' },
       { year: '2023-2024', title: '2023-2024数分2期末试题B及解答', url: '/pdfs/2023-2024数分2期末试题B及解答.pdf' },
@@ -98,7 +98,7 @@ const COURSES = [
     textbooks: [
       '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2023-2024', title: '2023-2024高代2期末试题A及解答', url: '/pdfs/2023-2024高代2期末试题A及解答.pdf' },
       { year: '2023-2024', title: '2023-2024高代2期末试题B及解答', url: '/pdfs/2023-2024高代2期末试题B及解答.pdf' },
@@ -124,7 +124,7 @@ const COURSES = [
     textbooks: [
       '《解析几何》(第四版) 吕林根、许子道 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2016-2017', title: '2016-2017-2空间解析几何A卷', url: '/pdfs/2016-2017-2空间解析几何A卷.pdf' },
       { year: '2016-2017', title: '2016-2017-2空间解析几何A卷答案', url: '/pdfs/2016-2017-2空间解析几何A卷答案.pdf' },
@@ -155,7 +155,7 @@ const COURSES = [
       '《数学分析习题课讲义》 谢惠民 等，高等教育出版社',
       '《高等代数习思精解》 王登银 编，中国矿业大学出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025学年(2)数学分析与高等代数实践(2)B卷', url: '/pdfs/2024-2025学年(2)数学分析与高等代数实践(2)B卷.pdf' },
       { year: '2025-2026', title: '2025-2026学年(1)数学分析与高等代数实践(1) A卷', url: '/pdfs/2025-2026学年(1)数学分析与高等代数实践(1) A卷.pdf' },
@@ -177,7 +177,7 @@ const COURSES = [
     textbooks: [
       '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025-1数学分析(3)A卷试题解答', url: '/pdfs/2024-2025-1数学分析(3)A卷试题解答.pdf' },
       { year: '2025-2026', title: '2025-2026-1数学分析(3)模拟卷A卷', url: '/pdfs/2025-2026-1数学分析(3)模拟卷A卷.pdf' }
@@ -198,7 +198,7 @@ const COURSES = [
     textbooks: [
       '《常微分方程》(第四版) 王高雄 等 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2025-2026', title: '2025-2026常微分方程(双语)A卷回忆版', url: '/pdfs/2025-2026常微分方程(双语)A卷回忆版.pdf' },
       { year: '往年', title: '常微分方程模拟卷', url: '/pdfs/常微分方程模拟卷.pdf' }
@@ -219,7 +219,7 @@ const COURSES = [
     textbooks: [
       '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2023-2024', title: '2023-2024概率论A卷', url: '/pdfs/2023-2024概率论A卷.pdf' },
       { year: '2023-2024', title: '2023-2024概率论A卷试题及解答', url: '/pdfs/2023-2024概率论A卷试题及解答.pdf' },
@@ -246,7 +246,7 @@ const COURSES = [
     textbooks: [
       '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2021-2022', title: '2021-2022-2数理统计A卷', url: '/pdfs/2021-2022-2数理统计A卷.pdf' },
       { year: '2022-2023', title: '2022-2023-2数理统计A卷', url: '/pdfs/2022-2023-2数理统计A卷.pdf' },
@@ -271,7 +271,7 @@ const COURSES = [
     textbooks: [
       '《数值分析》(第五版) 李庆扬 等 编，清华大学出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025-2-数值分析-试题(A)(复刻)', url: '/pdfs/2024-2025-2-数值分析-试题(A)(复刻).pdf' },
       { year: '2024-2025', title: '2024-2025第二学期数值分析A卷试题及保姆级式解析', url: '/pdfs/2024-2025第二学期数值分析A卷试题及保姆级式解析.pdf' },
@@ -299,7 +299,7 @@ const COURSES = [
       '《实变函数与泛函分析》(上册·实变函数) 曹广福 编，高等教育出版社',
       '《实变函数论》 周民强 编，北京大学出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2022', title: '2022春-实变函数-A卷（回忆）', url: '/pdfs/2022春-实变函数-A卷（回忆）.pdf' },
       { year: '2024-2025', title: '2024-2025-2-实变函数-试题(A)(回忆)', url: '/pdfs/2024-2025-2-实变函数-试题(A)(回忆).pdf' },
@@ -322,7 +322,7 @@ const COURSES = [
     textbooks: [
       '《复变函数》(第五版) 钟玉泉 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2024-2025', title: '2024-2025-2复变函数A卷', url: '/pdfs/2024-2025-2复变函数A卷.pdf' },
       { year: '2024-2025', title: '2024-2025-2复变函数B卷', url: '/pdfs/2024-2025-2复变函数B卷.pdf' }
@@ -343,7 +343,7 @@ const COURSES = [
     textbooks: [
       '《数学物理方程》(第四版) 谷超豪 等 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: []
   },
 
@@ -361,7 +361,7 @@ const COURSES = [
     textbooks: [
       '《实变函数与泛函分析》(下册·泛函分析) 曹广福 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2025-2026', title: '2025-2026-1泛函分析', url: '/pdfs/2025-2026-1泛函分析.pdf' }
     ]
@@ -381,7 +381,7 @@ const COURSES = [
     textbooks: [
       '《近世代数基础》(修订本) 张禾瑞 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2021-2022', title: '2021-2022-1抽象代数(A)', url: '/pdfs/2021-2022-1抽象代数(A).pdf' },
       { year: '2021-2022', title: '2021-2022-1抽象代数(B)', url: '/pdfs/2021-2022-1抽象代数(B).pdf' },
@@ -408,7 +408,7 @@ const COURSES = [
     textbooks: [
       '《点集拓扑讲义》(第四版) 熊金城 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: [
       { year: '2025-2026', title: '2025-2026-2-拓扑学-试题(A)(回忆)', url: '/pdfs/2025-2026-2-拓扑学-试题(A)(回忆).pdf' }
     ]
@@ -428,7 +428,7 @@ const COURSES = [
     textbooks: [
       '《微分几何》(第四版) 梅向明、黄敬之 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: []
   },
 
@@ -446,7 +446,7 @@ const COURSES = [
     textbooks: [
       '《运筹学》(第四版) 运筹学教材编写组 编，清华大学出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: []
   },
 
@@ -464,7 +464,7 @@ const COURSES = [
     textbooks: [
       '《数学模型》(第五版) 姜启源 等 编，高等教育出版社'
     ],
-    examScope: '',
+    examScope: '[待补充]',
     exams: []
   }
 
