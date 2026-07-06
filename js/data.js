@@ -346,12 +346,14 @@ const COURSES = [
     grade: '大三',
     category: '核心课',
     teachers: [
-      { name: '刘红彬', url: 'https://math.cumt.edu.cn/' }
+      { name: '田守富', url: 'https://math.cumt.edu.cn/ed/34/c9104a585012/page.htm' },
+      { name: '张杰', url: 'https://math.cumt.edu.cn/6d/eb/c9104a355819/page.htm' }
     ],
     textbooks: [
-      '《复变函数》(第五版) 钟玉泉 编，高等教育出版社'
+      '《复分析基础》廖良文 编，科学出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: [
       { year: '2024-2025', title: '2024-2025-2复变函数A卷', url: '/pdfs/2024-2025-2复变函数A卷.pdf' },
       { year: '2024-2025', title: '2024-2025-2复变函数B卷', url: '/pdfs/2024-2025-2复变函数B卷.pdf' }
@@ -365,15 +367,16 @@ const COURSES = [
     id: 'pde',
     name: '数学物理方程 A',
     nameEn: 'Partial Differential Equations',
-    grade: '大二',
+    grade: '大三',
     category: '选修课',
     teachers: [
-      { name: '刘红彬', url: 'https://math.cumt.edu.cn/' }
+      { name: '陈太勇', url: 'https://math.cumt.edu.cn/6d/a2/c9104a355746/page.htm' }
     ],
     textbooks: [
-      '《数学物理方程》(第四版) 谷超豪 等 编，高等教育出版社'
+      '《数学物理方程》(第三版) 刘文斌 等 编，中国矿业大学出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: []
   },
 
@@ -387,12 +390,14 @@ const COURSES = [
     grade: '大三',
     category: '核心课',
     teachers: [
-      { name: '朱凯', url: 'https://kzhu.net/' }
+      { name: '陈太勇', url: 'https://math.cumt.edu.cn/6d/a2/c9104a355746/page.htm' },
+      { name: '陈小林', url: 'https://math.cumt.edu.cn/6d/a3/c9104a355747/page.htm' }
     ],
     textbooks: [
-      '《实变函数与泛函分析》(下册·泛函分析) 曹广福 编，高等教育出版社'
+      '《实变函数与泛函分析基础》 程其襄 张奠宙 胡善文 薛以锋 编，高等教育出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: [
       { year: '2025-2026', title: '2025-2026-1泛函分析', url: '/pdfs/2025-2026-1泛函分析.pdf' }
     ]
@@ -408,12 +413,13 @@ const COURSES = [
     grade: '大三',
     category: '核心课',
     teachers: [
-      { name: '徐思奥', url: 'https://math.cumt.edu.cn/' }
+      { name: '张驰', url: 'https://math.cumt.edu.cn/2b/63/c9104a535395/page.htm' }
     ],
     textbooks: [
-      '《近世代数基础》(修订本) 张禾瑞 编，高等教育出版社'
+      '《抽象代数基础》(第二版) 唐忠明 编，高等教育出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: [
       { year: '2021-2022', title: '2021-2022-1抽象代数(A)', url: '/pdfs/2021-2022-1抽象代数(A).pdf' },
       { year: '2021-2022', title: '2021-2022-1抽象代数(B)', url: '/pdfs/2021-2022-1抽象代数(B).pdf' },
@@ -436,12 +442,13 @@ const COURSES = [
     grade: '大三',
     category: '选修课',
     teachers: [
-      { name: '王林', url: 'https://math.cumt.edu.cn/' }
+      { name: '陈小林', url: 'https://math.cumt.edu.cn/6d/a3/c9104a355747/page.htm' }
     ],
     textbooks: [
       '《点集拓扑讲义》(第四版) 熊金城 编，高等教育出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: [
       { year: '2025-2026', title: '2025-2026-2-拓扑学-试题(A)(回忆)', url: '/pdfs/2025-2026-2-拓扑学-试题(A)(回忆).pdf' }
     ]
@@ -457,12 +464,14 @@ const COURSES = [
     grade: '大三',
     category: '核心课',
     teachers: [
-      { name: '张玉峰', url: 'https://math.cumt.edu.cn/' }
+      { name: '任新安', url: 'https://math.cumt.edu.cn/6d/cb/c9104a355787/page.htm' },
+      { name: '张玉峰', url: 'https://math.cumt.edu.cn/6d/f1/c9104a355825/page.htm' }
     ],
     textbooks: [
-      '《微分几何》(第四版) 梅向明、黄敬之 编，高等教育出版社'
+      '《微分几何》(修订版) 苏步青 胡和生 沈纯理 潘养廉 张国樑 编，高等教育出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: []
   },
 
@@ -476,12 +485,13 @@ const COURSES = [
     grade: '大三',
     category: '核心课',
     teachers: [
-      { name: '王海军', url: 'https://math.cumt.edu.cn/' }
+      { name: '付乳燕', url: 'https://math.cumt.edu.cn/6d/aa/c9104a355754/page.htm' }
     ],
     textbooks: [
-      '《运筹学》(第四版) 运筹学教材编写组 编，清华大学出版社'
+      '《Operation Research》'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: []
   },
 
@@ -495,12 +505,14 @@ const COURSES = [
     grade: '大三',
     category: '选修课',
     teachers: [
-      { name: '陈太勇', url: 'https://math.cumt.edu.cn/' }
+      { name: '祁永强', url: 'https://math.cumt.edu.cn/6d/c5/c9104a355781/page.htm' },
+      { name: '李俊领', url: 'https://math.cumt.edu.cn/6d/b3/c9104a355763/page.htm' }
     ],
     textbooks: [
-      '《数学模型》(第五版) 姜启源 等 编，高等教育出版社'
+      '《数学建模》祁永强 等 编，中国矿业大学出版社'
     ],
     examScope: '[待补充]',
+    reviewMaterials: [],
     exams: []
   }
 ];

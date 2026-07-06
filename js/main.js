@@ -129,6 +129,18 @@
         html += '  </div>';
       }
 
+      // 复习资料
+      if (c.reviewMaterials && c.reviewMaterials.length > 0) {
+        html += '  <div class="review-section">';
+        html += '    <div class="review-section-title">📖 复习资料</div>';
+        html += '    <ul class="review-list">';
+        for (var ri = 0; ri < c.reviewMaterials.length; ri++) {
+          html += '      <li><a href="' + escapeAttr(c.reviewMaterials[ri].url) + '" target="_blank" class="review-link">' + escapeHtml(c.reviewMaterials[ri].title) + '</a></li>';
+        }
+        html += '    </ul>';
+        html += '  </div>';
+      }
+
       // 试题资源 — 按年份分组
       if (c.exams && c.exams.length > 0) {
         // 按年份分组
@@ -238,34 +250,7 @@
   });
 
   // ============================================================
-  //  Tab 激活状态（根据滚动位置）
-  // ============================================================
-
-  if (tabs) {
-    var tabLinks = tabs.querySelectorAll('.md-tabs__link');
-    var friendsSection = document.getElementById('friends');
-
-    window.addEventListener('scroll', function () {
-      if (!friendsSection || !tabLinks.length) return;
-
-      var scrollPos = window.scrollY + 100;
-      var friendsTop = friendsSection.offsetTop;
-
-      var items = tabs.querySelectorAll('.md-tabs__item');
-      for (var i = 0; i < items.length; i++) {
-        items[i].classList.remove('md-tabs__item--active');
-      }
-
-      if (scrollPos >= friendsTop) {
-        if (items.length >= 2) items[1].classList.add('md-tabs__item--active');
-      } else {
-        if (items.length >= 1) items[0].classList.add('md-tabs__item--active');
-      }
-    });
-  }
-
-  // ============================================================
-  //  Tab 点击（保持 nav 交互感）
+  //  Tab 点击（页面间导航）
   // ============================================================
   if (tabs) {
     tabs.addEventListener('click', function (e) {

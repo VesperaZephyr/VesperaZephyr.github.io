@@ -640,6 +640,46 @@ img {
   line-height: 1.5;
 }
 
+/* ---- 复习资料 ---- */
+.review-section {
+  margin-bottom: 0.8rem;
+}
+
+.review-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 0.3rem;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.review-list li::before {
+  content: '📄';
+  font-size: 0.7rem;
+  margin-right: 0.35rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.review-link {
+  color: var(--md-typeset-a-color);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.review-link:hover {
+  text-decoration: underline;
+}
+
 /* ---- 试题资源 ---- */
 .exams-section {
   /* nothing extra */
