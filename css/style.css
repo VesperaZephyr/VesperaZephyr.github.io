@@ -618,7 +618,26 @@ img {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--md-default-fg-color--light);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.exam-year-group {
+  margin-bottom: 0.6rem;
+}
+
+.exam-year-group:last-child {
+  margin-bottom: 0;
+}
+
+.exam-year-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--lighter);
+  margin-bottom: 0.1rem;
+  padding: 0.1rem 0.4rem;
+  background: var(--md-default-fg-color--lightest);
+  border-radius: 0.15rem;
 }
 
 .exam-list {

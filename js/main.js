@@ -114,15 +114,39 @@
         html += '  </div>';
       }
 
-      // 试题资源
+      // 试题资源 — 按年份分组
       if (c.exams && c.exams.length > 0) {
+        // 按年份分组
+        var yearGroups = {};
+        for (var e = 0; e < c.exams.length; e++) {
+          var y = c.exams[e].year || '往年';
+          if (!yearGroups[y]) yearGroups[y] = [];
+          yearGroups[y].push(c.exams[e]);
+        }
+
+        // 年份排序：降序，往年放最后
+        var years = Object.keys(yearGroups).sort(function (a, b) {
+          if (a === '往年') return 1;
+          if (b === '往年') return -1;
+          return b.localeCompare(a);
+        });
+
         html += '  <div class="exams-section">';
         html += '    <div class="exams-section-title">📝 试题资源</div>';
-        html += '    <ul class="exam-list">';
-        for (var e = 0; e < c.exams.length; e++) {
-          html += '      <li><a href="' + escapeAttr(c.exams[e].url) + '" target="_blank" class="exam-link">' + escapeHtml(c.exams[e].title) + '</a></li>';
+
+        for (var yi = 0; yi < years.length; yi++) {
+          var yearLabel = years[yi];
+          var groupExams = yearGroups[yearLabel];
+          html += '    <div class="exam-year-group">';
+          html += '      <span class="exam-year-label">' + escapeHtml(yearLabel) + '</span>';
+          html += '      <ul class="exam-list">';
+          for (var gi = 0; gi < groupExams.length; gi++) {
+            html += '        <li><a href="' + escapeAttr(groupExams[gi].url) + '" target="_blank" class="exam-link">' + escapeHtml(groupExams[gi].title) + '</a></li>';
+          }
+          html += '      </ul>';
+          html += '    </div>';
         }
-        html += '    </ul>';
+
         html += '  </div>';
       }
 
