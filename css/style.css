@@ -782,6 +782,52 @@ img {
   color: var(--md-default-fg-color--light);
 }
 
+/* ---------- 联系与声明 ---------- */
+.contact-card {
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 1.2rem 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.contact-item:last-of-type {
+  border-bottom: none;
+}
+
+.contact-label {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  min-width: 3rem;
+}
+
+.contact-value {
+  color: var(--md-default-fg-color);
+  word-break: break-all;
+}
+
+.contact-link {
+  color: var(--md-typeset-a-color);
+  word-break: break-all;
+}
+
+.contact-disclaimer {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--lighter);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
 /* ---------- 页脚 ---------- */
 .md-footer {
   border-top: 1px solid var(--md-default-fg-color--lightest);

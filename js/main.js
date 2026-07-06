@@ -238,42 +238,12 @@
   });
 
   // ============================================================
-  //  Tab 激活状态（根据滚动位置）
-  // ============================================================
-
-  if (tabs) {
-    var tabLinks = tabs.querySelectorAll('.md-tabs__link');
-    var friendsSection = document.getElementById('friends');
-
-    window.addEventListener('scroll', function () {
-      if (!friendsSection || !tabLinks.length) return;
-
-      var scrollPos = window.scrollY + 100;
-      var friendsTop = friendsSection.offsetTop;
-
-      var items = tabs.querySelectorAll('.md-tabs__item');
-      for (var i = 0; i < items.length; i++) {
-        items[i].classList.remove('md-tabs__item--active');
-      }
-
-      if (scrollPos >= friendsTop) {
-        // 友情链接 tab active
-        if (items.length >= 2) items[1].classList.add('md-tabs__item--active');
-      } else {
-        // 课程资料 tab active
-        if (items.length >= 1) items[0].classList.add('md-tabs__item--active');
-      }
-    });
-  }
-
-  // ============================================================
-  //  Tab 点击（手动设置 active）
+  //  Tab 点击（保持 nav 交互感）
   // ============================================================
   if (tabs) {
     tabs.addEventListener('click', function (e) {
       var link = e.target.closest('.md-tabs__link');
       if (!link) return;
-
       var items = tabs.querySelectorAll('.md-tabs__item');
       for (var i = 0; i < items.length; i++) {
         items[i].classList.remove('md-tabs__item--active');
@@ -282,7 +252,6 @@
       if (item) item.classList.add('md-tabs__item--active');
     });
   }
-
   // ============================================================
   //  工具函数
   // ============================================================
