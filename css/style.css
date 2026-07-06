@@ -575,6 +575,15 @@ img {
   font-weight: 500;
 }
 
+.teacher-name {
+  color: var(--md-default-fg-color);
+  font-weight: 500;
+}
+
+.teacher-sep {
+  margin-right: 0.15rem;
+}
+
 /* ---- 参考教材 ---- */
 .textbooks {
   margin-bottom: 0.8rem;

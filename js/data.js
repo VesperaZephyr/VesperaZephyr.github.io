@@ -7,12 +7,10 @@
  *   nameEn    — 课程英文名（可选）
  *   grade     — 年级：大一 | 大二 | 大三 | 大四
  *   category  — 类别：基础课 | 核心课 | 选修课
- *   teacher   — 授课教师姓名
- *   teacherUrl — 教师个人主页 URL（可选，点击可跳转）
+ *   teachers  — 授课教师数组，每项 { name, url }，url 可选
  *   textbooks — 参考教材数组
  *   examScope — 考试范围说明（可选，非空时显示）
  *   exams     — 试题数组，每项 { year, title, url }
- *                year 用于分组，title 为 PDF 文件名（无后缀），url 为路径
  */
 
 const COURSES = [
@@ -25,8 +23,9 @@ const COURSES = [
     nameEn: 'Mathematical Analysis I',
     grade: '大一',
     category: '基础课',
-    teacher: '江龙',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '江龙', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社'
     ],
@@ -46,8 +45,9 @@ const COURSES = [
     nameEn: 'Advanced Algebra I',
     grade: '大一',
     category: '基础课',
-    teacher: '王登银',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '王登银', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
     ],
@@ -70,8 +70,9 @@ const COURSES = [
     nameEn: 'Mathematical Analysis II',
     grade: '大一',
     category: '基础课',
-    teacher: '张玉峰',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '张玉峰', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
     ],
@@ -93,8 +94,9 @@ const COURSES = [
     nameEn: 'Advanced Algebra II',
     grade: '大一',
     category: '基础课',
-    teacher: '王登银',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '王登银', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
     ],
@@ -119,8 +121,9 @@ const COURSES = [
     nameEn: 'Analytic Geometry',
     grade: '大一',
     category: '基础课',
-    teacher: '刘淑君',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '刘淑君', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《解析几何》(第四版) 吕林根、许子道 编，高等教育出版社'
     ],
@@ -149,8 +152,9 @@ const COURSES = [
     nameEn: 'Math Analysis & Algebra Practice',
     grade: '大一',
     category: '基础课',
-    teacher: '实践教学组',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '实践教学组', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学分析习题课讲义》 谢惠民 等，高等教育出版社',
       '《高等代数习思精解》 王登银 编，中国矿业大学出版社'
@@ -172,8 +176,9 @@ const COURSES = [
     nameEn: 'Mathematical Analysis III',
     grade: '大二',
     category: '核心课',
-    teacher: '张玉峰',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '张玉峰', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
     ],
@@ -193,8 +198,9 @@ const COURSES = [
     nameEn: 'Ordinary Differential Equations',
     grade: '大二',
     category: '核心课',
-    teacher: '陈兴成',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '陈兴成', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《常微分方程》(第四版) 王高雄 等 编，高等教育出版社'
     ],
@@ -214,8 +220,9 @@ const COURSES = [
     nameEn: 'Probability Theory',
     grade: '大二',
     category: '核心课',
-    teacher: '周圣武',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '周圣武', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
     ],
@@ -241,8 +248,9 @@ const COURSES = [
     nameEn: 'Mathematical Statistics',
     grade: '大二',
     category: '核心课',
-    teacher: '周圣武',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '周圣武', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《概率论与数理统计》(第四版) 盛骤 等 编，高等教育出版社'
     ],
@@ -266,8 +274,9 @@ const COURSES = [
     nameEn: 'Numerical Analysis',
     grade: '大二',
     category: '核心课',
-    teacher: '王海军',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '王海军', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数值分析》(第五版) 李庆扬 等 编，清华大学出版社'
     ],
@@ -293,8 +302,9 @@ const COURSES = [
     nameEn: 'Functions of Real Variables',
     grade: '大二',
     category: '核心课',
-    teacher: '朱凯',
-    teacherUrl: 'https://kzhu.net/',
+    teachers: [
+      { name: '朱凯', url: 'https://kzhu.net/' }
+    ],
     textbooks: [
       '《实变函数与泛函分析》(上册·实变函数) 曹广福 编，高等教育出版社',
       '《实变函数论》 周民强 编，北京大学出版社'
@@ -317,8 +327,9 @@ const COURSES = [
     nameEn: 'Complex Analysis',
     grade: '大二',
     category: '核心课',
-    teacher: '刘红彬',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '刘红彬', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《复变函数》(第五版) 钟玉泉 编，高等教育出版社'
     ],
@@ -338,8 +349,9 @@ const COURSES = [
     nameEn: 'Partial Differential Equations',
     grade: '大二',
     category: '核心课',
-    teacher: '刘红彬',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '刘红彬', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学物理方程》(第四版) 谷超豪 等 编，高等教育出版社'
     ],
@@ -356,8 +368,9 @@ const COURSES = [
     nameEn: 'Functional Analysis',
     grade: '大三',
     category: '核心课',
-    teacher: '朱凯',
-    teacherUrl: 'https://kzhu.net/',
+    teachers: [
+      { name: '朱凯', url: 'https://kzhu.net/' }
+    ],
     textbooks: [
       '《实变函数与泛函分析》(下册·泛函分析) 曹广福 编，高等教育出版社'
     ],
@@ -376,8 +389,9 @@ const COURSES = [
     nameEn: 'Abstract Algebra',
     grade: '大三',
     category: '核心课',
-    teacher: '徐思奥',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '徐思奥', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《近世代数基础》(修订本) 张禾瑞 编，高等教育出版社'
     ],
@@ -403,8 +417,9 @@ const COURSES = [
     nameEn: 'Topology',
     grade: '大三',
     category: '选修课',
-    teacher: '王林',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '王林', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《点集拓扑讲义》(第四版) 熊金城 编，高等教育出版社'
     ],
@@ -423,8 +438,9 @@ const COURSES = [
     nameEn: 'Differential Geometry',
     grade: '大三',
     category: '核心课',
-    teacher: '张玉峰',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '张玉峰', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《微分几何》(第四版) 梅向明、黄敬之 编，高等教育出版社'
     ],
@@ -441,8 +457,9 @@ const COURSES = [
     nameEn: 'Operations Research',
     grade: '大三',
     category: '核心课',
-    teacher: '王海军',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '王海军', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《运筹学》(第四版) 运筹学教材编写组 编，清华大学出版社'
     ],
@@ -459,13 +476,13 @@ const COURSES = [
     nameEn: 'Mathematical Modeling',
     grade: '大三',
     category: '选修课',
-    teacher: '陈太勇',
-    teacherUrl: 'https://math.cumt.edu.cn/',
+    teachers: [
+      { name: '陈太勇', url: 'https://math.cumt.edu.cn/' }
+    ],
     textbooks: [
       '《数学模型》(第五版) 姜启源 等 编，高等教育出版社'
     ],
     examScope: '[待补充]',
     exams: []
   }
-
 ];

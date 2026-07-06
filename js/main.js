@@ -93,14 +93,21 @@
       html += '  </div>';
 
       // 教师信息
-      html += '  <div class="teacher-info">';
-      html += '    <span class="teacher-label">授课教师：</span>';
-      if (c.teacherUrl) {
-        html += '    <a href="' + escapeAttr(c.teacherUrl) + '" target="_blank" class="teacher-link">' + escapeHtml(c.teacher) + '</a>';
-      } else {
-        html += '    <span>' + escapeHtml(c.teacher) + '</span>';
+      if (c.teachers && c.teachers.length > 0) {
+        html += '  <div class="teacher-info">';
+        html += '    <span class="teacher-label">授课教师：</span>';
+        for (var ti = 0; ti < c.teachers.length; ti++) {
+          if (ti > 0) {
+            html += '    <span class="teacher-sep">、</span>';
+          }
+          if (c.teachers[ti].url) {
+            html += '    <a href="' + escapeAttr(c.teachers[ti].url) + '" target="_blank" class="teacher-link">' + escapeHtml(c.teachers[ti].name) + '</a>';
+          } else {
+            html += '    <span class="teacher-name">' + escapeHtml(c.teachers[ti].name) + '</span>';
+          }
+        }
+        html += '  </div>';
       }
-      html += '  </div>';
 
       // 参考教材
       if (c.textbooks && c.textbooks.length > 0) {
