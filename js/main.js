@@ -143,40 +143,25 @@
       }
       html += '  </div>';
 
-      // 试题资源 — 按年份分组
+      // 试题 & 模拟卷 — 按类型分拆，各自按年份分组
       if (c.exams && c.exams.length > 0) {
-        // 按年份分组
-        var yearGroups = {};
+        var realExams = [];
+        var mockExams = [];
         for (var e = 0; e < c.exams.length; e++) {
-          var y = c.exams[e].year || '往年';
-          if (!yearGroups[y]) yearGroups[y] = [];
-          yearGroups[y].push(c.exams[e]);
-        }
-
-        // 年份排序：降序，往年放最后
-        var years = Object.keys(yearGroups).sort(function (a, b) {
-          if (a === '往年') return 1;
-          if (b === '往年') return -1;
-          return b.localeCompare(a);
-        });
-
-        html += '  <div class="exams-section">';
-        html += '    <div class="exams-section-title">📝 试题资源</div>';
-
-        for (var yi = 0; yi < years.length; yi++) {
-          var yearLabel = years[yi];
-          var groupExams = yearGroups[yearLabel];
-          html += '    <div class="exam-year-group">';
-          html += '      <span class="exam-year-label">' + escapeHtml(yearLabel) + '</span>';
-          html += '      <ul class="exam-list">';
-          for (var gi = 0; gi < groupExams.length; gi++) {
-            html += '        <li><a href="' + escapeAttr(groupExams[gi].url) + '" target="_blank" class="exam-link">' + escapeHtml(groupExams[gi].title) + '</a></li>';
+          var t = c.exams[e].title || '';
+          if (t.indexOf('模拟') !== -1 || t.indexOf('预测') !== -1) {
+            mockExams.push(c.exams[e]);
+          } else {
+            realExams.push(c.exams[e]);
           }
-          html += '      </ul>';
-          html += '    </div>';
         }
 
-        html += '  </div>';
+        if (realExams.length > 0) {
+          html += renderExamSection('📝 试题资源', realExams);
+        }
+        if (mockExams.length > 0) {
+          html += renderExamSection('📝 模拟卷', mockExams);
+        }
       }
 
       html += '</div>';
@@ -277,6 +262,43 @@
 
   function escapeAttr(str) {
     return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  /**
+   *  渲染试题/模拟卷栏目（按年份分组）
+   */
+  function renderExamSection(title, exams) {
+    var h = '  <div class="exams-section">';
+    h += '    <div class="exams-section-title">' + title + '</div>';
+
+    var yearGroups = {};
+    for (var i = 0; i < exams.length; i++) {
+      var y = exams[i].year || '往年';
+      if (!yearGroups[y]) yearGroups[y] = [];
+      yearGroups[y].push(exams[i]);
+    }
+
+    var years = Object.keys(yearGroups).sort(function (a, b) {
+      if (a === '往年') return 1;
+      if (b === '往年') return -1;
+      return b.localeCompare(a);
+    });
+
+    for (var yi = 0; yi < years.length; yi++) {
+      var yearLabel = years[yi];
+      var groupExams = yearGroups[yearLabel];
+      h += '    <div class="exam-year-group">';
+      h += '      <span class="exam-year-label">' + escapeHtml(yearLabel) + '</span>';
+      h += '      <ul class="exam-list">';
+      for (var gi = 0; gi < groupExams.length; gi++) {
+        h += '        <li><a href="' + escapeAttr(groupExams[gi].url) + '" target="_blank" class="exam-link">' + escapeHtml(groupExams[gi].title) + '</a></li>';
+      }
+      h += '      </ul>';
+      h += '    </div>';
+    }
+
+    h += '  </div>';
+    return h;
   }
 
   // ============================================================
