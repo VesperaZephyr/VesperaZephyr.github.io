@@ -422,7 +422,7 @@ const COURSES = [
     name: '微分几何',
     nameEn: 'Differential Geometry',
     grade: '大三',
-    category: '选修课',
+    category: '核心课',
     teacher: '张玉峰',
     teacherUrl: 'https://math.cumt.edu.cn/',
     textbooks: [
@@ -440,7 +440,7 @@ const COURSES = [
     name: '运筹学',
     nameEn: 'Operations Research',
     grade: '大三',
-    category: '选修课',
+    category: '核心课',
     teacher: '王海军',
     teacherUrl: 'https://math.cumt.edu.cn/',
     textbooks: [
@@ -466,41 +466,6 @@ const COURSES = [
     ],
     examScope: '',
     exams: []
-  },
-
-  // ============================================================
-  //  21. 高等概率论
-  // ============================================================
-  {
-    id: 'adv-probability',
-    name: '高等概率论',
-    nameEn: 'Advanced Probability Theory',
-    grade: '大四',
-    category: '选修课',
-    teacher: '周圣武',
-    teacherUrl: 'https://math.cumt.edu.cn/',
-    textbooks: [
-      '《概率论基础》(第三版) 李贤平 编，高等教育出版社'
-    ],
-    examScope: '',
-    exams: []
-  },
-
-  // ============================================================
-  //  22. 李群与李代数
-  // ============================================================
-  {
-    id: 'lie-groups',
-    name: '李群与李代数',
-    nameEn: 'Lie Groups and Lie Algebras',
-    grade: '大四',
-    category: '选修课',
-    teacher: '朱凯',
-    teacherUrl: 'https://kzhu.net/',
-    textbooks: [
-      '《李群基础》 项武义 编，高等教育出版社'
-    ],
-    examScope: '',
-    exams: []
   }
+
 ];
