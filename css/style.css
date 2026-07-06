@@ -320,6 +320,34 @@ img {
   }
 }
 
+/* ---------- 搜索框 ---------- */
+.md-search {
+  padding: 0 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.md-search__input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--md-text-font);
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-fg-color--lightest);
+  border: 1px solid transparent;
+  border-radius: 0.2rem;
+  outline: none;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+
+.md-search__input:focus {
+  background: var(--md-default-bg-color);
+  border-color: var(--md-accent-fg-color);
+}
+
+.md-search__input::placeholder {
+  color: var(--md-default-fg-color--lighter);
+}
+
 /* ---------- 导航样式 ---------- */
 .md-nav {
   padding: 0 0.6rem;

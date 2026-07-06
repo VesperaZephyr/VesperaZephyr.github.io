@@ -21,6 +21,26 @@
   // ---- 状态 ----
   var activeGrade = 'all';
   var activeCategory = 'all';
+  var searchKeyword = '';
+
+  // ============================================================
+  //  搜索功能
+  // ============================================================
+
+  var searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      searchKeyword = this.value.trim().toLowerCase();
+      // 清空年级/类别高亮
+      var allNavLinks = document.querySelectorAll('.md-nav__link--active');
+      for (var i = 0; i < allNavLinks.length; i++) {
+        allNavLinks[i].classList.remove('md-nav__link--active');
+      }
+      activeGrade = 'all';
+      activeCategory = 'all';
+      filterCourses();
+    });
+  }
 
   // ============================================================
   //  Sidebar section toggle (no-op for now)
@@ -88,7 +108,7 @@
       html += '    </div>';
       html += '    <div class="course-tags">';
       html += '      <span class="course-tag grade">' + escapeHtml(c.grade) + '</span>';
-      html += '      <span class="course-tag category">' + escapeHtml(c.category) + '</span>';
+      html += '      <span class="course-tag category">' + escapeHtml(c.categoryDisplay || c.category) + '</span>';
       html += '    </div>';
       html += '  </div>';
 
@@ -181,7 +201,11 @@
     var filtered = COURSES.filter(function (c) {
       var matchGrade = activeGrade === 'all' || c.grade === activeGrade;
       var matchCategory = activeCategory === 'all' || c.category === activeCategory;
-      return matchGrade && matchCategory;
+      var matchSearch = !searchKeyword ||
+        (c.name && c.name.toLowerCase().indexOf(searchKeyword) !== -1) ||
+        (c.nameEn && c.nameEn.toLowerCase().indexOf(searchKeyword) !== -1) ||
+        (c.teachers && c.teachers.some(function (t) { return t.name.toLowerCase().indexOf(searchKeyword) !== -1; }));
+      return matchGrade && matchCategory && matchSearch;
     });
     renderCards(filtered);
   }

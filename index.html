@@ -69,6 +69,12 @@
       </div>
 
       <ul class="md-nav__list">
+        <!-- 搜索框 -->
+        <li class="md-nav__item" style="margin-bottom:0.6rem;">
+          <div class="md-search">
+            <input type="text" class="md-search__input" id="searchInput" placeholder="搜索课程名称…" autocomplete="off">
+          </div>
+        </li>
         <!-- 年级筛选 -->
         <li class="md-nav__item">
           <div class="md-nav__link md-nav__link--section" onclick="toggleNavSection(event)">
@@ -115,7 +121,13 @@
               <a href="#courses" class="md-nav__link" data-filter="核心课" onclick="setFilter(this, 'category'); return false;">核心课</a>
             </li>
             <li class="md-nav__item">
+              <a href="#courses" class="md-nav__link" data-filter="专业必修课" onclick="setFilter(this, 'category'); return false;">专业必修课</a>
+            </li>
+            <li class="md-nav__item">
               <a href="#courses" class="md-nav__link" data-filter="选修课" onclick="setFilter(this, 'category'); return false;">选修课</a>
+            </li>
+            <li class="md-nav__item">
+              <a href="#courses" class="md-nav__link" data-filter="计算数学课组必修" onclick="setFilter(this, 'category'); return false;">计算数学课组必修</a>
             </li>
           </ul>
         </li>
