@@ -238,6 +238,33 @@
   });
 
   // ============================================================
+  //  Tab 激活状态（根据滚动位置）
+  // ============================================================
+
+  if (tabs) {
+    var tabLinks = tabs.querySelectorAll('.md-tabs__link');
+    var friendsSection = document.getElementById('friends');
+
+    window.addEventListener('scroll', function () {
+      if (!friendsSection || !tabLinks.length) return;
+
+      var scrollPos = window.scrollY + 100;
+      var friendsTop = friendsSection.offsetTop;
+
+      var items = tabs.querySelectorAll('.md-tabs__item');
+      for (var i = 0; i < items.length; i++) {
+        items[i].classList.remove('md-tabs__item--active');
+      }
+
+      if (scrollPos >= friendsTop) {
+        if (items.length >= 2) items[1].classList.add('md-tabs__item--active');
+      } else {
+        if (items.length >= 1) items[0].classList.add('md-tabs__item--active');
+      }
+    });
+  }
+
+  // ============================================================
   //  Tab 点击（保持 nav 交互感）
   // ============================================================
   if (tabs) {
