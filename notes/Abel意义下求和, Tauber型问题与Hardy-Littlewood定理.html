@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abel意义下求和, Tauber型问题与Hardy-Littlewood定理 — CUMT 数院电子资料库</title>
+<meta name="description" content="Abel求和 &gt;Definition 1(Abel求和): &gt;若@@IM0@@, 级数@@IM1@@收敛, 且@@IM2@@存在且有限, 则称级数@@IM3@@在Abel意义下可求和, 记作@@DM0@@">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css?v=20260827">
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic">Abel意义下求和, Tauber型问题与H…</span>
+        <span class="md-header__topic">数学笔记</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset note-article" id="main" style="margin-left:0;">
+<div class="page-intro">
+  <h1>Abel意义下求和, Tauber型问题与Hardy-Littlewood定理</h1>
+  <p>更新于 2025-09-13</p>
+  <div class="note-tags"><span class="note-tag">数学分析</span><span class="note-tag">全国大学生数学竞赛</span><span class="note-tag">数学</span></div>
+</div>
+<h1 id="abel求和">Abel求和</h1>
+
+<blockquote>
+  <p><strong>Definition 1(Abel求和):</strong> 
+  若$\forall x\in[0,1)$, 级数$\sum\limits_{n=0}^\infty a_nx^n$收敛, 且$\lim\limits_{x\to1^-}\sum\limits_{n=0}^\infty a_nx^n$存在且有限, 则称级数$\sum\limits_{n=0}^\infty a_n$在Abel意义下可求和, 记作$$
+\sum_{n=0}^\infty a_n=\lim_{x\to1^-}\sum_{n=0}^\infty a_nx^n\quad(A).
+$$</p>
+</blockquote>
+
+<p>给几个例子:
+<strong>Example 1:</strong> 设$a_n=(-1)^{n}$, 则$$
+\sum_{n=0}^\infty(-1)^n=\lim_{x\to1^-}\sum_{n=0}^\infty a_nx^n=\lim_{x\to1^-}\sum_{n=0}^\infty(-1)^nx^n=\lim_{x\to1^-}\frac1{1+x}=\frac12\quad(A).
+$$
+<strong>Example 2:</strong> 设$b_n=(-1)^{n}(n+1)$, 则$$
+\sum_{n=0}^\infty(-1)^n(n+1)=\lim_{x\to1^-}\sum_{n=0}^\infty b_nx^n=\lim_{x\to1^-}\sum_{n=0}^\infty(-1)^n(n+1)x^n=\lim_{x\to1^-}\frac1{(1+x)^2}=\frac14\quad(A).
+$$
+自然的问题是Abel意义下求和收敛的条件, 也就是下面要介绍的Tauber型问题. </p>
+
+<h1 id="tauber第一定理与tauber第二定理">Tauber第一定理与Tauber第二定理</h1>
+
+<blockquote>
+  <p><strong>Theorem 1(Tauber 第一定理):</strong> 
+  设$\sum\limits_{n=0}^\infty a_n=S\quad(A)$, 若$a_n=o\left(\frac1n\right)(n\to\infty)$, 则$\sum\limits_{n=0}^\infty a_n=S$. </p>
+</blockquote>
+
+<p><em>Proof</em>. $\forall x\in(0,1),\forall \varepsilon&gt;0,\exists N\in\mathbb{N}^*$, 当$n&gt;N$ 时, 有$n|a_n|\leq\varepsilon$, 因此有$$
+\begin{aligned}\varlimsup_{n\to\infty}\left|\sum_{k=0}^na_k-S\right|
+&amp;\leq\varlimsup_{n\to\infty}\left|\sum_{k=0}^n a_k-\sum_{n=0}^\infty a_nx^n\right|+\varlimsup_{n\to\infty}\left|\sum_{n=0}^\infty a_nx^n-S\right|
+\\&amp;\leq\varlimsup_{n\to\infty}\sum_{k=0}^n|a_k|(1-x^k)+\varlimsup_{n\to\infty}\sum_{k=n+1}^\infty|a_k|x^k+\varlimsup_{n\to\infty}\left|\sum_{n=0}^\infty a_nx^n-S\right|
+\\&amp;\leq\varlimsup_{n\to\infty}(1-x)\sum_{k=0}^nk|a_k|+\varlimsup_{n\to\infty}\sum_{k=n+1}^\infty\frac{\varepsilon}{k}x^k+\varlimsup_{n\to\infty}\left|\sum_{n=0}^\infty a_nx^n-S\right|\\&amp;\leq\varlimsup_{n\to\infty}(1-x)\sum_{k=0}^nk|a_k|+\varlimsup_{n\to\infty}\frac{\varepsilon}{n+1}\sum_{k=0}^\infty x^k+\varlimsup_{n\to\infty}\left|\sum_{n=0}^\infty a_nx^n-S\right|\end{aligned}
+$$
+只要取$x=1-\frac1n$就有$$
+\varlimsup_{n\to\infty}\left|\sum_{k=0}^na_k-S\right|\leq\varlimsup_{n\to\infty}\frac1n\sum_{k=0}^nk|a_k|+\varlimsup_{n\to\infty}\frac{\varepsilon n}{n+1}+\varlimsup_{n\to\infty}\left|\sum_{n=0}^\infty a_n\left(1-\frac1n\right)^n-S\right|\leq\varepsilon,
+$$故$\sum\limits_{n=0}^\infty a_n=S.\quad\square$</p>
+
+<p>下面我们还有Tauber第二定理, 也是所谓的小$o$Tauber定理. </p>
+
+<blockquote>
+  <p><strong>Theorem 2(Tauber第二定理, 小$o$Tauber定理)</strong>
+  设$\sum\limits_{n=0}^\infty a_n=S\quad(A)$, 若$\sum\limits_{k=1}^nka_k=o(n)$, 则$\sum\limits_{n=0}^\infty a_n=S$. </p>
+</blockquote>
+
+<p><em>Proof.</em> 令$b_n:=\dfrac1n\sum\limits_{k=1}^n ka_k$, 则$b_n=o(1)$, 注意到$nb_n-(n-1)b_{n-1}=na_n$, 即$a_n=b_n-b_{n-1}+\frac1nb_{n-1}$, 故只需证明$\sum\limits_{n=0}^\infty \frac{b_{n-1}}n$收敛, 注意$\frac{b_{n-1}}{n}=o\left(\frac1n\right)$, 故由Tauber第一定理得证. $\square$</p>
+
+<p>实际上, 只要$\{na_n\}$有界, Tauber第一定理就成立, 称作大$\mathcal O$ Tauber定理. 但这很有难度, 我们先介绍一个Hardy-Littlewood定理, 再由此导出大$\mathcal O$ Tauber定理. </p>
+
+<h1 id="hardy-littlewood定理">Hardy-Littlewood定理</h1>
+
+<blockquote>
+  <p><strong>Theorem 3(Hardy-Littlewood定理)</strong> 
+  设幂级数$f(x):=\sum\limits_{n=0}^\infty a_nx^n$的收敛半径为$1$, $a_n\geq0$, 若$\lim\limits_{x\to1^-}(1-x)f(x)=A\in(0,+\infty)$, 记$S_n:=\sum\limits_{k=0}^na_k$, 则$\dfrac{S_n}n\to A$. </p>
+</blockquote>
+
+<p>首先, 我们不妨设$A=1$. 先作一下尝试, 首先有自然放缩: $$
+x^nS_n\leq\sum_{k=0}^na_kx^k\leq\sum_{n=0}^\infty a_nx^n=f(x)\quad(0&lt;x&lt;1),
+$$取$x=\mathrm e^{-1/n}$, 对任给的$\varepsilon&gt;0,\exists N$, 当$n&gt;N$时, 成立$$
+\mathrm{e}^{-1}S_n\leq f\left(\mathrm e^{-1/n}\right)\leq\frac{1+\varepsilon}{1-\mathrm e^{-1/n}},
+$$于是$$
+\varlimsup_{n\to\infty}\frac{S_n}n\leq\mathrm e(1+\varepsilon)\varlimsup_{n\to\infty}\frac{1}{n\left(1-\mathrm e^{-1/n}\right)}=\mathrm e(1+\varepsilon).
+$$可以看出, 如果取$x=a^{-1/n}(1&lt;a&lt;e)$, 上极限可以得到改进到$\limsup\limits_{n\to\infty}\dfrac{S_n}n\leq a$. 
+另一边, 我们考虑将$f$放大, 考虑分段:$$
+\begin{aligned}f(x)&amp;=\sum_{n=0}^\infty a_nx^n=\sum_{n=0}^\infty(S_n-S_{n-1})x^n\\&amp;=(1-x)\sum_{n=0}^\infty S_nx^n\\&amp;=(1-x)\sum_{k=0}^n S_kx^k+(1-x)\sum_{k=n}^\infty S_kx^k\\&amp;\leq(1-x)S_n\sum_{k=0}^{n-1}x^k+a(1-x)\sum_{k=n}^\infty kx^k\\&amp;=S_n(1-x^n)+\frac{ax^n(n(1-x)+x)}{1-x},\end{aligned}
+$$任给$\varepsilon&gt;0$, 取$x=\mathrm e^{-1/n}$, 则有$$
+S_n\left(1-\mathrm e^{-1}\right)+an\left(1-\mathrm e^{-1/n}\right)+\frac{a\mathrm e^{-\frac{n+1}{n}}}{1-\mathrm e^{-1/n}}\geq f(x)\geq\frac{1-\varepsilon}{1-\,\mathrm e^{-1/n}},
+$$可以看出, 取下极限后也并没有很好的结果, 改进放缩手段似乎也不够. </p>
+
+<p>下面我们来证明Hardy-Littlewood定理, 分为好几步. </p>
+
+<p><em>Proof.</em> <strong>Step 1:</strong> 证明对于任意多项式$P$, 成立$$
+\lim_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^nP(x^n)=\int_0^1P(x)\,\mathrm dx.
+$$显然不失一般性, 只需要对$P(x)=x^k(k\geq1,k\in\mathbb N^*)$进行证明. 因此, 我们有$$
+\begin{aligned}\lim_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^nP(x^n)&amp;=\lim_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^{n+nk}\\&amp;=\lim_{x\to1^-}\frac{1-x}{1-x^{k+1}}\left(1-x^{k+1}\right)\sum_{n=0}^\infty a_nx^{n(1+k)}\\&amp;=\frac1{1+k}\lim_{x\to1^-}\left(1-x^{k+1}\right)f\left(x^{k+1}\right)\\&amp;=\frac1{k+1}\\&amp;=\int_0^1P(x)\,\mathrm dx.\end{aligned}
+$$
+<strong>Step 2:</strong> 构造神秘截断函数. 令$$
+\varphi(x):=\begin{cases}0,&amp;0\leq x&lt;\mathrm e^{-1};\\\dfrac1x,&amp;\mathrm e^{-1}\leq x\leq1.\end{cases}
+$$我们来证明$$
+\lim_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^n\varphi(x^n)=\int_0^1\varphi(x)\,\mathrm dx.
+$$Step 1中已经证明了对于多项式成立, 如果我们能对$\varphi(x)$进行多项式逼近, 那么证明就快结束了. 可惜$\varphi(x)$并不连续, 但它的间断点只有$1$个, 或许我们能够弱化条件, 得到逼近的多项式. </p>
+
+<p><strong>Step 3:</strong> 构造多项式逼近. 设$x\in(0,1)$, 考虑$\phi\in C\left([0,1]\setminus\{c\}\right)$, 不失一般性, 令$f(c^-)&lt;f(c^+)=f(c)$, 我们断言, 任给$\varepsilon&gt;0$, 存在多项式$P_1,P_2$, 使得$$
+\int_0^1(P_2-\phi)&lt;\varepsilon,\int_0^1(\phi-P_1)&lt;\varepsilon.
+$$
+首先, 取$\delta_1&gt;0$, 使得当$x\in(c-\delta_1,c)$时, 成立$$
+|\phi(c-\delta_1)-\phi(x)|&lt;\frac{\varepsilon}4.
+$$下面我们构造一个连续函数$g$. 令$\omega:=\sup\left\{|\varphi(c)-\varphi(x)|\mid x\in(c-\delta_1,c)\right\}$. 在一个小邻域内, 我们想逼近得尽可能好, 则需要让一段连续函数尽可能靠近$\phi(c)$, 如果$\phi$做不到, 我们就用直线代替. 取$\delta&lt;\min\left\{\delta_1,\dfrac{\varepsilon}{4\omega},c,1-c\right\}$, 令$$
+g(x):=\begin{cases}\phi(x),&amp;x\in[0,c-\delta]\cup[c,1];\\\max\left\{\ell(x),\phi(x)\right\},&amp;x\in(c-\delta,c).\end{cases}
+$$为保证连续性, 我们要求线性函数$\ell(x)$满足$\ell(c-\delta)=\phi(c-\delta),\ell(c)=\phi(c)$. 此时就有$g\in C[0,1]$, 且$\phi\leq g$. 于是由Weierstrass逼近定理, 存在多项式$P_2$, 使得$$
+|g(x)-P_2(x)|&lt;\frac{\varepsilon}2\quad (0\leq x\leq1).
+$$同理, 令$$
+h(x):=\begin{cases}\phi(x),&amp;x\in[0,c)\cup[c+\delta,1];\\\min\left\{l(x),\phi(x)\right\},&amp;x\in[c,c+\delta).\end{cases}
+$$为保证连续性, 我们要求线性函数$l(x)$满足$l(c+\delta)=\phi(c+\delta),l(c^-)=\phi(c^-)$. 此时就有$h\in C[0,1]$, 且$\phi\geq h$. 于是由Weierstrass逼近定理, 存在多项式$P_1$, 使得$$
+|h(x)-P_1(x)|&lt;\frac{\varepsilon}2\quad (0\leq x\leq1).
+$$
+从$g$的构造可以看出, $$
+\int_0^1(g-\varphi)=\int_{c-\delta}^c(g-\varphi).
+$$进一步, 令$A:=\{x\in(c-\delta,c)\mid \ell(x)=g(x)\}, B:=(c-\delta,c)\setminus A$, 则$$
+\begin{aligned}\int_{c-\delta}^c(g-\varphi)&amp;=\int_A(\ell-\phi)\\&amp;\leq\int_{c-\delta}^c|\ell-\phi|\\&amp;\leq\int_{c-\delta}^c\left(\left|\ell(x)-\phi(c-\delta)\right|+\left|\phi(c-\delta)-\phi(x)\right|\right)\,\mathrm dx\\&amp;\leq \omega\delta+\frac{\varepsilon}4&lt;\frac{\varepsilon}2.\end{aligned}
+$$由此, $$
+\int_0^1(\phi-P_2)=\int_0^1(\phi-g)+\int_0^1(g-P_2)&lt;\frac{\varepsilon}2+\frac{\varepsilon}2=\varepsilon.
+$$同理可证明, $$
+\int_0^1(P_1-\phi)&lt;\varepsilon.
+$$
+<strong>Step 4:</strong> 利用多项式逼近.
+由Step 3, 任给$\varepsilon&gt;0$, 存在$\varepsilon&gt;0$, 成立$$
+P_1(x)-\frac{\varepsilon}2\leq h(x)\leq\varphi(x)\leq g(x)\leq P_2(x)+\frac{\varepsilon}2,
+$$且$$
+\int_0^1(P_2-\varphi)&lt;\varepsilon,\int_0^1(\varphi-P_1)&lt;\varepsilon.
+$$由$a_n\geq0$, 我们有$$
+\begin{aligned}\varlimsup_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^n\varphi\left(x^n\right)&amp;\leq\varlimsup_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^nP_2\left(x^n\right)+\frac{\varepsilon}2\\&amp;=\int_0^1P_2(x)\,\mathrm dx+\frac{\varepsilon}2\\&amp;&lt;\int_0^1\varphi(x)\,\mathrm dx+\frac{3\varepsilon}2.\end{aligned}
+$$另一方面, $$
+\begin{aligned}\varliminf_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^n\varphi\left(x^n\right)&amp;\geq\varliminf_{x\to1^-}(1-x)\sum_{n=0}^\infty a_nx^nP_1\left(x^n\right)-\frac{\varepsilon}2\\&amp;=\int_0^1P_1(x)\,\mathrm dx+\frac{\varepsilon}2\\&amp;&gt;\int_0^1\varphi(x)\,\mathrm dx-\frac{3\varepsilon}2.\end{aligned}
+$$得证. </p>
+
+<p><strong>Step 5:</strong> 取一个子列完成证明. 取$x=\mathrm e^{-1/N}$, 注意到$n&gt;N$时, $\mathrm e^{-n/N}&lt;\frac1{\mathrm e}$, 此时$\varphi\left(\mathrm e^{-n/N}\right)=0$, 故有$$
+\begin{aligned}1&amp;=\int_0^1\varphi(x)\,\mathrm dx\\&amp;=\lim_{N\to\infty}\left(1-\mathrm e^{-1/N}\right)\sum_{n=0}^\infty a_n\mathrm e^{-1}\varphi(\mathrm e^{-N/n})\\&amp;=\lim_{N\to\infty}\left(1-\mathrm e^{-1/N}\right)\sum_{n=0}^Na_n\\&amp;=\lim_{N\to\infty}\frac1N\sum_{n=0}^Na_n=1,\end{aligned}
+$$证毕! $\blacksquare$</p>
+
+<h1 id="大im81tauber定理">大$\mathcal O$Tauber定理</h1>
+
+<blockquote>
+  <p><strong>Theorem 4(大$\mathcal O$Tauber定理)</strong>
+  设$\sum\limits_{n=0}^\infty a_n=S\quad(A)$, 若$\{na_n\}$有界, 则$\sum\limits_{n=0}^\infty a_n=S$. </p>
+</blockquote>
+
+<p>先来介绍一个引理:</p>
+
+<blockquote>
+  <p><strong>Lemma:</strong> 设$f\in C^2(0,1)$, 且有$\lim\limits_{x\to1^-}f(x)=0$, 并且$\exists M&gt;0$, 使得$(1-x)^2|f''(x)|\leq M(\forall x\in(0,1))$, 则有$\lim\limits_{x\to1^-}(1-x)f'(x)=0$.  </p>
+</blockquote>
+
+<p><em>Proof.</em> 由Taylor公式, 有$$
+f(u)=f(x)+f'(x)(u-x)+\frac12f''(\xi)(u-x)^2\quad(\forall x,u\in(0,1)),
+$$其中$\xi$介于$u,x$之间. 对$0&lt;\varepsilon&lt;\frac12$, 取$u=x+\varepsilon(1-x)$, 则有$$
+f(u)-f(x)=\varepsilon(1-x)f'(x)+\frac12\varepsilon^2f''\left(x+\theta\varepsilon(1-x)\right)(1-x)^2\quad(0&lt;\theta&lt;1).
+$$
+令$x\to1^-$, 我们有$$
+0=\lim_{x\to1^-}\left(\varepsilon(1-x)f'(x)+\frac12\varepsilon^2f''\left(x+\theta\varepsilon(1-x)\right)(1-x)^2\right),
+$$
+于是又存在$\varepsilon'&gt;0$, 当$x$充分接近$1$时, 成立$$
+\begin{aligned}(1-x)|f'(x)|&amp;\leq\varepsilon'+\frac12\varepsilon|f''(x+\theta\varepsilon(1-x))|(1-x)^2\\&amp;\leq\varepsilon'+\frac{M\varepsilon}{(\theta\varepsilon-1)^2},\end{aligned}
+$$由$\varepsilon',\varepsilon$的任意性即得$\lim\limits_{x\to1^-}(1-x)f'(x)=0$. $\square$</p>
+
+<p>现在我们回到大$\mathcal{O}$ Tauber定理的证明. 
+<em>Proof.</em> 令$f(x):=\sum\limits_{n=0}^\infty a_nx^n-S$, 则$\lim\limits_{x\to1^-}f(x)=0$. 设$n|a_n|\leq M$, 则对$\forall x\in(0,1)$, 有$$
+\begin{aligned}(1-x)^2|f''(x)|&amp;=(1-x)^2\left|\sum\limits_{n=2}^\infty n(n-1)a_nx^n\right|\\&amp;\leq(1-x)^2\sum_{n=2}^\infty n(n-1)|a_n|x^n\\&amp;\leq(1-x)^2M\sum_{n=2}^\infty(n-1)x^n=M.\end{aligned}
+$$于是由Lemma知$\lim\limits_{x\to1^-}(1-x)f'(x)=0$, 即$$
+\lim\limits_{x\to1^-}(1-x)\sum_{n=1}^\infty na_nx^n=0.
+$$注意到$$
+\lim_{x\to1^-}(1-x)\left(\frac1{1-x}-\frac1M\sum_{n=1}^\infty na_nx^n\right)=1,
+$$令$$
+F(x):=\frac1{1-x}-\frac1M\sum_{n=1}^\infty na_nx^n=\sum_{n=1}^\infty \left(1-\frac{na_n}{M}\right)x^{n-1},
+$$则由Hardy-Littlewood定理3, 我们有$$
+\frac1n\sum\limits_{k=1}^n\left(1-\frac{ka_k}M\right)\to1,
+$$即$\dfrac1n\sum\limits_{k=1}^nka_k\to0$, 再由Tauber第二定理即证. $\blacksquare$ </p>
+
+<h1 id="fourier级数在abel求和意义下的收敛性">Fourier级数在Abel求和意义下的收敛性</h1>
+
+<p>最后我们来介绍Fourier级数在Abel求和意义下的收敛性, 参考Stein的<em>Fourier Analysis-An Introduction</em>. </p>
+
+<blockquote>
+  <p><strong>Theorem 5</strong> 圆上可积函数的Fourier级数在每个连续点处都是 Abel 可求和的，且其 Abel 和等于函数 $f$ 在该点的值. 此外，如果 $f$ 在圆上连续，则 $f$ 的Fourier级数在 Abel 求和意义下一致收敛到 $f$. </p>
+</blockquote>
+
+<p>这个定理的证明也比较复杂, 需要很多前置内容, 我们就不详细展开证明了. </p>
+
+<h1 id="参考">参考</h1>
+
+<p>[1] 梅加强, 数学分析(第二册).
+[2] W. J. Kaczor, M. T. Nowak, Problems in Mathematical Analysis II: Continuity and Differentiation.
+[3] Stein, Fourier Analysis-An Introduction. </p>
+
+        <nav class="note-footer">
+          <a href="/notes.html">&laquo; 返回数学笔记列表</a>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="../js/theme.js?v=20260827"></script>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Littlewood三原则 — CUMT 数院电子资料库</title>
+<meta name="description" content="Littlewood三原则是实分析中最基本的定理。">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css?v=20260827">
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic">Littlewood三原则</span>
+        <span class="md-header__topic">数学笔记</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset note-article" id="main" style="margin-left:0;">
+<div class="page-intro">
+  <h1>Littlewood三原则</h1>
+  <p>更新于 2026-06-12</p>
+  
+</div>
+<p>Littlewood三原则是实分析中最基本的定理。</p>
+
+<ol>
+<li>每个可测集几乎是一些区间的有限并。见定理\ref{thm:approximation of Lebesgue-Stieltjes measure}。</li>
+<li>每个可测函数几乎是连续的。见Lusin定理\ref{thm:Lusin's theorem}。</li>
+<li>每个可测函数收敛列几乎是一致收敛的。见Egoroff定理\ref{thm:Egoroff's theorem}。</li>
+</ol>
+
+<p><strong>引理 (函数不收敛点集的刻画).</strong> \label{lem:characterization of the set of points where a sequence of functions does not converge}
+设 $\{f_n\}_{n=1}^\infty$ 和 $f$ 是 $E$ 上的有限值函数。给定一正数列 $\varepsilon_k \searrow 0$，则：
+$$
+
+\{x\in E: f_n(x) \not\to f(x)\} = \bigcup_{k=1}^{\infty} \bigcap_{N=1}^{\infty} \bigcup_{n=N}^{\infty} \{x \in E : |f_n(x) - f(x)| \ge \varepsilon_k \}.
+
+$$</p>
+
+<p><em>证明.</em> 注意到
+$$
+
+\bigcup_{k=1}^{\infty} \bigcap_{N=1}^{\infty} \bigcup_{n=N}^{\infty} \left\{ x \in E : \left| f_n(x) - f(x) \right| \ge \varepsilon_k \right\}
+\iff \exists \varepsilon_k, \forall N, \exists n &gt; N, \text{ 使得 } \left| f_n(x) - f(x) \right| \ge \varepsilon_k.
+
+$$
+证毕。</p>
+
+<p><strong>定理 (Egoroff定理, Littlewood第三原则).</strong> \label{thm:Egoroff's theorem}
+设 $\mu(X) &lt; \infty$，且 $f_1, f_2, \cdots$ 与 $f$ 是 $X$ 上的复值可测函数，满足 $f_n \to f$ 几乎处处成立。则对任意 $\varepsilon &gt; 0$，存在 $E \subseteq X$，使得 $\mu(E) &lt; \varepsilon$，且在 $E^\complement$ 上 $f_n$ 一致收敛到 $f$。</p>
+
+<p><em>证明.</em> 对 $k, n \in \mathbb{N}$，令
+$$
+
+E_n(k) := \bigcup_{m=n}^{\infty} \bigl\{x : |f_m(x) - f(x)| \ge k^{-1}\bigr\}.
+
+$$
+注意对固定的 $k$，$E_n(k)$ 是递降集合列，结合 $\mu(X)&lt;\infty$ 和测度的从上连续性（定理\ref{thm:basic properties of measure}的\eqref{item 4:thm:basic properties of measure}）知
+$$
+
+\lim_{n\to\infty}\mu(E_n(k))=\mu\left(\bigcap_{n=1}^\infty E_n(k)\right).
+
+$$
+由引理\ref{lem:characterization of the set of points where a sequence of functions does not converge}和 $f_n\to f$ a.e. 知 $\mu\left(\bigcup\limits_{k=1}^\infty\bigcap\limits_{n=1}^\infty E_n(k)\right)=0$，从而 $\mu\left(\bigcap\limits_{n=1}^\infty E_n(k)\right)=0$。于是存在足够大的 $n_k$，使得 $\mu(E_{n_k}(k)) &lt; \varepsilon 2^{-k}$。现在置 $E := \bigcup_{k=1}^{\infty} E_{n_k}(k)$。则 $\mu(E) \leq \sum\limits_{k=1}^\infty \mu(E_{n_k}(k)) &lt; \varepsilon$，且对 $n &gt; n_k$ 及 $x \notin E$，有 $|f_n(x) - f(x)| &lt; k^{-1}$。因此，$f_n$ 在 $E^\complement$ 上一致收敛到 $f$。证毕。</p>
+
+<p><em>注记.</em> 如果集合 $X$ 赋予了一定的拓扑结构，则在 Egoroff 定理中，可以要求 $E$ 为开集或闭集。事实上，由定理\ref{thm:approximation of Lebesgue-Stieltjes measure}，存在开集 $U$ 使得 $E\subseteq U$ 且 $\mu(U\setminus E)&lt;\varepsilon$，从而 $U^\complement\subseteq E^\complement$ 且 $\mu(U^\complement)\leq \mu(E^\complement)+\varepsilon$。同样，存在闭集 $F$ 使得 $F\subseteq E$ 且 $\mu(E\setminus F)&lt;\varepsilon$，从而 $F^\complement\supseteq E^\complement$ 且 $\mu(F^\complement)\leq \mu(E^\complement)+\varepsilon$。</p>
+
+<p>下面我们探讨一下 Egoroff 定理的条件，给出一些反例。</p>
+
+<p><strong>例 (Egoroff定理的结论不能加强为除掉一个测度为零的集外，$\{f_n\}$ 一致收敛于 $f$).</strong></p>
+
+<ol>
+<li><p>考察
+$$
+
+   f_n(x) = x^n\ (0 \le x \le 1), \quad f(x) = 0\ (0 \le x &lt; 1).
+   
+$$
+则在 $[0,1]$ 上 $f_n(x)$ 点收敛于 $f(x)$ 而非一致收敛于 $f(x)$。但在舍去一个测度可任意小的正测集（如 $(1-\delta,1]$）后，$f_n(x)$ 在余下点集上一致收敛于 $f(x)$。</p></li>
+<li><p>取 $E = [0,1]$，令
+$$
+
+   f_n(x) :=
+   \begin{cases}
+   0, &amp; x = 0,\ 1/n \le x \le 1, \\
+   1, &amp; 1/(n+2) \le x &lt; 1/(n+1), \\
+   \text{线性}, &amp; 0 &lt; x &lt; 1/(n+2),\ 1/(n+1) \le x &lt; 1/n
+   \end{cases}
+   
+$$
+显然，对每个 $n$，$f_n$ 在 $E$ 上连续，且 $\{f_n\}$ 在 $E$ 上处处收敛于函数 $f \equiv 0$。我们断言，不存在测度为零的集 $N \subseteq E$，使 $\{f_n\}$ 在 $E \setminus N$ 上一致收敛于零。事实上，假若不然，即存在具有上述性质的测度为零的集 $N$，那么 $m(E \setminus N) = 1$。容易证明，这时 $x = 0$ 必为 $E \setminus N$ 的聚点。因为如果 $x = 0$ 是 $E \setminus N$ 的孤立点，那么必有 $\delta &gt; 0$ 使 $(0,\delta) \subseteq N$，这与 $mN = 0$ 发生矛盾。由于 $x = 0$ 是 $E \setminus N$ 的聚点，因而存在 $x_n \in E \setminus N,\ n = 1,2,\cdots$，使 $\lim_{n \to \infty} x_n = 0$。于是，对任意的 $N &gt; 0$，必有 $n &gt; N$，使 $0 &lt; x_n &lt; 1/(N+1)$。因而必有整数 $k \ge 0$，使 $1/(N+k+2) \le x_n &lt; 1/(N+k+1)$。据函数 $f$ 的定义，有
+$$
+
+   f_{N+k}(x_n) = 1,\quad x_n \in E \setminus N.
+   
+$$
+这与 $\{f_n\}$ 在 $E \setminus N$ 上一致收敛于零发生矛盾。因此不存在测度为零的集 $N \subseteq E$，使 $\{f_n\}$ 在 $E \setminus N$ 上一致收敛于零。</p></li>
+</ol>
+
+<p><strong>例 (Egoroff定理中，不能去掉 $\mu(X)&lt;\infty$).</strong>
+取 $X = (-\infty, +\infty)$，并令
+$$
+
+f_n(x) =
+\begin{cases}
+0, &amp; -n \le x \le n, \\
+1, &amp; x \le -(n+1),\ x \ge n+1, \\
+\text{线性}, &amp; -(n+1) \le x \le -n,\ n \le x \le n+1.
+\end{cases}
+
+$$
+易见，$f_n$ 在 $X$ 上连续且处处收敛于 $f \equiv 0$。取 $\delta = 1$ 及可测集 $E\ (m(E) &lt; 1)$。由 $f_n$ 的定义可知，存在 $x_n \in X_\delta = X \setminus E$，使 $f_n(x_n) = 1$。足见 $\{f_n\}$ 在 $X_\delta$ 上不一致收敛于 $f$。</p>
+
+<p><strong>例 (Egoroff定理中，不能去掉可测性条件).</strong>
+设 $A_m\ (m = 1,2,\cdots)$ 是第七章例 15 中的 $[0,1]$ 内的不可测集，其中 $m_*(A_m) = m_*(A_n),\ m^*(A_m) = m^*(A_n),\ n,m$ 为任意的正整数。在 $\bigcup_{m=1}^\infty A_m$ 上定义函数序列 $\{f_n\}$ 如下：
+$$
+
+f_n(x) =
+\begin{cases}
+1, &amp; x \in A_n, \\
+0, &amp; x \in \left(\bigcup_{m=1}^\infty A_m \setminus A_n\right).
+\end{cases}
+
+$$
+任取 $x_0 \in \bigcup_{m=1}^\infty A_m$，则 $x_0$ 必属于某个 $A_{n_0}$。据 $f_n$ 的定义，当 $n$ 充分大后，$f_n(x_0) = 0$，可见 $\{f_n\}$ 在 $\bigcup_{m=1}^\infty A_m$ 上处处收敛于函数 $f \equiv 0$。</p>
+
+<p>现取 $0 &lt; \varepsilon &lt; m^*(A_n)$ 及任意可测集 $S,\ mS &lt; \varepsilon$。于是 $S \supset A_n$ 对任何正整数 $n$ 均不能成立。换句话说，存在 $x \in (\bigcup_{m=1}^\infty A_m) \setminus S$ 使得 $f_n(x) = 1$（$x$ 可能随 $n$ 而变动）。由此可知，$\{f_n\}$ 在 $(\bigcup_{m=1}^\infty A_m) \setminus S$ 上并不一致收敛于 $f \equiv 0$。由于 $S$ 是任取的可测集，因而对于上面的函数序列 $\{f_n\}$，Egoroff定理不成立。</p>
+
+<p><strong>例 (Egoroff定理的函数列不能加强到任意指标集的函数族).</strong>
+一族函数 $\{f_t(x)\}(t \ge 2)$，对每一固定的 $t$，它是 $x$ 的可测函数，而对每一固定的 $x$，它是 $t$ 的可测函数，且 $\lim_{t \to +\infty} f_t(x) = 0$，但 $\{f_t(x)\}$ 并不近一致收敛。设 $W \subseteq [0,1/2]$ 是不可测集，令
+$$
+
+J = [0,1] \times [2,+\infty),\quad D_n = \{(x,n+x): 0 \le x \le 1\},\quad (n = 1,2,\cdots),
+
+$$
+并作函数 $f: J \to \{0,1\}$：
+$$
+
+f(x,y) =
+\begin{cases}
+1, &amp; x \in W + \{1/n\},\ (x,y) \in D_n,\ n \ge 2, \\
+0, &amp; \text{其他},
+\end{cases}
+
+$$
+则有 $\lim_{y \to \infty} f(x,y) = 0$，而 Egoroff 定理的结论不成立。</p>
+
+<p><strong>定理 (Lusin定理, Littlewood第二原则).</strong> \label{thm:Lusin's theorem}
+设 $\mu$ 是 $(\mathbb{R}, \mathcal{M})$ 上的 Lebesgue-Stieltjes 测度。若 $f: \mathbb{R} \to \mathbb{R}$ 是 $\mathcal{M}$-可测函数，且 $A \subseteq \mathbb{R}$ 满足 $\mu(A) &lt; \infty$，则对任意 $\varepsilon &gt; 0$，存在紧集 $K \subseteq A$ 使得 $\mu(A \setminus K) &lt; \varepsilon$ 且 $f$ 在 $K$ 上连续。</p>
+
+<p><em>证明（使用Egoroff定理）.</em> 由\ref{pro:Lebesgue-Stieltje measure with continous function series converges a.e.}，存在连续函数序列 $\{g_n\}_{n=1}^\infty$ 在 $A$ 上几乎处处收敛到 $f$。根据 Egoroff 定理\ref{thm:Egoroff's theorem}，存在 $E \subseteq A$ 使得 $\mu(A \setminus E) &lt; \varepsilon/2$ 且 $\{g_n\}$ 在 $E$ 上一致收敛到 $f$。已知 $\mu(E) &lt; \infty$，故存在紧集 $K \subseteq E$ 使得 $\mu(E \setminus K) &lt; \varepsilon/2$。而紧集上连续函数的一致极限是连续的，因此 $f|_K$ 连续。证毕。</p>
+
+<p><em>证明（不使用Egoroff定理，来自\cite{feldman1981lusin}）.</em>
+取实数集 $\mathbb{R}$ 中开集的一个可数基 $\{U_j\}_{j=1}^\infty$。对每个 $j=1,2,\cdots$，取包含 $f^{-1}(U_j)$ 的开集 $U^j$，使得 $|U^j \setminus f^{-1}(U_j)| &lt; \varepsilon / 2^j$。令
+$$
+
+F_{\varepsilon}:=\bigcup_{j=1}^{\infty}\left(U^j \setminus f^{-1}(U_j)\right),
+
+$$
+显然有 $|F_\varepsilon|&lt;\varepsilon$。我们断言 $g=f|_{E\setminus F_\varepsilon}$ 是连续的。为此，先证明如下等式：
+\begin{equation}\label{eq:preimage of U j under g}
+    g^{-1}(U<em>j) = U^j \cap \left(E\setminus F</em>\varepsilon\right).
+\end{equation}
+若 $U$ 是 $\mathbb{R}$ 中的开集，则存在正整数集的子集 $M$，使得 $U=\bigcup_{j \in M} U_j$。因此由等式\eqref{eq:preimage of U j under g}可得
+$$
+
+g^{-1}(U)=\left(\bigcup_{j \in M} U^j\right) \cap \left(E\setminus F_\varepsilon\right),
+
+$$
+该集合是 $E\setminus F_\varepsilon$ 中的开集，故 $g$ 为连续函数。</p>
+
+<p>下面证明等式\eqref{eq:preimage of U j under g}。显然有
+$$
+
+g^{-1}(U_j) \subseteq U^j \cap \left(E\setminus F_\varepsilon\right),
+
+$$
+另一方面，
+$$
+
+\begin{aligned}
+U^j \cap \left(E\setminus F_\varepsilon\right) &amp;\subseteq U^j \cap \left(E\setminus \left(U^j \setminus f^{-1}(U_j)\right)\right) \\
+&amp;= U^j \cap E \cap \left(U^j \setminus f^{-1}(U_j)\right)^\complement \\
+&amp;= U^j \cap E \cap \left( (U^j)^\complement \cup f^{-1}(U_j) \right) \\
+&amp;= E \cap U^j \cap f^{-1}(U_j) \\
+&amp;= f^{-1}(U_j).
+\end{aligned}
+
+$$
+将首尾两端的集合与 $E\setminus F_\varepsilon$ 作交，可得
+$$
+
+U^j \cap \left(E\setminus F_\varepsilon\right) \subseteq g^{-1}(U_j)
+
+$$
+由此等式\eqref{eq:preimage of U j under g}得证。证毕。</p>
+
+<p><em>注记.</em> 若 $f$ 的值域是 $C_2$ 空间（即第二可数），定义域是装备了测度 $\mu$ 的拓扑空间，且满足如下正则性条件：对任意可测集 $A$ 和 $\delta&gt;0$，存在覆盖 $A$ 的开集 $U$ 使得 $\mu(U\setminus A)&lt;\delta$，则本证明依然成立。</p>
+
+<p>此外，若 $f$ 的定义域满足：任意可测集都存在闭集从内部逼近，则可将 $f$ 进一步限制在该逼近闭集上，且 $f$ 在其上连续。这与文献中常见的 Lusin 定理表述一致，即要求 $E\setminus F_\varepsilon$ 为闭集。</p>
+
+        <nav class="note-footer">
+          <a href="/notes.html">&laquo; 返回数学笔记列表</a>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="../js/theme.js?v=20260827"></script>
+
+</body>
+</html>

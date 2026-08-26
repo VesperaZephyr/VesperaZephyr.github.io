@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CUMT 数院电子资料库</title>
+<meta name="description" content="中国矿业大学数学学院核心课程资源共享平台: 历年试题、期末复习、平时资料与教材推荐">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20260827">
 </head>
 <body>
 
@@ -35,6 +38,9 @@
         <span class="md-header__topic">试题 · 复习 · 教材</span>
       </div>
     </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
     <div class="md-header__source">
       <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
@@ -48,6 +54,9 @@
   <ul class="md-tabs__list">
     <li class="md-tabs__item md-tabs__item--active">
       <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
     </li>
     <li class="md-tabs__item">
       <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
@@ -65,71 +74,61 @@
         <span class="md-nav__icon md-icon">
           <svg viewBox="0 0 24 24"><path d="M14 6v2h6v14H4V6h2V4c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v2h4M8 6h8V4H8v2M6 20h12V10H6v10z"/></svg>
         </span>
-        筛选器
+        课程体系
       </div>
 
       <ul class="md-nav__list">
         <!-- 搜索框 -->
         <li class="md-nav__item" style="margin-bottom:0.6rem;">
           <div class="md-search">
-            <input type="text" class="md-search__input" id="searchInput" placeholder="搜索课程名称…" autocomplete="off">
+            <input type="text" class="md-search__input" id="searchInput" placeholder="搜索课程 / 教师…" autocomplete="off">
           </div>
         </li>
-        <!-- 年级筛选 -->
         <li class="md-nav__item">
-          <div class="md-nav__link md-nav__link--section" onclick="toggleNavSection(event)">
-            <span class="md-nav__icon md-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 3C7.58 3 4 4.79 4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7c0-2.21-3.58-4-8-4m0 2c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2M6 10.81c.62.36 1.3.62 2 .81v5.13c-.7-.19-1.38-.45-2-.81v-5.13m14 .43c.62-.31 1.3-.55 2-.77v5.13c-.7.19-1.38.45-2 .81v-5.17m-8 .37c.62.19 1.3.31 2 .31v5c-.7 0-1.38-.12-2-.31v-5m4 .2c.7.08 1.38.22 2 .38v5.13c-.62-.16-1.3-.3-2-.38v-5.13z"/></svg>
-            </span>
-            年级
-          </div>
-          <ul class="md-nav__list" id="gradeFilter">
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link md-nav__link--active" data-filter="all" onclick="setFilter(this, 'grade'); return false;">全部</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="大一" onclick="setFilter(this, 'grade'); return false;">大一</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="大二" onclick="setFilter(this, 'grade'); return false;">大二</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="大三" onclick="setFilter(this, 'grade'); return false;">大三</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="大四" onclick="setFilter(this, 'grade'); return false;">大四</a>
-            </li>
-          </ul>
+          <a href="#courses" class="md-nav__link md-nav__link--active" data-filter="all" onclick="setFilter(this); return false;">全部课程 <span class="md-nav__count"></span></a>
+        </li>
+      </ul>
+
+      <ul class="md-nav__list" id="groupFilter">
+        <li class="md-nav__group">专业大类基础课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业大类基础课程::专业大类基础必修课程" onclick="setFilter(this); return false;">必修课程 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业大类基础课程::专业大类基础实践课程" onclick="setFilter(this); return false;">实践课程 <span class="md-nav__count"></span></a>
         </li>
 
-        <!-- 类别筛选 -->
-        <li class="md-nav__item" style="margin-top: 0.8rem;">
-          <div class="md-nav__link md-nav__link--section" onclick="toggleNavSection(event)">
-            <span class="md-nav__icon md-icon">
-              <svg viewBox="0 0 24 24"><path d="M11.5 20l4.86-4.86c.3-.3.48-.7.48-1.14s-.18-.84-.48-1.14L11.5 8 10 9.5l4.86 4.86L10 19.22 11.5 20z"/></svg>
-            </span>
-            类别
-          </div>
-          <ul class="md-nav__list" id="categoryFilter">
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link md-nav__link--active" data-filter="all" onclick="setFilter(this, 'category'); return false;">全部</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="基础课" onclick="setFilter(this, 'category'); return false;">基础课</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="核心课" onclick="setFilter(this, 'category'); return false;">核心课</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="专业必修课" onclick="setFilter(this, 'category'); return false;">专业必修课</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="选修课" onclick="setFilter(this, 'category'); return false;">选修课</a>
-            </li>
-            <li class="md-nav__item">
-              <a href="#courses" class="md-nav__link" data-filter="计算数学课组必修" onclick="setFilter(this, 'category'); return false;">计算数学课组必修</a>
-            </li>
-          </ul>
+        <li class="md-nav__group">专业主干课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业主干课程::核心数学课组" onclick="setFilter(this); return false;">核心数学课组 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业主干课程::金融数学课组" onclick="setFilter(this); return false;">金融数学课组 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业主干课程::计算、控制与优化课组" onclick="setFilter(this); return false;">计算、控制与优化课组 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业选修课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业选修课程::核心数学课组" onclick="setFilter(this); return false;">核心数学课组 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业选修课程::金融数学课组" onclick="setFilter(this); return false;">金融数学课组 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业选修课程::计算、控制与优化课组" onclick="setFilter(this); return false;">计算、控制与优化课组 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业选修课程::所有课组" onclick="setFilter(this); return false;">所有课组 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业拓展课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业拓展课程::本研一体化课程" onclick="setFilter(this); return false;">本研一体化课程 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业拓展课程::其他课组拓展课程" onclick="setFilter(this); return false;">其他课组拓展课程 <span class="md-nav__count"></span></a>
         </li>
       </ul>
 
@@ -145,24 +144,23 @@
     <div class="md-main__inner">
       <div class="md-content">
 
-        <!-- Hero 区域 -->
+        <!-- 页首说明 -->
         <section id="courses">
-          <div class="md-typeset" style="text-align:center; margin-bottom:2rem;">
-            <h1>CUMT 数院电子资料库</h1>
-            <p style="color:var(--md-default-fg-color--light);font-size:0.9rem;">
-              中国矿业大学数学学院 · 核心课程资源共享平台
+          <div class="md-typeset page-intro">
+            <h1>课程资料</h1>
+            <p>
+              按数学与应用数学专业 2024 版本科人才培养方案的课程体系组织，覆盖专业大类基础、专业主干、专业选修与专业拓展课程。
               <br>历年试题 · 期末复习 · 平时资料 · 教材推荐
             </p>
-            <blockquote style="margin: 1.5rem auto; max-width: 24rem;">
-              学而优则用, 学而优则创
-            </blockquote>
           </div>
 
           <!-- 空状态 -->
           <div class="empty-state" id="emptyState">
-            <div class="empty-icon">📭</div>
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+            </div>
             <h3>没有找到匹配的课程</h3>
-            <p>请尝试调整筛选条件</p>
+            <p>请尝试调整筛选条件或搜索关键词</p>
           </div>
 
           <!-- 课程列表 -->
@@ -208,9 +206,9 @@
     <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
     <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
     <div class="md-footer__links">
-      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank">📦 GitHub 仓库</a>
-      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io/issues" target="_blank">💬 反馈与建议</a>
-      <a href="https://www.zhihu.com/people/11-68-36-12" target="_blank">📝 知乎</a>
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank">GitHub 仓库</a>
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io/issues" target="_blank">反馈与建议</a>
+      <a href="https://www.zhihu.com/people/11-68-36-12" target="_blank">知乎</a>
     </div>
   </div>
 </footer>
@@ -220,7 +218,8 @@
   <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
 </button>
 
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
+<script src="js/data.js?v=20260827"></script>
+<script src="js/main.js?v=20260827"></script>
+<script src="js/theme.js?v=20260827"></script>
 </body>
 </html>

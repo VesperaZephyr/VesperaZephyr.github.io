@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>概率论笔记(三)：随机变量 — CUMT 数院电子资料库</title>
+<meta name="description" content="逆映射 考虑@@IM0@@, 则@@IM1@@确定了一个映射@@IM2@@, 它由@@DM0@@所定义, 并保持交并补运算. &gt;命题3.1.1 &gt;如果@@IM3@@是@@IM4@@的子集的@@IM5@@-域, 那么@@IM6@@是@@IM7@@的子集的@@IM8@@-域.">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css?v=20260827">
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic">概率论笔记(三)：随机变量</span>
+        <span class="md-header__topic">数学笔记</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset note-article" id="main" style="margin-left:0;">
+<div class="page-intro">
+  <h1>概率论笔记(三)：随机变量</h1>
+  <p>更新于 2025-10-10</p>
+  <div class="note-tags"><span class="note-tag">概率论</span><span class="note-tag">实分析</span><span class="note-tag">测度论</span></div>
+</div>
+<h1 id="逆映射">逆映射</h1>
+
+<p>考虑$X:\Omega\to\Omega'$, 则$X$确定了一个映射$X^{-1}:\mathcal P(\Omega')\to\mathcal P(\Omega)$, 它由$$
+X^{-1}(A')=\{\omega\in\Omega:X(\omega)\in A'\},
+$$所定义, 并保持交并补运算. </p>
+
+<blockquote>
+  <p><strong>命题3.1.1</strong> 
+  如果$\mathcal{B}'$是$\Omega'$的子集的$\sigma$-域, 那么$X^{-1}(\mathcal{B}')$是$\Omega$的子集的$\sigma$-域.</p>
+</blockquote>
+
+<p><em>Proof.</em> 我们验证$\sigma$-域的公理. 由于$\Omega' \in \mathcal{B}'$, 我们有$$
+X^{-1}(\Omega') = \Omega \in X^{-1}(\mathcal{B}').
+$$如果$A' \in \mathcal{B}'$, 那么$(A')^c \in \mathcal{B}'$, 如果$X^{-1}(A') \in X^{-1}(\mathcal{B}')$, 我们有$$
+X^{-1}((A')^c) = (X^{-1}(A'))^c \in X^{-1}(\mathcal{B}').
+$$如果$X^{-1}(B'_n) \in X^{-1}(\mathcal{B}')$, 那么$$
+\bigcup\limits_n X^{-1}(B'_n) = X^{-1}\left(\bigcup\limits_n B'_n\right) \in X^{-1}(\mathcal{B}'),
+$$因为$\bigcup\limits_n B'_n \in \mathcal{B}'$. </p>
+
+<blockquote>
+  <p><strong>命题3.1.2</strong> 
+  如果$\mathcal{C}'$是$\Omega'$的子集类, 那么$$
+X^{-1}(\sigma(\mathcal{C}')) = \sigma(X^{-1}(\mathcal{C}')),
+$$也就是说, 由$\mathcal{C}'$在$\Omega'$中生成的$\sigma$-域的原像与由原像在$\Omega$中生成的$\sigma$-域相同. </p>
+</blockquote>
+
+<p><em>Proof.</em> 由命题3.1.1知,$X^{-1}(\sigma(\mathcal{C}'))$是一个$\sigma$-域, 并且$X^{-1}(\sigma(\mathcal{C}')) \supset X^{-1}(\mathcal{C}'),$因为$\sigma(\mathcal{C}') \supset \mathcal{C}'$, 故根据极小性有$X^{-1}(\sigma(\mathcal{C}')) \supset \sigma(X^{-1}(\mathcal{C})).$相反地, 定义$$
+\mathcal{F}' := \{B' \in \mathcal{P}(\Omega') : X^{-1}(B') \in \sigma(X^{-1}(\mathcal{C}'))\}.
+$$我们断言$\mathcal{F}'$是一个$\sigma$-域. 
+(1)$\Omega' \in \mathcal{F}'$, 因为$X^{-1}(\Omega') = \Omega \in \sigma(X^{-1}(\mathcal{C}'))$. 
+(2)$A' \in \mathcal{F}'\implies(A')^c \in \mathcal{F}'$, 若$X^{-1}(A') \in \sigma(X^{-1}(\mathcal{C}))$, 则$$
+X^{-1}((A')^c) = (X^{-1}(A'))^c \in \sigma(X^{-1}(\mathcal{C})).
+$$
+(3)$B'_n \in \mathcal{F}'\implies\bigcup\limits_n B'_n \in \mathcal{F}'$. 若$X^{-1}(B'_n) \in \sigma(X^{-1}(\mathcal{C}))$, 则$$
+X^{-1}\left(\bigcup\limits_n B'_n\right) = \bigcup\limits_n X^{-1}(B'_n) \in \sigma(X^{-1}(\mathcal{C})).
+$$根据定义有$X^{-1}(\mathcal{F}') \subset \sigma(X^{-1}(\mathcal{C})).$另外$\mathcal{C}' \subset \mathcal{F}'$, 因为$X^{-1}(\mathcal{C}') \subset \sigma(X^{-1}(\mathcal{C}))$. 由于$\mathcal{F}'$是一个$\sigma$-域, 故$$
+\sigma(\mathcal{C}') \subset \mathcal{F}',
+$$因此有$$
+X^{-1}(\sigma(\mathcal{C}')) \subset X^{-1}(\mathcal{F}') \subset \sigma(X^{-1}(\mathcal{C})). ~\square
+$$</p>
+
+<h1 id="可测映射与随机变量">可测映射与随机变量</h1>
+
+<p>设$(\Omega,\mathcal B),(\Omega',\mathcal B')$是两个可测空间, 则我们称映射$X:\Omega\to\Omega'$是<strong>可测的</strong>, 如果$X^{-1}(\mathcal B')\subset \mathcal B$.$X$称作$\Omega'$中的随机元素, 并简记$X\in\mathcal B/\mathcal B'$. 若$\Omega'=\mathbb{R}$, 即$(\Omega',\mathcal B')=(\mathbb{R},\mathcal B(\mathbb{R}))$, 则称$X$是\textbf{随机变量}. </p>
+
+<blockquote>
+  <p><strong>定义3.1.1</strong>[随机变量] 一个实值随机变量是一个函数$X: \Omega \rightarrow \mathbb{R}$使得$$
+X^{-1}(B) \in \mathcal{F}, \quad \forall B \in \mathcal{B}.
+$$换句话说, 随机变量是从$(\Omega, \mathcal B)$到$(\mathbb{R}, \mathcal{B})$的可测函数. </p>
+</blockquote>
+
+<p><strong>注</strong> 茆书给出的随机变量的定义并不严格: <em>定义在样本空间$\Omega$上的实值函数$X=X(\omega)$称为随机变量</em>.</p>
+
+<blockquote>
+  <p><strong>定义3.1.2</strong>[随机变量诱导的概率]
+  设$(\Omega, \mathcal{B}, P)$是一个概率空间, 并且设$X: (\Omega, \mathcal{B}) \to (\Omega', \mathcal{B}')$是可测的. 定义对于$A' \subset \Omega'$,$$
+[X \in A'] := X^{-1}(A') = \{\omega : X(\omega) \in A'\}.
+$$设定义在$\mathcal B'$上的函数$$
+P \circ X^{-1}(A') := P(X^{-1}(A')).
+$$则$P \circ X^{-1}$是$(\Omega', \mathcal{B}')$上的一个概率, 称为$X$诱导的概率或者$X$的<strong>分布</strong>. </p>
+</blockquote>
+
+<p><strong>练习3.1.1</strong> 验证$P\circ X^{-1}$确实是$\mathcal B'$上的概率. 
+<em>Proof.</em> 逐条验证概率的三条公理. 
+(1)$P \circ X^{-1}(\Omega') = P(\Omega) = 1$.
+(2)$P \circ X^{-1}(A') \geq 0,\forall A' \in \mathcal{B}'$.
+(3) 如果$\{A'_n, n \geq 1\}$是不相交的, 则$\{X^{-1}(A'_n)\}_{n \geq 1}$在$\mathcal{B}$中不相交, 则$$
+P \circ X^{-1}\left(\bigcup\limits_n A'_n\right) = P\left(\bigcup\limits_n X^{-1}(A'_n)\right) = \sum\limits_n P(X^{-1}(A'_n)) = \sum\limits_n P \circ X^{-1}(A'_n). ~\square
+$$通常我们将$P \circ X^{-1}(A')$写成$P[X \in A'].$</p>
+
+<blockquote>
+  <p><strong>命题3.1.3</strong>[可测性检验]
+  设$X: \Omega \mapsto \Omega'$, 其中$(\Omega, \mathcal{B})$和$(\Omega', \mathcal{B}')$是两个可测空间. 设$\mathcal{C}'$生成$\mathcal{B}'$, 即$\mathcal{B}' = \sigma(\mathcal{C}')$,  则$X$是可测的当且仅当$$
+X^{-1}(\mathcal{C}') \subset \mathcal{B}.
+$$</p>
+</blockquote>
+
+<p><em>Proof.</em> 显然$X$可测有$X^{-1}(\mathcal C')\subset \mathcal B.$如果$X^{-1}(\mathcal{C}') \subset \mathcal{B}$, 那么根据极小性$\sigma(X^{-1}(\mathcal{C}')) \subset \mathcal{B}$.故$$
+X^{-1}(\sigma(\mathcal{C}')) = X^{-1}(\mathcal{B}') = \sigma(X^{-1}(\mathcal{C}') \subset \mathcal{B},
+$$这就是可测性的定义.$\square$</p>
+
+<blockquote>
+  <p>**推论3.1.4
+  实值函数$X: \Omega \mapsto \mathbb{R}$是一个随机变量当且仅当$$
+X^{-1}((-\infty, x]) = [X \leq x] \in \mathcal{B}, \quad \forall x \in \mathbb{R}.
+$$</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>命题3.1.5</strong>[可测映射的复合仍可测]
+  设$X_1, X_2$是两个可测映射$$
+X_1: (\Omega_1, \mathcal{B}_1) \to (\Omega_2, \mathcal{B}_2),\quad X_2: (\Omega_2, \mathcal{B}_2) \to (\Omega_3, \mathcal{B}_3),
+$$其中$(\Omega_i, \mathcal{B}_i)$,$i = 1, 2, 3$是可测空间. 定义$X_2 \circ X_1: \Omega_1 \to \Omega_3$为$$
+X_2 \circ X_1(\omega_1) := X_2(X_1(\omega_1)), \quad \omega_1 \in \Omega_1,
+$$则$X_2 \circ X_1 \in \mathcal{B}_1/\mathcal{B}_3$.</p>
+</blockquote>
+
+<p><em>Proof.</em> 很容易验证$$
+(X_2 \circ X_1)^{-1} = X_1^{-1}(X_2^{-1}(\cdot))
+$$是从$\mathcal{P}(\Omega_3) \to \mathcal{P}(\Omega_1)$的映射. 原因是对于任何$B_3 \subset \Omega_3$
+$$
+(X_2 \circ X_1)^{-1}(B_3) = \{\omega_1 : X_2 \circ X_1(\omega_1) \in B_3\}
+= \{\omega_1 : X_1(\omega_1) \in X_2^{-1}(B_3)\}
+= \{\omega_1 : \omega_1 \in X_1^{-1}(X_2^{-1}(B_3))\}.
+ 
+$$
+如果$B_3 \in \mathcal{B}_3$, 由于$X_2^{-1}(B_3) \in \mathcal{B}_2$, 那么$$
+(X_2 \circ X_1)^{-1}(B_3) = X_1^{-1}(X_2^{-1}(B_3)) \in \mathcal{B}_1,
+$$故$X_2 \circ X_1^{-1}(B_3) \subset \mathcal{B}_1$, 证毕. </p>
+
+<p>随机元素最常用的情况是在度量空间$(S,d)$中, 我们给出几个例子. </p>
+
+<p><strong>例3.1.1</strong>[度量空间中的随机元素]</p>
+
+<ol>
+<li>设$S = \mathbb{R}$且$d(x, y) = |x - y|$. 那么$S$的一个随机元素$X$被称为<strong>随机变量</strong>. </li>
+<li>设$S = \mathbb{R}^k$且$$
+d(\boldsymbol{x}, \boldsymbol{y}) = \sqrt{\sum_{1}^{k} |x_i - y_i|^2}.
+$$那么$S$的一个随机元素被称为<strong>随机向量</strong>, 记为$\boldsymbol{X} = (X_1, \cdots, X_k)$. </li>
+<li>设$S = \mathbb{R}^\infty$, 且度量$d$定义为$$
+d(\boldsymbol{x}, \boldsymbol{y}) = \sum_{k=1}^{\infty} 2^{-k} \left( \frac{\sum\limits_{i=1}^{k} |x_i - y_i|}{1 + \sum\limits_{i=1}^{k} |x_i - y_i|} \right). 
+$$那么$S$的一个随机元素$X$被称为<strong>随机序列</strong>, 记为$\boldsymbol X = (X_1, X_2, \cdots)$.</li>
+<li>设$S = C[0, \infty)$为定义域为$[0, \infty)$的所有实值连续函数的集合. 定义$$
+\|x(\cdot) - y(\cdot)\|_m := \sup_{0 \leq t \leq m} |x(t) - y(t)|
+$$且$$
+d(\boldsymbol{x}, \boldsymbol{y}) := \sum_{m=1}^{\infty} 2^{-m} \left( \frac{||x - y||_m}{1 + ||x - y||_m} \right). 
+$$$S$的一个随机元素$X$被称为<strong>随机(连续)函数</strong>. </li>
+</ol>
+
+<p>在度量空间中, 连续的概念特别重要, 如果一个随机变量是连续的, 那么它是可测的. </p>
+
+<blockquote>
+  <p><strong>命题3.1.6</strong>[连续则可测]
+  设$(S_i, d_i)$,$i = 1, 2$是两个度量空间. 设由开集生成的 Borel$\sigma$-域为$\mathcal S_i$,$i = 1, 2$. 如果$X: \mathcal S_1 \rightarrow \mathcal S_2$是连续的, 那么$X$是可测的, 即$X \in S_1/S_2.$</p>
+</blockquote>
+
+<p><em>Proof.</em> 设$\mathcal{O}_i$是$S_i$的开子集类,$i = 1, 2$. 如果$X$连续, 那么开集的原像是开集, 这意味着$$
+X^{-1}(\mathcal{O}_2) \subset \mathcal{O}_1 \subset \sigma(\mathcal{O}_1) = S_1.
+$$所以根据命题3.1.3,$X \in S_1/S_2$. </p>
+
+<blockquote>
+  <p><strong>推论3.1.7</strong>如果$\boldsymbol{X} := (X_1, \cdots, X_k)$是一个随机向量, 并且$$
+g: \mathbb{R}^k \to \mathbb{R}, \quad g \in \mathcal{B}(\mathbb{R}^k)/\mathcal{B}(\mathbb{R}),
+$$则由命题3.1.5知,$g(X)$是一个随机变量. 特别地, 如果$g$是连续的, 则$g$是可测的. </p>
+</blockquote>
+
+<p>我们给出一些例子. 
+<strong>例3.1.2</strong> [一些$g(\boldsymbol{X})$的例子 ]
+$$
+\begin{align*}
+g(x_1, \cdots, x_k) &amp;= \sum\limits_{i=1}^k x_i, \quad (\text{分量和})\\
+&amp;= \frac1k\sum\limits_{i=1}^k x_i, \quad (\text{分量平均})\\
+&amp;= \bigvee_{i=1}^k x_i, \quad (\text{分量极值})\\
+&amp;= \prod_{i=1}^k x_i, \quad (\text{分量积})\\
+&amp;= \sum\limits_{i=1}^k x_i^2, \quad (\text{分量平方和}).
+\end{align*}
+$$</p>
+
+<p><strong>例3.1.3</strong>[投影映射] 定义投影映射$\pi_i:\mathbb{R}^k\to \mathbb{R}$,$\pi_i(x_1, \cdots, x_k) := x_i$. 则$\pi_i$是连续的, 并且如果$\boldsymbol{X} = (X_1, \cdots, X_k)$是一个随机向量,$\pi_i(\boldsymbol{X}) = X_i(i=1,2,\cdots,n)$是随机变量.</p>
+
+<blockquote>
+  <p><strong>命题3.1.8</strong> 
+  $\boldsymbol{X} = (X_1, \cdots, X_k)$是一个随机向量, 则$\boldsymbol X$是一个从$(\Omega, \mathcal{B}) \to (\mathbb{R}^k, \mathcal{B}(\mathbb{R}^k))$的可测映射当且仅当$X_i$是每个$i = 1, \cdots, k$的随机变量. </p>
+</blockquote>
+
+<p><em>Proof.</em> 一方面, 设$\boldsymbol{X}$是随机向量, 则$\boldsymbol{X}_i=\pi_i\circ X$可测. 设$\mathcal R$表示$\mathbb{R}^k$中所有开矩体构成的集合, 则$\mathcal{B}(\mathbb{R}^k)=\sigma(\mathcal O)=\sigma(\mathbb{R}),$ 这里$\mathcal O$是$\mathbb R^k$中开集的集合. 令$B:=I_1\times\cdots\times I_k\in\mathcal R$, 则$X^{-1}(B) = \bigcap\limits_{i=1}^k X_i^{-1}(I_i).$由于$X_i$是随机变量, 则$X_i^{-1}(I_i)\in\mathcal B$, 故$X^{-1}(B)\in\mathcal B$, 从而$X^{-1}(\mathcal R)\subset\mathcal B$, 故$X^{-1}$可测. </p>
+
+<p>对于无穷维向量$\boldsymbol{X}:=(X_1,X_2,\cdots)$, 我们称$X$是一个随机序列当且仅当对于任意的$k$,$(X_1, \cdots, X_k)$是一个随机向量. 因此</p>
+
+<blockquote>
+  <p><strong>命题3.1.9</strong> 
+  $X = (X_1, X_2, \cdots)$是一个随机序列当且仅当对于每个$i = 1, 2, \cdots$, 第$i$个分量$X_i$是一个随机变量. </p>
+</blockquote>
+
+<blockquote>
+  <p><strong>命题3.1.10</strong>[可测性与极限]
+  设$X_1, X_2, \cdots$是定义在$(\Omega, \mathcal{B})$上的随机变量. 那么
+  (1) $\vee_n X_n$和$\wedge_n X_n$是随机变量. 
+  (2) $\varliminf\limits_{n \rightarrow \infty} X_n$和$\varlimsup\limits_{n \rightarrow \infty} X_n$是随机变量. 
+  (3)如果$\lim\limits_{n \rightarrow \infty} X_n(\omega)$对于所有$\omega$存在, 那么$\lim\limits_{n \rightarrow \infty} X_n$是一个随机变量. 
+  (4) $\{X_n\}$有极限的集合是可测的, 即$$
+\{w : \lim X_n(w) \text{ 存在} \} \in \mathcal{B}.
+$$</p>
+</blockquote>
+
+<p><em>Proof.</em>
+(1) 对每个$n$, 成立$[X_n \leq x] \in \mathcal{B}$, 故我们有$$
+[\bigvee_n X_n \leq x] = \bigcap\limits_n [X_n \leq x] \in \mathcal{B}. 
+$$
+类似地$$
+[\bigwedge_n X_n &gt; x] = \bigcap\limits_n [X_n &gt; x] \in \mathcal{B}.
+$$(2) 注意到$$
+\varliminf\limits_{n \rightarrow \infty} X_n = \sup_{n \geq 1} \inf_{k \geq n} X_k.
+$$根据 (1) 知$\inf_{k \geq n} X_k$是一个随机变量, 同理$\varlimsup\limits_{n\to\infty}X_n$也是随机变量. 
+(3) 如果$\lim\limits_{n \rightarrow \infty} X_n(\omega)$对于所有$\omega$存在, 那么由(2), $$
+\lim\limits_{n \rightarrow \infty} X_n(\omega) = \varlimsup\limits_{n \rightarrow \infty} X_n(\omega), 
+$$
+因此$\lim\limits_{n\to\infty} X_n$是随机变量. 
+(3) 由(2), $$
+\begin{align*}
+\{\omega : \lim X_n(\omega) \text{ 存在} \}^c &amp;= \{\omega : \varliminf X_n(\omega) &lt; \varlimsup X_n(\omega)\}\\
+&amp;= \bigcup\limits_{r \in \mathbb{Q}} \left[ \varliminf\limits_{n \rightarrow \infty} X_n \leq r &lt; \varlimsup\limits_{n \rightarrow \infty} X_n \right]\\
+&amp;= \bigcup\limits_{r \in \mathbb{Q}} \left[ \varliminf\limits_{n \rightarrow \infty} X_n \leq r \right] \bigcap \left[ \varlimsup\limits_{n \rightarrow \infty} X_n \leq r \right]^c \in \mathcal{B}. 
+\end{align*}
+$$</p>
+
+<h1 id="概率密度函数">概率密度函数</h1>
+
+<p>在给出概率密度函数的定义之前, 我们先准备一些实分析的知识. 我们省略证明, 可在实分析课本中找到.</p>
+
+<blockquote>
+  <p><strong>定义3.1.3</strong>[绝对连续函数]
+  称函数$F : I \subset \mathbb{R} \rightarrow \mathbb{R}$是\textbf{绝对连续}的, 如果对于每个$\varepsilon &gt; 0$, 存在$\delta &gt; 0$使得当$I$中的有限序列两两不相交的区间$(x_k, y_k)$满足$\sum_k (y_k - x_k) &lt; \delta$时, 那么$$
+\sum_k |F(y_k) - F(x_k)| &lt; \varepsilon.
+$$</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>定理3.1.4</strong>[Lebesgue积分形式的微积分基本定理]
+  在紧区间$I = [a, b]$上, 函数$F$的以下条件是等价的. 
+  (1) $F$是绝对连续的.
+  (2)$F$几乎处处有导数$F'$, 导数是Lebesgue可积的, 并且$$
+F(x) = F(a) + \int_a^x F'(y) \, \mathrm{d} y, \quad \forall x \in [a, b].
+$$
+  (3) 存在$[a, b]$上的Lebesgue可积函数$g$使得$$
+F(x) = F(a) + \int_a^x g(y) \, \mathrm{d} y, \quad \forall x \in [a, b].
+$$</p>
+</blockquote>
+
+<p>证明可以参考Folland, 第106页. 
+此外, 我们有以下关系：假设函数定义在紧区间上, 则
+$$
+
+\{\text{连续可微}\} \subset \{\text{Lipschitz连续}\} \subset \{\text{绝对连续}\} \subset \{\text{几乎处处可微}\}.
+
+$$</p>
+
+<blockquote>
+  <p><strong>定义3.1.4</strong>[概率密度函数]
+  设分布函数$F$是绝对连续的, 则由定理3.1.4知, 存在一个可积函数$p$使得$$
+F(b) = F(a) + \int_a^b p(x) \, \mathrm{d} x.
+$$函数$p$称为<strong>概率密度函数</strong>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>定义3.1.5</strong>
+  概率测度$P$在$(\mathbb{R}, \mathcal{B})$上被称为是<strong>绝对连续的</strong>(相对于Lebesgue测度), 如果对于每个可测集$A$, 有$\operatorname{Leb}[A] = 0\implies P[A] = 0$. </p>
+</blockquote>
+
+<p><strong>注</strong> 测度的绝对连续的概念可以推广到\textbf{符号测度}上, 可以参考Folland$\S$ 3.1.</p>
+
+<blockquote>
+  <p><strong>命题3.1.12</strong>
+  概率测度$P$的以下条件是等价的. 
+  (1) $P$是绝对连续的. 
+  (2) 对于每个$\varepsilon &gt; 0$, 存在$\delta &gt; 0$使得$$
+P[A] \leq \varepsilon, \quad \text{只要}\operatorname{Leb}[A] \leq \delta.
+$$
+  (3) 存在一个Lebesgue可积函数$p$使得$$
+P[A] = \int_A p(x) \, \mathrm{d} x, \quad \text{对于所有 Borel 集 } A.
+$$</p>
+</blockquote>
+
+        <nav class="note-footer">
+          <a href="/notes.html">&laquo; 返回数学笔记列表</a>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="../js/theme.js?v=20260827"></script>
+
+</body>
+</html>

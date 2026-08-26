@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>概率论笔记(二)：概率空间 — CUMT 数院电子资料库</title>
+<meta name="description" content="概率空间 概率论的基本概念是一个测度空间 @@IM0@@, 使得 @@IM1@@; 这样的测度 @@IM2@@ 被称为概率测度. @@IM3@@ 被视为某个过程的所有可能结果的集合, 集合 @@IM4@@ 的测度被解释为结果位于 @@IM5@@ 中的概率. 首先我们先来看概率论术…">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css?v=20260827">
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic">概率论笔记(二)：概率空间</span>
+        <span class="md-header__topic">数学笔记</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset note-article" id="main" style="margin-left:0;">
+<div class="page-intro">
+  <h1>概率论笔记(二)：概率空间</h1>
+  <p>更新于 2025-09-30</p>
+  <div class="note-tags"><span class="note-tag">概率论</span><span class="note-tag">实分析</span><span class="note-tag">测度论</span></div>
+</div>
+<h1 id="概率空间">概率空间</h1>
+
+<p>概率论的基本概念是一个测度空间 $(\Omega, \mathcal{B}, P)$, 使得 $P(\Omega) = 1$; 这样的测度 $\mu$ 被称为概率测度. $\Omega$ 被视为某个过程的所有可能结果的集合, 集合 $E \in \mathcal{M}$ 的测度被解释为结果位于 $E$ 中的概率. 首先我们先来看概率论术语与分析学术语的对应关系. </p>
+
+<p>实分析与概率论.png</p>
+
+<h2 id="概率的公理化定义及其性质">概率的公理化定义及其性质</h2>
+
+<blockquote>
+  <p><strong>定义2.1.1</strong>[概率空间]
+  <strong>概率空间</strong>是一个三元组$(\Omega,\mathcal{B},P)$, 其中
+  $\bullet\,\Omega$称作样本空间; 
+     $\bullet\,\mathcal B$是$\Omega$子集构成的$\sigma-$代数;
+     $\bullet\, P$是个概率测度, 即$P:\mathcal{B}\to[0,1]$, 满足如下三条:
+     (1) $P(A)\geq 0$, 对任意$A\in\mathcal{B}$; 
+     (2) $P$满足$\sigma$-可加性, 即若$\{A_n\colon n\geq1\}$是$B$中一列两两无交的事件, 则$P\left(\bigcup\limits_{n=1}^\infty A_n\right)=\sum\limits_{n=1}^\infty P(A_n)$ ;
+     (3) $P(\Omega)=1$.</p>
+</blockquote>
+
+<p>由定义可以立刻得出概率的一些性质:</p>
+
+<ol>
+<li>$\boxed{P\left(A^c\right)=1-P(A)}$. </li>
+<li>$\boxed{P(\varnothing)=0}$.</li>
+<li>$\boxed{P\left(A\cup B\right)=P(A)+P(B)-P\left(A\cap B\right)}$.
+<em>Proof.</em>
+注意到$$
+\begin{cases}
+				P(A)=P(AB)+P(AB^c),\\
+				P(B)=P(BA)+P(BA^c).
+			\end{cases}
+$$因此有$$
+\begin{align*}
+				P(A\cup B)&amp;=P\left(AB^c\cup BA^c\cup AB\right)\\&amp;=P(AB^c) + P(BA^c) + P(AB)
+				\\&amp;=P(A)-P(AB) + P(B) - P(BA) + P(AB)
+				\\&amp;=P(A) + P(B) - P(AB). \, \square
+			\end{align*}
+$$</li>
+<li><strong>容斥原理(inclusion-exclusion formula)</strong>: 设$\{A_k\},1\leq k\leq n$是一列事件, 则$$
+P\left(\bigcup\limits_{i=1}^n A_i\right)= \sum\limits_{i=1}^n P(A_i) - \sum\limits_{1\leq i&lt;j\leq n}P(A_iA_j) + \sum\limits_{1\leq i&lt;j&lt;k\leq n}P(A_iA_jA_k) - \cdots +(-1)^{n+1}P\left(A_1A_2\cdots A_n\right). \tag{2.1}
+$$可以通过数学归纳法得到. 由此我们还可以得出两个不等式, 即$$
+\begin{align}
+			P\left(\bigcup\limits_{i=1}^n A_i\right)&amp;\leq \sum\limits_{i=1}^n P(A_i),\tag{2.2}\\
+			P\left(\bigcup\limits_{i=1}^n A_i\right)&amp;\geq \sum\limits_{i=1}^n P(A_i)-\sum\limits_{1\leq i&lt;j\leq n}P(A_iA_j).\tag{2.3}\end{align}
+$$</li>
+<li>**单调性(monotonicity): **若$A\subset B$, 则$P(A)\leq P(B)$. </li>
+<li><strong>次可加性(subaddivity):</strong> 设一列事件$\{A_n\},n\geq 1$(不要求两两无交), 则$$
+P\left(\bigcup\limits_{n=1}^\infty A_n\right) \leq \sum\limits_{n=1}^\infty P(A_n).\tag{2.4}
+$$<em>Proof.</em> 注意到$$
+\bigcup\limits_{n=1}^\infty A_n=A_1+A_1^cA_2+A_3A_1^cA_2^c+\cdots,
+$$由$\sigma$可加性, 就有$$
+\begin{align*}
+				P\left(\bigcup\limits_{n=1}^\infty A_n\right) &amp;=P(A_1) + P(A_1^cA_2) + P(A_3A_1^cA_2^c)+\cdots
+				\\&amp;\leq P(A_1)+P(A_2)+P(A_3)+\cdots. \, \square
+			\end{align*}
+$$        </li>
+<li><strong>上下连续性(continuity)</strong>: $P$对单调集合列保持连续性, 即
+(1) 若$A_n$单调上升趋于$A$, 则$P(A_n)\uparrow P(A)$;
+(2) 若$A_n$单调下降趋于$A$, 则$P(A_n)\downarrow P(A)$.
+<em>Proof.</em> (1) 考虑一列$A_1\subset A_2\subset A_3\subset\cdots\subset A_n\subset\cdots$, 定义$$
+B_1:=A_1,B_2:=A_2\setminus A_1,\cdots,B_n:=A_n\setminus A_{n-1},\cdots
+$$则$\{B_i\}$是一列无交的事件, 注意到$$
+\bigcup\limits_{i=1}^n B_i=A_n,\quad\bigcup\limits_{i=1}^\infty B_i=\bigcup\limits_{i\geq1}A_i=A.
+$$由$\sigma$可加性, $$
+\begin{align*}
+					P(A)&amp;=P\left(\bigcup\limits_{i=1}^\infty B_i\right)=\sum\limits_{i=1}^\infty P(B_i)=\lim\limits_{n\to\infty}\sum\limits_{i=1}^n P(B_i)
+					\\&amp;=\lim\limits_{n\to\infty} P\left(\bigcup\limits_{i=1}^n B_i\right)=\lim\limits_{n\to\infty} P(A_n).
+				\end{align*}
+$$(2) 注意到$A_n^c$单调上升趋于$A^c$即可. </li>
+<li><strong>更强的连续性</strong>, 只要有$A_n\to A$, 就有$P(A_n)\to P(A)$, 这可由实分析中的Fatou引理得到.
+<em>Proof.</em> 如果$A_n\to A$, 则$\varlimsup\limits_{n\to\infty} A_n=\varliminf\limits_{n\to\infty} A_n=A$. 则   $$
+P(A)=P\left(\varliminf\limits_{n\to\infty}A_n-\right)\leq\varliminf\limits_{n\to\infty}P(A_n)\leq\varlimsup\limits_{n\to\infty}P(A_n)\leq P\left(\varlimsup\limits_{n\to\infty}A_n\right)=P(A).\, \square
+$$</li>
+</ol>
+
+<blockquote>
+  <p><strong>注</strong> 概率论中的Fatou引理是指$$
+P\left(\varliminf\limits_{n\to\infty}A_n\right)\leq \varliminf\limits_{n\to\infty} P(A_n)\leq\varlimsup\limits_{n\to\infty} P(A_n)\leq P\left(\varlimsup\limits_{n\to\infty} A_n\right).
+$$</p>
+</blockquote>
+
+<p><strong>例2.1.1</strong> [错排问题] 假设整数 $1, 2, \cdots, n$ 被随机排列. 考察排列后有恰一个整数未改变的概率.</p>
+
+<p><em>解.</em> 我们构造一个概率空间. 令 $\Omega$ 是 $1, 2, \cdots, n$ 的所有排列的集合, 使得$$
+\Omega = \{(x_1, \cdots, x_n) : x_i \in \{1, \cdots, n\}; i = 1, \cdots, n; x_i \neq x_j\}. 
+$$因此 $\Omega$ 是从集合 $1, \cdots, n$ 中不放回地抽取 $n$ 次的实验结果集合. 我们令 $\mathcal B := \mathcal{P}(\Omega)$ 为 $\Omega$ 的幂集, 并定义对于 $(x_1, \cdots, x_n) \in \Omega$,$$
+P((x_1, \cdots, x_n)) := \frac{1}{n!},
+$$且对于 $B \in \mathcal B$, 令$P(B) := \dfrac{1}{n!} \# B$. 对于 $i = 1, \cdots, n$, 令 $A_i$ 是 $\Omega$ 中第 $i$ 个位置上有 $i$ 的所有元素的集合, 如 $$
+\begin{align*}
+			A_1 = \{(1, x_2, \cdots, x_n) : (1, x_2, \cdots, x_n) \in \Omega\}, \\
+			A_2 = \{(x_1, 2, \cdots, x_n) : (x_1, 2, \cdots, x_n) \in \Omega\}; 
+	\end{align*}
+$$
+    等等. 对于$P(A_i)$, 只需考虑固定第 $i$ 个位置上的整数 $i$ 并计算在 $n-1$ 个位置上分配 $n-1$ 个对象的方法数, 再除以 $n!$. 为了计算 $P(A_i A_j)$, 而只需考虑固定 $i$ 和 $j$ 并计算在 $n-2$ 个位置上分配 $n-2$ 个整数的方法数, 依此类推. 因此由(2.1), $$
+\begin{align*}P\left( \bigcup_{i=1}^{n} A_i \right) &amp;= n \frac{(n-1)!}{n!} - \binom{n}{2} \frac{(n-2)!}{n!} + \binom{n}{3} \frac{(n-3)!}{n!} - \cdots (-1)^n \frac{1}{n!}\\&amp;= 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots (-1)^n \frac{1}{n!}\\&amp;=1-\mathrm e^{-1}\approx0.632.\end{align*} \square
+$$</p>
+
+<h1 id="概率空间的构造">概率空间的构造</h1>
+
+<h2 id="分布函数与概率的扩张">分布函数与概率的扩张</h2>
+
+<p>现在我们考虑$\mathbb{R} = (-\infty, \infty)$ 上的概率测度, 它的定义域是$\mathcal B(\mathbb R)$, 因此为Borel测度. 但Borel测度不是$\mathbb R$上的概率测度. 事实上, 由定理1.3.8, 给定了$\mathbb R$上的概率测度, 则定义 $F(x)$ 为$$
+F(x) := P((-\infty, x]), \quad x \in \mathbb{R}, \tag{2.6}
+$$称为 <strong>(概率)分布函数</strong>, 则$F$是递增、右连续的函数; 反之, 若已知分布函数$F : \mathbb{R} \rightarrow[0,1]$, 它是递增、右连续的函数, 并限制$F(+\infty)=1,F(-\infty)=0$, 则在$\R$上存在唯一的概率测度$P$, 使得 $P((-\infty,x])=F(x)$ 对$\forall x\in R$成立, 即以下的命题. [2]在$\S$2.5.2给出了具体的构造过程, 我们省略. </p>
+
+<blockquote>
+  <p><strong>命题2.2.1</strong> 
+  每个 $\mathbb{R}$ 上的概率测度 $P$ 唯一地确定分布函数 $F$ 如下：$$
+P((-\infty, x]) = F(x), \quad \forall x \in \mathbb{R}. \tag{2.7}
+$$反之, 给定分布函数 $F$, 存在满足(2.7)的 $\mathbb{R}$ 上的唯一概率测度 $P$. </p>
+</blockquote>
+
+<p>当然, 定理1.3.8的证明依赖于测度的扩张, 因此我们列举如下的概率扩张定理, 它们的证明与前面的概率的完全类似. </p>
+
+<blockquote>
+  <p><strong>定理2.2.2</strong>[第一扩张定理]
+  设 $\mathcal S$ 是 $\Omega$ 的子集的半代数, $P : \mathcal S \to [0, 1]$ 在 $S$ 上是 $\sigma$-可加的, 并满足 $P(\Omega) = 1$。则存在 $P$ 到 $\mathcal{A}(S)$ 的唯一扩张 $P'$, 定义为$$
+P'\left(\sum_{i \in I} S_i\right) := \sum_{i \in I} P(S_i),
+$$
+              它是 $\mathcal{A}(S)$ 上的概率测度；即 $P'(\Omega) = 1$ 且 $P'$ 在 $\mathcal{A}(S)$ 上是 $\sigma$-可加的.
+     <strong>定理2.2.3</strong> [第二扩张定理]
+     在子集域 $\mathcal{A}$ 上定义的概率测度 $P$ 有一个唯一的扩张到 $\sigma(\mathcal{A})$ 上的概率测度.</p>
+</blockquote>
+
+<p>结合两个扩张定理我们得到Combo扩张定理. </p>
+
+<blockquote>
+  <p><strong>定理2.2.4</strong>[Combo扩张定理]
+  设 $S$ 是 $\Omega$ 的子集的半代数, 并且 $P$ 是一个将 $S$ 映射到 $[0, 1]$ 的 $\sigma$-可加集函数, 使得 $P(\Omega) = 1$. 存在一个在 $\sigma(S)$ 上的唯一概率测度, 它是$P$的扩张.</p>
+</blockquote>
+
+<h2 id="概率的完备化">概率的完备化</h2>
+
+<blockquote>
+  <p><strong>定义2.2.1</strong>
+  称概率空间 $(\Omega, \mathcal{F}, P)$ 是**完备的}, 如果$\mathcal F$的集合的任一子集$F$, 且$P[F] = 0$, 也属于 $\mathcal{F}$. </p>
+</blockquote>
+
+<p>我们称集合 $F \in \mathcal{F}$ 为**零测集}(null set), 如果 $P[F] = 0$. 类似测度的完备化, 我们可以完成概率测度的完备化. </p>
+
+<blockquote>
+  <p><strong>定理2.2.5</strong>[概率空间的完备化]
+  给定任意概率空间 $(\Omega, \mathcal{F}, P)$, 存在一个完备空间 $(\Omega, \overline{\mathcal{F}}, \overline{P})$, 使得 $\mathcal{F} \subset \overline{\mathcal{F}}$ 且在 $\mathcal{F}$ 上$\overline{P} = P$. </p>
+</blockquote>
+
+<p>实际上, 在定理1.3.8中我们证明了一般测度的完备化定理, 因而概率测度也能完备化. 此后, 我们总是假设概率空间是完备的. </p>
+
+<p><strong>例2.2.1</strong>[概率的离散模型]
+假设 $\Omega = \{\omega_1, \omega_2, \dots\}$ 是可数的. 对于每个 $i$, 将数字 $p_i$ 关联到 $\omega_i$, 其中$$
+\forall i \geq 1, \quad p_i \geq 0 \text{ 且 } \sum\limits_{i=1}^\infty p_i = 1.
+$$定义 $\mathcal{B} = \mathcal{P}(\Omega)$, 并且对于 $A \in \mathcal{B}$, 令$P(A) := \sum\limits_{\omega_i \in A} p_i$, 则容易验证
+(1) 对于所有 $A \in \mathcal{B}$, $P(A) \geq 0$. 
+(2) $P(\Omega) = \sum\limits_{i=1}^\infty p_i = 1$. 
+(3) $P$ 是 $\sigma$-可加的: 如果 $A_j, j \geq 1$ 是互不相交的子集, 那么$$
+P\left(\bigcup\limits_{j=1}^\infty A_j\right) = \sum\limits_{\omega_i \in \bigcup\limits_j A_j} p_i = \sum\limits_j \sum\limits_{\omega_i \in A_j} p_i = \sum\limits_j P(A_j).
+$$注意这一步是合理的, 因为该级数是正的, 可以以任何顺序相加\footnote{来自levi定理.}. </p>
+
+<p>接下来是一个可数状态空间模型的经典例子. 
+<strong>例2.2.2</strong>[抛硬币 $N$ 次]
+对于实验“抛掷一个加权硬币 $N$ 次”, 一个合适的概率空间是什么？设$$
+\Omega = \{0, 1\}^N = \{(\omega_1, \dots, \omega_N) : \omega_i = 0 \text{ 或 } 1\}.
+$$对于 $p \geq 0, q \geq 0, p + q = 1$, 定义$$
+P(\omega_1, \dots, \omega_N) = p^{\sum\limits_{j=1}^N \omega_j} q^{N - \sum\limits_{j=1}^N \omega_j} = p^{\#1' s} q^{\#0' s}.
+$$按照例2.2.1中的方法构造概率测度 $P$: 设 $\mathcal{B} = \mathcal{P}(\Omega)$ 并且对于 $A \subset \Omega$ 定义$$
+P(A)=\sum\limits_{\omega \in A} p_\omega.
+$$如上例2.2.1中所述, 这给出了一个概率模型, 前提是 $\sum\limits_{\omega \in \Omega} p_\omega = 1$. 注意乘积形式$$
+P(\omega_1, \dots, \omega_N) = \prod_{i=1}^N p^{\omega_i} q^{1-\omega_i}
+$$因此$$
+\sum\limits_{\omega_1, \dots, \omega_N} p_{\omega_1, \dots, \omega_N} = \sum\limits_{\omega_1, \dots, \omega_N} \prod_{i=1}^n p^{\omega_i} q^{1-\omega_i}
+		= \sum\limits_{\omega_1, \dots, \omega_{N-1}} \prod_{i=1}^{N-1} p^{\omega_i} q^{1-\omega_i} \underbrace{(p^1 q^0 + p^0 q^1)}_{j=1} = \cdots = 1.	
+$$</p>
+
+        <nav class="note-footer">
+          <a href="/notes.html">&laquo; 返回数学笔记列表</a>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="../js/theme.js?v=20260827"></script>
+
+</body>
+</html>

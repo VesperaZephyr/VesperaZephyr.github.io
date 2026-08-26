@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>矩阵乘法可换空间与其多项式空间的关系 — CUMT 数院电子资料库</title>
+<meta name="description" content="首先显然有@@IM0@@, 那么何时有@@IM1@@呢? 下面的定理回答了这一点. &gt;定理: @@IM2@@的充要条件刻画 &gt;设@@IM3@@是数域@@IM4@@上的@@IM5@@阶矩阵, 则如下陈述等价. &gt;(1) @@IM6@@; &gt;(2) @@IM7@@; &gt;(3) @@I…">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css?v=20260827">
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic">矩阵乘法可换空间与其多项式空间的关系</span>
+        <span class="md-header__topic">数学笔记</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset note-article" id="main" style="margin-left:0;">
+<div class="page-intro">
+  <h1>矩阵乘法可换空间与其多项式空间的关系</h1>
+  <p>更新于 2025-10-16</p>
+  
+</div>
+<p>首先显然有$\mathbb{F}[\boldsymbol{A}]\subseteq C(\boldsymbol{A})$,  那么何时有$\mathbb{F}[\boldsymbol{A}]=C(\boldsymbol{A})$呢? 下面的定理回答了这一点. </p>
+
+<blockquote>
+  <p><strong>定理: $\mathbb{F}[\boldsymbol{A}]=C(\boldsymbol{A})$的充要条件刻画</strong>
+  设$\boldsymbol{A}$是数域$\mathbb{F}$上的$n$阶矩阵,  则如下陈述等价.
+  (1) $\mathbb{F}[\boldsymbol{A}]=C(\boldsymbol{A})$;
+  (2) $\dim\mathbb{F}[\boldsymbol{A}]=\dim C(\boldsymbol A)$;
+  (3) $\boldsymbol{A}$的任一复特征值的几何重数为$1$;
+  (4) $\boldsymbol{A}$的特征多项式等于极小多项式;
+  (5) 存在$\boldsymbol{v}\in\mathbb{F}^{n}$,  使得$\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}$线性无关;
+  (6) $\boldsymbol{A}$相似于一个友阵;
+  (7) $\boldsymbol{A}$的不变子空间个数有限. </p>
+</blockquote>
+
+<p>由于$\mathbb{F}[\boldsymbol{A}]\subseteq C(\boldsymbol{A})$,  则$(1)\iff(2)$是显然的. </p>
+
+<p>$(1)\iff(3)$. 设$\lambda_i(1\leq i\leq k)$是$\boldsymbol{A}$的两两不同的特征值,  其几何重数为$1$,  则在$\boldsymbol{A}$的Jordan标准型中,  属于特征值$\lambda$的Jordan块只有一个,  即$\boldsymbol{A}$ 的Jordan标准型为$$
+\boldsymbol{J}:=\begin{pmatrix}\boldsymbol{J}_{n_1}(\lambda_1)\\&amp;\boldsymbol{J}_{n_2}(\lambda_2)\\&amp;&amp;\ddots\\&amp;&amp;&amp;\boldsymbol{J}_{n_k}(\lambda_k)\end{pmatrix}, \quad \sum_{i=1}^kn_i=n.
+$$由于求$\boldsymbol{AX}=\boldsymbol{XA}$相当于求$\boldsymbol{JX}=\boldsymbol{XJ}$,  由$\lambda_i$互不相同得到$$
+\boldsymbol{X}=\begin{pmatrix}\boldsymbol{X}_1\\&amp;\boldsymbol{X}_2\\&amp;&amp;\ddots\\&amp;&amp;&amp;\boldsymbol{X_k}\end{pmatrix}, 
+$$其中每个$\boldsymbol{X}_i$与Jordan块$\boldsymbol J_{n_i}(\lambda_i)$相乘可换. 而与$\boldsymbol{J}_{n_i}(\lambda_i)$相乘可换的矩阵都是$\boldsymbol{J}_{n_i}(\lambda_i)$的多项式$g_i$.</p>
+
+<blockquote>
+  <p><strong>命题1</strong> 
+  设$\boldsymbol{J}_n(\lambda_0)$是特征值$\lambda_0$的$n$阶Jordan块,  则与$\boldsymbol{J}_n(\lambda_0)$乘法可交换的$n$阶矩阵必可表示为$\boldsymbol{J}_n(\lambda_0)$的次数不超过$n-1$的多项式. </p>
+</blockquote>
+
+<p><em>Proof.</em> 注意到$\boldsymbol J_n(\lambda_0)=\lambda_0\boldsymbol{I}_n+\boldsymbol{J}_n(0)$,  则$\boldsymbol{X}$与$\boldsymbol{J}_n(\lambda_0)$乘法可交换当且仅当与$\boldsymbol{J}_n(0)$乘法可交换. 经计算得到 $\boldsymbol{X}$ 必为下列形状的上三角矩阵:$$
+\boldsymbol{A} = \begin{pmatrix}
+a_1 &amp; a_2 &amp; \cdots &amp; a_n \\
+ &amp; a_1 &amp; \ddots &amp; \vdots \\
+ &amp; &amp; \ddots &amp; a_2 \\
+ &amp; &amp; &amp; a_1
+\end{pmatrix},  
+$$于是$$
+\boldsymbol{X} = a_1 \boldsymbol I_n + a_2 \boldsymbol{J}_n(0) + \cdots + a_n \boldsymbol{J}_n^{n-1}(0) = a_1 \boldsymbol I_n + a_2 (\boldsymbol{J}_n(\lambda_0) - \lambda_0 \boldsymbol{I}_n) + \cdots + a_n (\boldsymbol{J}_n(\lambda_0) - \lambda_0 \boldsymbol{I}_n)^{n-1}
+$$可表示为 $J$ 的次数不超过 $n-1$ 的多项式. $\square$</p>
+
+<p>现在的问题是,  能否找到一个公共的$g$,  使得$\boldsymbol{X}=g(\boldsymbol{J})$? </p>
+
+<blockquote>
+  <p><strong>命题2</strong> 
+  设有$n$阶分块对角矩阵$$
+\boldsymbol{A}=\begin{pmatrix}\boldsymbol{A}_1\\&amp;\ddots\\&amp;&amp;\boldsymbol{A}_k\end{pmatrix}, \quad \boldsymbol{B}=\begin{pmatrix}\boldsymbol{B}_1\\&amp;\ddots\\&amp;&amp;\boldsymbol{B}_k\end{pmatrix}, 
+$$其中$\boldsymbol{A}_i, \boldsymbol{B}_i$是同阶方阵,  设$\boldsymbol{A}_i$适合非零多项式$f_i$,  且$f_i(1\leq i\leq k)$两两互素. 若对每个$i$,  存在多项式$g_i$,  使得$\boldsymbol{B}_i=g_i(\boldsymbol A_i)$,  则必存在次数不超过$n-1$的多项式$g$,  使得$\boldsymbol{B}=g(\boldsymbol{A})$. </p>
+</blockquote>
+
+<p><em>Proof.</em> 因为 $f_i(x)$ 两两互素,  故由中国剩余定理可知,  存在多项式 $h$满足 $h = f_iq_i + g_i$,  故有 $h(\boldsymbol{A}_i) = g_i(\boldsymbol{A}_i) = \boldsymbol B_i$,  从而$$
+ h(\boldsymbol{A}) = \text{diag}\{h(\boldsymbol{A}_1),  \cdots,  h(\boldsymbol{A}_k)\} = \text{diag}\{\boldsymbol{B}_1,  \cdots,  \boldsymbol{B}_k\} = \boldsymbol{B}.
+$$
+设 $A$ 的特征多项式为 $f(x)$,  作带余除法 $h = fq + g$,  其中 $\deg g &lt; n$. 代入$\boldsymbol{A}$,  则由 Cayley-Hamilton 定理可得 $\boldsymbol B = h(\boldsymbol{A}) = g(\boldsymbol{A})$. $\square$</p>
+
+<p>回到这里,  注意$\boldsymbol J_{n_i}(\lambda_i)$适合多项式$(\lambda-\lambda_i)^{n_i}$,  由于$\lambda_i$互不相同,  故$(\lambda-\lambda_i)^{n_i}$两两互素. 又由<strong>命题1</strong>知对每个$i$,  存在多项式$g_i$,  使得$\boldsymbol{X}_i=g_i(\boldsymbol{J}_{n_i}(\lambda_i))$,  因此由<strong>命题2</strong>知存在次数不超过$n-1$的多项式$g$,  使得$\boldsymbol{X}=g(\boldsymbol{J})$,  因此我们就证明了$(1)\iff(3)$. $\blacksquare$ </p>
+
+<p>$(1)\iff(4)$. 设 $\boldsymbol{A}$ 的极小多项式等于其特征多项式 $f(\lambda) = \lambda^n + a_1\lambda^{n-1} + \cdots + a_{n-1}\lambda + a_n$,  则 $\boldsymbol{A}$ 只有一个非常数不变因子. 由有理标准型理论,  存在可逆阵$\boldsymbol{P}$,  使得$$
+\boldsymbol C(f(\lambda)) = \begin{pmatrix}
+			0 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_n \\
+			1 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_{n-1} \\
+			0 &amp; 1 &amp; \cdots &amp; 0 &amp; -a_{n-2} \\
+			\vdots &amp; \vdots &amp; &amp; \vdots &amp; \vdots \\
+			0 &amp; 0 &amp; \cdots &amp; 1 &amp; -a_1
+		\end{pmatrix}, 
+$$即有$$
+ \boldsymbol{Ae}_1 = \boldsymbol{e}_2,  \boldsymbol{Ae}_2 = \boldsymbol{e}_3,  \cdots,  \boldsymbol{Ae}_{n-1} = \boldsymbol{e}_n,  \boldsymbol{Ae}_n = -a_n\boldsymbol{e}_1 - a_{n-1}\boldsymbol{e}_2 - \cdots - a_1\boldsymbol{e}_n. \tag1
+$$任取满足 $\boldsymbol{AB} = \boldsymbol{BA}$ 的矩阵$\boldsymbol{B}$,  设$$
+\boldsymbol{Be}_1 = b_n\boldsymbol{e}_1 + b_{n-1}\boldsymbol{e}_2 + \cdots + b_1\boldsymbol{e}_n, 
+$$令 $g(x) := b_1x^{n-1} + \cdots + b_{n-1}x + b_n$,  我们来证明：$\boldsymbol{B} = g(\boldsymbol{A})$. 首先由 $\boldsymbol{e}_k = \boldsymbol{A}^{k-1}\boldsymbol{e}_1 \,  (k \geq 2)$ 以及$(1)$式可知 $\boldsymbol{B}e_1 = g(\boldsymbol{A})\boldsymbol{e}_1$ 成立. 其次由 $\boldsymbol{A},  \boldsymbol{B}$ 乘法可交换,  故对任意的 $\boldsymbol{e}_k \,  (k \geq 2)$ 有$$
+\boldsymbol{Be}_k = \boldsymbol{BA}^{k-1}\boldsymbol{e}_1 = \boldsymbol{A}^{k-1}\boldsymbol{Be}_1 = \boldsymbol{A}^{k-1}g(\boldsymbol{A})\boldsymbol{e}_1 = g(\boldsymbol{A})\boldsymbol{A}^{k-1}\boldsymbol{e}_1 = g(\boldsymbol{A})\boldsymbol{e}_k. 
+$$最后,  注意到 $\boldsymbol{B}$ 与 $g(\boldsymbol{A})$ 在基向量 $\{\boldsymbol{e}_1,  \boldsymbol{e}_2,  \cdots,  \boldsymbol{e}_n\}$ 上的取值都相等,  故由线性扩张定理可知 $\boldsymbol{B} = g(\boldsymbol{A})$ 成立.</p>
+
+<p>反过来,  设 $\boldsymbol{A}$ 的不变因子组为 $1,  \cdots,  1,  d_1(\lambda),  \cdots,  d_k(\lambda)$,  其中 $d_i(\lambda)$ 为非常数首一多项式,  $d_i(\lambda) \mid d_{i+1}(\lambda) (1 \leq i \leq k-1)$,  则 $\boldsymbol{A}$ 的有理标准型 $\boldsymbol{F} = \text{diag}\{\boldsymbol{F}_1,  \boldsymbol{F}_2,  \cdots,  \boldsymbol{F}_k\}$,  其中 $\boldsymbol{F}_i = \boldsymbol{F}(d_i(\lambda))$ 为 $n_i$ 阶矩阵. 若 $\boldsymbol{A}$ 的极小多项式不等于其特征多项式,  则 $k \geq 2$. 构造分块对角矩阵$$
+ \boldsymbol{B} = \text{diag}\{\boldsymbol I_{n_1},  \boldsymbol O_{n_2},  \cdots,  \boldsymbol O_{n_k}\},  
+$$显然 $\boldsymbol{BF} = \boldsymbol{FB}$. 由已知,  存在多项式 $g$,  使得 $\boldsymbol{B} = g(\boldsymbol{F})$,  即$$
+ \boldsymbol B = \text{diag}\{g(\boldsymbol F_1),  g(\boldsymbol F_2),  \cdots,  g(\boldsymbol F_k)\},  
+$$则 $g(\boldsymbol F_1) = \boldsymbol I_{n_1},  g(\boldsymbol F_i) = \boldsymbol O \,  (i \geq 2)$. 由于 $d_k(\lambda)$ 是 $\boldsymbol F_k$ 的极小多项式(也是特征多项式),  故 $d_k(\lambda) \mid g(\lambda)$,  从而 $d_1(\lambda) \mid g(\lambda)$,  于是 $g(\boldsymbol F_1) = \boldsymbol O$,  矛盾！因此 $\boldsymbol B$ 不能表示为 $\boldsymbol F$ 的多项式,  因此只能有特征多项式等于极小多项式.  $\blacksquare$</p>
+
+<p>$(5)\iff(6)$. 若存在$\boldsymbol{v}\in\mathbb{F}^{n}$,  使得$\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}$线性无关,  则$\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}$构成了$V$的一组基,  且$\boldsymbol{A}^n\boldsymbol{v}$可由$\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}$线性表出,  设$$
+\boldsymbol{A}^n\boldsymbol{v}=-a_n\boldsymbol{v}-a_{n-1}\boldsymbol{Av}-\cdots-a_1\boldsymbol{A}^{n-1}\boldsymbol{v}, 
+$$
+因此$$
+\boldsymbol{A}\left(\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}\right)=\left(\boldsymbol{v}, \boldsymbol{Av}, \cdots, \boldsymbol{A}^{n-1}\boldsymbol{v}\right)\begin{pmatrix}
+			0 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_n \\
+			1 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_{n-1} \\
+			0 &amp; 1 &amp; \cdots &amp; 0 &amp; -a_{n-2} \\
+			\vdots &amp; \vdots &amp; &amp; \vdots &amp; \vdots \\
+			0 &amp; 0 &amp; \cdots &amp; 1 &amp; -a_1
+		\end{pmatrix}.
+$$故$\boldsymbol{A}$相似于一个友阵. </p>
+
+<p>反过来,  若$\boldsymbol{A}$相似于友阵,  即存在可逆阵$\boldsymbol{P}$,  使得$\boldsymbol{P}^{-1}\boldsymbol{AP}=\boldsymbol{C}$,  取单位标准基$\boldsymbol{e}_i(1\leq i\leq n)$,  容易验证$\boldsymbol{Pe}_i$即为所求. $\square$</p>
+
+<p>再证明$(4)\iff(6)$. 首先显然友矩阵的特征多项式和极小多项式相等. 反过来若$\boldsymbol A$ 特征多项式和极小多项式相等,  设为 $f$. 于是 $\boldsymbol{A}$ 的不变因子为$\underbrace{1, \cdots, 1}_{n-1\text{个}}, f$,  而友矩阵的不变因子也是$\underbrace{1, \cdots, 1}_{n-1\text{个}}, f$,  故$\boldsymbol{A}$相似于友矩阵. $\square$</p>
+
+<p>实际上,  第十五届CMC初赛题指出:</p>
+
+<blockquote>
+  <p><strong>命题3</strong>
+  设 $V$ 是复数域 $\mathbb{C}$ 上的 $n$ 维线性空间, $\mathcal A$ 是 $V$ 上的一个线性变换。证明：存在 $\alpha \in V$ 使得 $\{\alpha,  \mathcal A\alpha,  \cdots,  \mathcal A^{n-1}\alpha\}$ 成为 $V$ 的一组基当且仅当对于 $\mathcal A$ 的任一特征值 $\lambda$, $\lambda$ 的几何重数为$1$.</p>
+</blockquote>
+
+<p><em>Proof.</em> 设存在 $\alpha \in V$ 使得 $\{\alpha,  \mathcal A\alpha,  \cdots,  \mathcal A^{n-1}\alpha\}$ 成为 $V$ 的一组基, 显然 $A$ 在该基下的矩阵为$$
+\boldsymbol A = \begin{pmatrix}
+0 &amp; &amp;  &amp; &amp; * \\
+1 &amp; 0 &amp;  &amp; &amp; * \\
+&amp; 1 &amp; \ddots &amp; &amp;\vdots \\
+&amp; &amp; \ddots &amp; 0 &amp; * \\
+&amp; &amp; &amp; 1 &amp; *
+\end{pmatrix}.
+$$
+对任意 $c \in \mathbb{C}$, $$
+c\boldsymbol {I} - \boldsymbol A = \left(\begin{array}{cccc}
+c &amp;  &amp; &amp; &amp; *\\
+-1 &amp; c &amp; &amp; &amp; * \\
+&amp; \ddots &amp; \ddots &amp; &amp;\vdots \\
+&amp; &amp; \ddots &amp; c &amp; * \\
+&amp; &amp; &amp; -1 &amp; c
+\end{array}\right),  
+$$其左下角的 $n-1$ 阶子式非零, 所以 $\text{rank}(c\boldsymbol{I} - \boldsymbol A) \geq n-1$, 从而齐次线性方程组$(c\boldsymbol{I} - \boldsymbol A)\boldsymbol x = \boldsymbol 0$
+的解空间维数为 $n - \text{rank}(c\boldsymbol{I} - \boldsymbol A) \leq 1$. 又对 $\boldsymbol A$ 的任一特征值 $\lambda$, $(\lambda \boldsymbol I - \boldsymbol A)\boldsymbol x = \boldsymbol 0$一定有非零解,  它的解空间维数 $\geq 1$. 所以齐次线性方程组$(\lambda \boldsymbol I - \boldsymbol A)\boldsymbol x = \boldsymbol 0$的解空间维数为$1$, 即 $\lambda$ 的几何重数为$1$.</p>
+
+<p>另一方面,  设$\mathcal A$的特征多项式$f(\lambda)$在$\mathbb C$上的标准分解:$$
+f(\lambda)=(\lambda-\lambda_1)^{e_1}(\lambda-\lambda_2)^{e_2}\cdots(\lambda-\lambda_k)^{e_k}, \quad e_i\geq1, \quad\sum_{i=1}^ke_i=n, \quad\lambda_i\text{互不相同}.
+$$记$V_{\lambda_i}:=\operatorname{Ker}(\mathcal A-\lambda\mathcal I)^{e_i}$,  则$V_{\lambda_i}$是$\mathcal A-$不变子空间,  且有空间分解$$
+V=\bigoplus_{i=1}^kV_{\lambda_i}.
+$$将$\mathcal A$限制在$V_{\lambda_i}$上,  则由$\lambda_i$的几何重数为$1$知,  存在$V_{\lambda_i}$的一组基,  使得$\mathcal A\mid V_{\lambda_i}$在这组基下的表示矩阵为Jordan块$$
+\boldsymbol J_{e_i}(\lambda_i)=\begin{pmatrix}\lambda_i\\1&amp;\lambda_i\\&amp;\ddots&amp;\ddots\\&amp;&amp;1&amp;\lambda_i\end{pmatrix}_{e_i\times e_i
+}.
+$$从而存在$\boldsymbol \alpha_i\ne\boldsymbol 0$,  使得$(\lambda_i\boldsymbol I-\boldsymbol A)^{e_i-1}\boldsymbol\alpha_i=\boldsymbol 0$.</p>
+
+<p>令$\boldsymbol\alpha:=\sum\limits_{i=1}^k\boldsymbol{\alpha}_i$,  我们断言$\{\alpha,  \mathcal A\alpha,  \cdots,  \mathcal A^{n-1}\alpha\}$ 是$V$的一组基. 若不然,  则$\alpha, \mathcal A\alpha, \cdots, \mathcal{A}^{n-1}\alpha$线性相关,  即存在非零多项式$g, \, \deg g\leq n-1$,  使得$g(\mathcal A)\alpha=\boldsymbol 0$,  即$$
+\sum_{i=1}^k g(\mathcal A)\alpha_i=\boldsymbol 0.
+$$由于和是直和,  故$g(\mathcal A)\alpha_i=\boldsymbol 0$. 由于$(\lambda_i\mathcal I-\mathcal A)^{e_i-1}\alpha_i\ne\boldsymbol 0$,  且$(\lambda_i\mathcal I-\mathcal A)^{e_i}\alpha=\boldsymbol 0$,  从而$(\lambda-\lambda_i)^{e_i}$是次数最低的零化$\alpha$的多项式,  则$(\lambda-\lambda_i)^{e_i}\mid g(\lambda)$. 由于$i\ne j$时$\lambda_i\ne\lambda_j$,  即$(\lambda-\lambda_i)^{e_i}$两两互素,  故$f(\lambda)\mid g(\lambda)$,  $n=\deg f\leq g$,  矛盾. $\square$</p>
+
+<p>最后,  (7)可以刻画$\boldsymbol A$的不变子空间,  我们进行一些讨论.</p>
+
+<h2 id="不变子空间的刻画">不变子空间的刻画</h2>
+
+<p>我们先来看最简单的情形. </p>
+
+<blockquote>
+  <p><strong>命题4</strong> 
+  设$n$维复线性空间$V$上的线性变换$\mathcal{A}$在一组基$\{e_1, e_2, \cdots, e_n\}$下的表示矩阵为Jordan块$\boldsymbol{J}_n(\lambda_0)$,  则$\mathcal{A}$的所有不变子空间有$n+1$个. </p>
+</blockquote>
+
+<p><em>Proof.</em> 令$\mathcal N:=\mathcal A-\lambda_0\mathcal I$,  则$\mathcal N$在基$\{e_1, e_2, \cdots, e_n\}$下的表示矩阵为$$
+\begin{pmatrix}0&amp;1\\&amp;0&amp;1\\&amp;&amp;\ddots&amp;\ddots\\&amp;&amp;&amp;0&amp;1\\&amp;&amp;&amp;&amp;0\end{pmatrix}=\begin{pmatrix}\boldsymbol 0&amp;\boldsymbol{I}_{n-1}\\0&amp;\boldsymbol 0\end{pmatrix}, 
+$$则$\mathcal N^n=\mathcal O$,  且$$
+\mathcal Ne_n=e_{n-1}, \mathcal N^2e_n=\mathcal Ne_{n-1}=e_{n-2}, \cdots, \mathcal N^{n-1}e_n=e_1, \mathcal N^ne_n=\boldsymbol 0.
+$$显然$\mathcal A$-不变子空间等价于$\mathcal N$-不变子空间. 记$V_i:=\operatorname{span}\{e_1, e_2, \cdots, e_i\}(0\leq i\leq n), $ 则$V_i$都是$\mathcal N$-不变子空间,  我们来证明$\mathcal N$只有这$n+1$个不变子空间. </p>
+
+<p>任取$\mathcal A$的非零不变子空间$U$,  则$\mathcal A|_U$的特征多项式均是$(\lambda-\lambda_0)^n$的因式,  不妨设为$(\lambda-\lambda_0)^k(1\leq k\leq n)$,  则由Hamilton-Cayley定理知$U\subseteq \operatorname{Ker}(\mathcal A-\lambda_0\mathcal I)^k=\operatorname{Ker}\mathcal N^k$. 要证明$U=\operatorname{Ker}\mathcal N^k$,  任取$v=\sum\limits_{i=1}^nc_ie_i\in\operatorname{Ker}\mathcal N^k$,  则$$
+\boldsymbol 0=\mathcal N^kv=c_{k+1}\mathcal N^ke_{k+1}+\cdots+c_n\mathcal N^ke_n=c_{k+1}e_1+\cdots+c_ne_{n-k}, 
+$$故$c_{k+1}=\cdots=c_n=0$,  从而$\operatorname{Ker}\mathcal N^k=\operatorname{span}\{e_1, e_2, \cdots, e_k\}$. 注意到$k=\deg(\lambda-\lambda_0)^k=\dim U\leq\dim\operatorname{Ker}\mathcal N^k=k$,  故$U=\operatorname{Ker}\mathcal N^k=\operatorname{span}\{e_1, e_2, \cdots, e_k\}.\quad\square$</p>
+
+<p>现在我们可以证明$(4)\iff(7)$了. 先证明一个重要命题. </p>
+
+<blockquote>
+  <p><strong>命题5</strong> 
+  设 $\varphi$ 为数域 $\mathbb{K}$ 上 $n$ 维线性空间 $V$ 上的线性变换, 特征多项式与极小多项式分别为 $f(\lambda)$ 和 $m(\lambda)$, 其不可约分解为：$$
+f(\lambda) = P_1(\lambda)^{r_1} P_2(\lambda)^{r_2} \cdots P_t(\lambda)^{r_t},  \quad m(\lambda) = P_1(\lambda)^{s_1} P_2(\lambda)^{s_2} \cdots P_t(\lambda)^{s_t},  
+$$其中 $P_i(\lambda)$ 是 $\mathbb{K}$ 上互异的首一不可约多项式, $r_i &gt; 0,  s_i &gt; 0$. 设 $V_i = \text{Ker} \,  P_i(\varphi)^{r_i},  U_i = \text{Ker} \,  P_i(\varphi)^{s_i},  1 \leq i \leq t$,  则
+  (1) $V = V_1 \oplus V_2 \oplus \cdots \oplus V_t,  U_i = V_i \,  (1 \leq i \leq t)$;
+  (2) $\varphi|_{V_i}$ 的特征多项式为 $P_i(\lambda)^{r_i}$,  极小多项式为 $P_i(\lambda)^{s_i}$. 特别地, $\dim V_i = r_i \deg P_i(\lambda)$.</p>
+</blockquote>
+
+<p><em>Proof.</em> (1) 令 $h_i(\lambda) := \dfrac{f(\lambda)}{P_i(\lambda)^{r_i}} \,  (1 \leq i \leq t)$, 则 $h_1(\lambda),  h_2(\lambda),  \cdots,  h_t(\lambda)$ 互素, 故存在 $u_i(\lambda)$, 使得$$
+h_1(\lambda)u_1(\lambda) + h_2(\lambda)u_2(\lambda) + \cdots + h_t(\lambda)u_t(\lambda) = 1.
+$$将 $\lambda = \varphi$ 代入上式, 可得$$
+h_1(\varphi)u_1(\varphi) + h_2(\varphi)u_2(\varphi) + \cdots + h_t(\varphi)u_t(\varphi) = I_V. \tag{2}
+$$由 Cayley-Hamilton 定理可知, $0 = f(\varphi) = P_i(\varphi)^{r_i}h_i(\varphi)$, 故对任意的 $\alpha \in V$,  有$h_i(\varphi)u_i(\varphi)(\alpha) \in V_i$, 并由 $(2)$ 式可得$$
+\alpha = h_1(\varphi)u_1(\varphi)(\alpha) + h_2(\varphi)u_2(\varphi)(\alpha) + \cdots + h_t(\varphi)u_t(\varphi)(\alpha),  
+$$从而 $V = V_1 + V_2 + \cdots + V_t$. 另一方面, 任取 $\alpha_1 \in V_1 \cap (\sum_{j&gt;1} V_j)$, 则$\alpha_1\in V_1$,  且$\alpha = \sum_{j&gt;1} \alpha_j$, 其中 $\alpha_j \in V_j$, 则由$(2)$式可得$$
+ \alpha_1 = u_1(\varphi)h_1(\varphi)\left(\sum_{j&gt;1} \alpha_j\right) + \sum_{j&gt;1} u_j(\varphi)h_j(\varphi)(\alpha_1) = \boldsymbol 0+\boldsymbol{0}=\boldsymbol 0, 
+$$故 $V_1 \cap (\sum_{j&gt;1} V_j) = \boldsymbol 0$. 由指标的任意性可知 $V = V_1 \oplus V_2 \oplus \cdots \oplus V_t$. 同理可证
+$V = U_1 \oplus U_2 \oplus \cdots \oplus U_t$. 由于 $m(\lambda) \mid f(\lambda)$, 故 $s_i \leq r_i$, 于是 $U_i \subseteq V_i$, 从而只能是
+$U_i = V_i \,  (1 \leq i \leq t).~\square$</p>
+
+<p>(2) 记 $\varphi_i:=\varphi|_{V_i}$, 设其特征多项式与极小多项式分别为$f_i(\lambda)$和$m_i(\lambda)$. 由于 $V_i = \text{Ker} \,  P_i(\varphi)^{r_i}$, 故 $\varphi_i$ 适合 $P_i(\lambda)^{r_i}$, 从而 $\varphi_i$ 的特征值都适合 $P_i(\lambda)^{r_i}$, 即 $f_i(\lambda)$ 的根都是 $P_i(\lambda)^{r_i}$ 的根,  则$$
+f(\lambda) = P_1(\lambda)^{r_1} P_2(\lambda)^{r_2} \cdots P_t(\lambda)^{r_t} = f_1(\lambda)f_2(\lambda) \cdots f_t(\lambda), 
+$$由于 $P_1(\lambda)^{r_1},  P_2(\lambda)^{r_2},  \cdots,  P_t(\lambda)^{r_t}$ 两两互素, 故只能是 $f_i(\lambda) = P_i(\lambda)^{r_i}$. 另一方面, $\varphi_i$ 也适合多项式 $P_i(\lambda)^{s_i}$, 故由极小多项式的基本性质可得 $m_i(\lambda) \mid P_i(\lambda)^{s_i}$。特别地, $m_1(\lambda),  m_2(\lambda),  \cdots,  m_t(\lambda)$ 两两互素, 从而它们的最小公倍式等于它们的乘积,  即$$
+m(\lambda) = P_1(\lambda)^{s_1} P_2(\lambda)^{s_2} \cdots P_t(\lambda)^{s_t} = m_1(\lambda)m_2(\lambda) \cdots m_t(\lambda), 
+$$从而只能是 $m_i(\lambda) = P_i(\lambda)^{s_i}$。因为特征多项式的次数等于线性空间的维数, 所以 $\dim V_i = \deg P_i(\lambda)^{r_i} = r_i \deg P_i(\lambda).\quad \blacksquare$</p>
+
+<blockquote>
+  <p><strong>命题6</strong>
+  设$n$维复线性空间上的线性变换$\mathcal{A}$的特征多项式$f(\lambda)$等于其极小多项式$$
+m(\lambda)=(\lambda-\lambda_1)^{r_1}(\lambda-\lambda_2)^{r_2}\cdots(\lambda-\lambda_k)^{r_k}, 
+$$其中$\lambda_1, \lambda_2, \cdots, \lambda_k$是$\mathcal A$的全体不同的特征值,  则$\mathcal A$-不变子空间共有$\prod\limits_{i=1}^k(r_i+1)$个. </p>
+</blockquote>
+
+<p><em>Proof.</em> 令$V_i:=\operatorname{Ker}(\mathcal A-\lambda_i\mathcal I)^{r_1}$为属于特征值$\lambda_i$的根子空间,  则$V=\bigoplus_{i=1}^k V_k$. 记$\mathcal A|_{V_i}$的特征多项式为$f_i(\lambda)$,  极小多项式为$m_i(\lambda)$,  则由命题5知$f_i(\lambda)=m_i(\lambda)=(\lambda-\lambda_i)^{r_i}$. 任取$V$的$\mathcal A$-不变子空间$U$,   设$\mathcal A|_U$的特征多项式为$g(\lambda)$,  则$g(\lambda)\mid f(\lambda)$. 若设$$
+g(\lambda)=(\lambda-\lambda_1)^{s_1}(\lambda-\lambda_2)^{s_2}\cdots(\lambda-\lambda_k)^{s_k}, \quad U_i=\operatorname{Ker}(\varphi|_U-\lambda_i\mathcal I)^{s_i}, 
+$$则由命题5可知, $U = U_1 \oplus U_2 \oplus \cdots \oplus U_k$, 其中 $U_i$ 是 $V_i$ 的 $\varphi$-不变子空间, 由命题4知$U_i$共有$r_i+1$个不变子空间,  进而可知 $\varphi$-不变子空间 $U$ 的结构。因此, $V$ 的 $\varphi$-不变子空间一共有 $(r_1 + 1)(r_2 + 1) \cdots (r_k + 1)$ 个。</p>
+
+<blockquote>
+  <p><strong>命题</strong> 
+  设 $\mathcal A$ 是数域 $\mathbb{F}$ 上线性空间 $V$ 的线性变换,  其特征多项式有标准分解$$
+f(\lambda) = p_1^{r_1}(\lambda) p_2^{r_2}(\lambda) \cdots p_s^{r_s}(\lambda),  
+$$这里 $r_i \in \mathbb{N},  p_i(\lambda),  i = 1,  2,  \cdots,  s$ 两两互素且不可约,  则有直和分解$$
+ V = \operatorname{Ker} f(\mathcal A) = \bigoplus_{i=1}^s \operatorname{Ker} p_i^{r_i}(\mathcal A). 
+$$任取 $\mathcal A$ 的不变子空间 $U$,  则有$$
+ U = \bigoplus_{i=1}^s \left( U \cap \operatorname{Ker} p_i^{r_i}(\mathcal A) \right). 
+$$</p>
+</blockquote>
+
+<p><em>证明的想法是通过中国剩余定理使得 $x_i$ 暴露出来并让其余 $x_j,  i \neq j$ 变成 $\boldsymbol 0$.</em> </p>
+
+<p><em>Proof.</em> 对 $x \in U$,  由直和分解,  我们设$$
+x = \sum_{i=1}^s x_i,  \quad x_i \in \operatorname{Ker}p_i^{r_i}(A),  i = 1,  2,  \cdots,  s. 
+$$只需证明 $x_i \in U,  1\leq i\leq s$. </p>
+
+<p>由中国剩余定理,  取多项式 $g_i \in \mathbb{F}[x]$ 使得$$
+\begin{cases} 
+g_i \equiv 0 \pmod{p_j^{r_j}},  &amp; j \neq i; \\
+g_i \equiv 1 \pmod{p_i^{r_i}},  &amp; j = i.
+\end{cases}
+$$
+则$$
+ g_i(\mathcal A)x = \sum_{j=1}^s g_i(\mathcal A)x_j = x_i \in U,  \quad i = 1,  2,  \cdots,  s. \quad\square
+$$注意到 $U \cap \operatorname{Ker} p_i^{r_i}(\mathcal A)$ 是 $\mathcal A\mid\operatorname{Ker} p_i^{r_i}(\mathcal A)$ 的不变子空间且 $\mathcal A\mid \operatorname{Ker} p_i^{r_i}(\mathcal A)$ 的特征多项式是 $p_i^{r_i}(\lambda)$,  这里前者是显然的,  后者注意到写成矩阵有$$
+A = \text{diag} \left\{ A\mid \operatorname{Ker} p_1^{r_1}(A),  A\mid \operatorname{Ker} p_2^{r_2}(A),  \cdots,  A\mid \operatorname{Ker} p_s^{r_s}(A) \right\}.
+$$因此得到我们需要的.
+现在任取 $\mathcal A\mid \operatorname{Ker} p_i^{r_i}(\mathcal A)$ 不变子空间 $W_i,  i = 1,  2,  \cdots,  s$,  容易验证 $\bigoplus\limits_{i=1}^s W_i$ 是 $\mathcal A$-不变子空间,  因此对不变子空间的研究可以化归为对$f$的研究. </p>
+
+<blockquote>
+  <p><strong>Example:</strong> $T$是数域$\mathbb K$上线性空间$V$上的线性变换,  若$\exists v\in V$,  使得$v, Tv, \cdots, T^{n-1}v$是$V$的一组基,  $T$的极小多项式$m(\lambda)=\prod\limits_{i=1}^s(\lambda-\lambda_i)^{n_i}, \lambda_i(1\leq i\leq s)$互不相同. 
+  证明: 若对$\mathbb K$上的多项式$p, \exists u\in V,$ 使得$u, p(T)u, \cdots, p^{n-1}(T)u$也是$V$的一组基的充分必要条件是$\lambda_i\ne\lambda_j\implies p(\lambda_i)\ne p(\lambda_j)$,  且$n_i&gt;1$时有$p^\prime(\lambda_i)\ne0$.</p>
+</blockquote>
+
+<p>证明: 首先可以直接计算得$T$在基$v, Tv, \cdots, T^{n-1}v$下的表示矩阵是友阵,  不妨设为$$
+\boldsymbol{A}:=\begin{pmatrix}
+			0 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_n \\
+			1 &amp; 0 &amp; \cdots &amp; 0 &amp; -a_{n-1} \\
+			0 &amp; 1 &amp; \cdots &amp; 0 &amp; -a_{n-2} \\
+			\vdots &amp; \vdots &amp; &amp; \vdots &amp; \vdots \\
+			0 &amp; 0 &amp; \cdots &amp; 1 &amp; -a_1
+		\end{pmatrix}.
+$$我们知道友阵的特征多项式等于极小多项式,  即$\boldsymbol A$有代数重数为$n_i$的特征值$\lambda_i$. 注意$\lambda_i$的几何重数都是$1$,  即其在Jordan标准型中属于特征值$\lambda_i$的Jordan块只有$1$个,  即$$
+\boldsymbol A\sim\begin{pmatrix}\boldsymbol{J}_{n_1}(\lambda_1)\\&amp;\boldsymbol{J}_{n_2}(\lambda_2)\\&amp;&amp;\ddots\\&amp;&amp;&amp;\boldsymbol{J}_{n_s}(\lambda_s)\end{pmatrix}, \quad \sum_{i=1}^sn_i=n.
+$$
+注意$$
+p(\boldsymbol A)\sim\begin{pmatrix}p\left(\boldsymbol{J}_{n_1}(\lambda_1)\right)\\&amp;p\left(\boldsymbol{J}_{n_2}(\lambda_2)\right)\\&amp;&amp;\ddots\\&amp;&amp;&amp;p\left(\boldsymbol{J}_{n_s}(\lambda_s)\right)\end{pmatrix}, \quad \sum_{i=1}^sn_i=n.
+$$于是$\exists u\in V$使得$u, p(T)u, \cdots, p^{n-1}(T)u$也是$V$的一组基的充分必要条件是$p(T)$ 所有特征值对应的Jordan块只有一个. 
+若$\lambda_i\ne\lambda_j\implies p(\lambda_i)\ne p(\lambda_j)$,  则$p(\boldsymbol{J}_{n_i}(\lambda_i))\ne p(\boldsymbol J_{n_j}(\lambda_j))$,  当$n_i&gt;1$时,  $$
+p(\boldsymbol {J}_n(\lambda)) =\begin{pmatrix}
+					p(\lambda) &amp; \dfrac{p'(\lambda)}{1!} &amp; \dfrac{p''(\lambda)}{2!} &amp; \cdots &amp; \dfrac{p^{(n-2)}(\lambda)}{(n-2)!} &amp; \dfrac{p^{(n-1)}(\lambda)}{(n-1)!} \\[8pt]
+					&amp; p(\lambda) &amp; \dfrac{p'(\lambda)}{1!} &amp; \dfrac{p''(\lambda)}{2!} &amp; \cdots &amp; \dfrac{p^{(n-2)}(\lambda)}{(n-2)!} \\[8pt]
+					&amp; &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\[8pt]
+					&amp; &amp; &amp; p(\lambda) &amp; \dfrac{p'(\lambda)}{1!} &amp; \dfrac{p''(\lambda)}{2!} \\[8pt]
+					&amp; &amp; &amp; &amp; p(\lambda) &amp; \dfrac{p'(\lambda)}{1!} \\[8pt]
+					&amp; &amp; &amp; &amp; &amp; p(\lambda)
+				\end{pmatrix}, 
+$$由于$p'(\lambda_i)\ne0$,  故$\operatorname{rank}(\lambda_i\boldsymbol{I}_{n_i}-p(\boldsymbol J_{n_i}(\lambda_i))=n-1$,  故$p(J_{n_i}(\lambda_i))\sim J_{n_i}(p(\lambda_i))$. 这对$n_i=1$也成立,  故$$
+p(T)\sim\operatorname{diag}\left\{\boldsymbol J_{n_1}(p(\lambda_1)), \cdots, \boldsymbol J_{n_s}(p(\lambda_s))\right\}.
+$$故$p(T)$ 所有特征值对应的Jordan块只有一个. </p>
+
+<p>对于必要性,  采用反证法. 若$\lambda_i\ne\lambda_j$却有$p(\lambda_i)=p(\lambda_j)$,  则特征值$\lambda_i$对应的Jordan块至少有两个,  矛盾! 若$n_i&gt;1$时有$p'(\lambda_i)=0$,  则特征值$\lambda_i$对应的Jordan块也至少有两个,  矛盾! 这就证明了必要性. $\square$</p>
+
+<h1 id="双中心化子定理">双中心化子定理</h1>
+
+<p>最后我们来看双中心化子定理:</p>
+
+<blockquote>
+  <p><strong>定理 双中心化子定理:</strong> 设 $\boldsymbol A$是数域 $\mathbb{F}$ 上的 $n$ 阶矩阵, 若一个矩阵 $\boldsymbol X$ 和所有 $C(\boldsymbol A)$ 中的矩阵可交换, 证明存在 $\mathbb{F}$ 上的多项式 $p$ 使得 $\boldsymbol X = p(\boldsymbol A)$.</p>
+</blockquote>
+
+<p><strong>证明:</strong> 显然可以在 $\mathbb{C}$ 上考虑而不失一般性. 当 $\boldsymbol A$ 是幂零矩阵时,  不妨设$$
+\boldsymbol A = \begin{pmatrix}
+\boldsymbol J_1 &amp;  &amp;  &amp;  \\
+ &amp; \boldsymbol J_2 &amp;  &amp;  \\
+ &amp;  &amp; \ddots &amp;  \\
+ &amp;  &amp; &amp; \boldsymbol J_s
+\end{pmatrix}, 
+$$这里 $\boldsymbol J_i,  i = 1,  2,  \cdots,  s$ 是 Jordan 块,  则取 $$
+\widetilde{\boldsymbol A} = \begin{pmatrix}
+\boldsymbol J_1 + \boldsymbol I &amp;  &amp;  &amp;  \\
+ &amp; \boldsymbol J_2 + 2\boldsymbol I &amp;  &amp;  \\
+ &amp;  &amp; \ddots &amp;  \\
+ &amp;  &amp;  &amp; \boldsymbol J_s + s\boldsymbol I
+\end{pmatrix} \in C(\boldsymbol A).
+$$设 $$
+\boldsymbol{X}\tilde{\boldsymbol A} = \widetilde{\boldsymbol A}\boldsymbol X, \quad\boldsymbol X = \begin{pmatrix}
+\boldsymbol X_{11} &amp; \boldsymbol X_{12} &amp; \cdots &amp; \boldsymbol X_{1s} \\
+\boldsymbol X_{21} &amp; \boldsymbol X_{22} &amp; \cdots &amp; \boldsymbol X_{2s} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\boldsymbol X_{s1} &amp; \boldsymbol X_{s2} &amp; \cdots &amp; \boldsymbol X_{ss}
+\end{pmatrix}, 
+$$这给出了$$
+(\boldsymbol J_i + i\boldsymbol I)\boldsymbol X_{ij} = \boldsymbol X_{ij}(\boldsymbol J_j + j\boldsymbol I),  \forall i,  j = 1,  2,  \cdots,  s.
+$$因此由<strong>命题1</strong>知存在多项式 $p_i(x) \in \mathbb{F}[x],  i = 1,  2,  \cdots,  s$, 使得$$
+\boldsymbol X_{ij} = \begin{cases}
+\boldsymbol O,  &amp; i \neq j; \\
+p_i(\boldsymbol J_i),  &amp; i = j.
+\end{cases}
+$$对任意 $\boldsymbol J_1\boldsymbol B_{12} = \boldsymbol B_{12}\boldsymbol J_2$, 使得 $$
+\boldsymbol A' = \begin{pmatrix}
+\boldsymbol J_1 &amp; \boldsymbol B_{12} &amp; \cdots &amp; \boldsymbol{O} \\
+ &amp; \boldsymbol J_2 &amp; \cdots &amp; \boldsymbol{O} \\
+ &amp; \ &amp; \ddots &amp; \vdots \\
+ &amp;  &amp;  &amp; \boldsymbol J_s
+\end{pmatrix} \in C(\boldsymbol A), 
+$$那么根据 $\boldsymbol{XA}' = \boldsymbol{A}'\boldsymbol X$, 必有$$
+p_1(\boldsymbol J_1)\boldsymbol B_{12} = \boldsymbol B_{12}p_2(\boldsymbol J_2).
+$$假设$p_1 = p_2$, 设 $p_1,  p_2$ 的 $0,  1,  \cdots,  s-1$ 次系数都相同, 考虑 $s$ 次系数, 则由对任意 $p(x) \in \mathbb{F}[x]$都有 $p(\boldsymbol{J}_1)\boldsymbol{B}_{12} = \boldsymbol{B}_{12}p(\boldsymbol{J}_2)$ 知, 可设 $p_1,  p_2$ 的 $0,  1,  \cdots,  s-1$ 次系数都为 $0$. 设$$
+p_1 = q_1 \cdot x^s,  \quad p_2 = q_2 \cdot x^s,  \quad q_1,  q_2 \in \mathbb{F}[x].
+$$令$s \leq \min\{\boldsymbol{J}_1 \text{的阶数},  \boldsymbol{J}_2 \text{的阶数}\} - 1,$ 以及 $\boldsymbol{J}_1^s\boldsymbol{B}_{12} = \boldsymbol{B}_{12}\boldsymbol{J}_2^s$. 直接计算知存在满足 $\boldsymbol{J}_1\boldsymbol{B}_{12} = \boldsymbol{B}_{12}\boldsymbol{J}_2$ 的 $\boldsymbol{B}_{12}$, 使得 $\boldsymbol{J}_1^s\boldsymbol{B}_{12} = \boldsymbol{B}_{12}\boldsymbol{J}_2^s \neq \boldsymbol O$,  因 $q_1,  q_2$ 常数项一致, 因此我们有 $p_1 = p_2$,  类似可证所有 $p_i,  i = 1,  2,  \cdots,  s$ 都相同. </p>
+
+<p>于是 $\boldsymbol{X} = p_1(\boldsymbol A)$, 我们完成了最麻烦的一部分的证明. </p>
+
+<p>对于一般情况, 不妨设 $$
+\boldsymbol A = \begin{pmatrix}
+\boldsymbol T_1 &amp;  &amp;  &amp;  \\
+ &amp; \boldsymbol T_2 &amp;  &amp;  \\
+ &amp;  &amp; \ddots &amp;  \\
+ &amp;  &amp;  &amp; \boldsymbol T_s
+\end{pmatrix}, 
+$$这里 $\boldsymbol T_i,  i = 1,  2,  \cdots,  s$ 特征值互不相同.</p>
+
+<p>设$$
+\boldsymbol{X}\tilde{\boldsymbol A} = \widetilde{\boldsymbol A}\boldsymbol X, \quad\boldsymbol X = \begin{pmatrix}
+\boldsymbol X_{11} &amp; \boldsymbol X_{12} &amp; \cdots &amp; \boldsymbol X_{1s} \\
+\boldsymbol X_{21} &amp; \boldsymbol X_{22} &amp; \cdots &amp; \boldsymbol X_{2s} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\boldsymbol X_{s1} &amp; \boldsymbol X_{s2} &amp; \cdots &amp; \boldsymbol X_{ss}
+\end{pmatrix}, 
+$$类似上面可知 $\boldsymbol X_{ij} = \boldsymbol O,  \forall i \neq j$, 因此由单特征值时的结论, 我们知道存在多项式 $p_i(x) \in \mathbb{F}[x],  i = 1,  2,  \cdots,  s$, 使得
+$$
+
+\boldsymbol{X}_{ij} = \begin{cases}
+\boldsymbol O,  &amp; i \neq j; \\
+p_i(\boldsymbol T_i),  &amp; i = j.
+\end{cases}
+
+$$</p>
+
+<p>设 $\boldsymbol T_i$ 的极小多项式为 $m_i \in \mathbb{F}[x],  i = 1,  2,  \cdots,  s$, 则由中国剩余定理,  存在多项式 $p(x) \in \mathbb{F}[x]$, 使得
+$$
+
+p \equiv p_i \ (\text{mod} \ m_i),  \ i = 1,  2,  \cdots,  s.
+
+$$
+直接验证就有 $\boldsymbol X = p(\boldsymbol A)$. 我们完成了证明. $\square$</p>
+
+        <nav class="note-footer">
+          <a href="/notes.html">&laquo; 返回数学笔记列表</a>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="../js/theme.js?v=20260827"></script>
+
+</body>
+</html>
