@@ -152,13 +152,18 @@
         html += '  </div>';
       }
 
-      // 参考教材
+      // 参考教材（条目可为字符串，或 { title, url } 电子版链接）
       if (c.textbooks && c.textbooks.length > 0) {
         html += '  <div class="card-section">';
         html += sectionLabel('book', '参考教材');
         html += '    <ul class="textbook-list">';
         for (var t = 0; t < c.textbooks.length; t++) {
-          html += '      <li>' + escapeHtml(c.textbooks[t]) + '</li>';
+          var tb = c.textbooks[t];
+          if (tb && typeof tb === 'object') {
+            html += '      <li><a href="' + escapeAttr(tb.url) + '" target="_blank" class="review-link textbook-link">' + escapeHtml(tb.title) + '</a></li>';
+          } else {
+            html += '      <li>' + escapeHtml(tb) + '</li>';
+          }
         }
         html += '    </ul>';
         html += '  </div>';
@@ -234,7 +239,11 @@
         (c.nameEn && c.nameEn.toLowerCase().indexOf(searchKeyword) !== -1) ||
         (c.section && c.section.toLowerCase().indexOf(searchKeyword) !== -1) ||
         (courseSubsections(c).some(function (s) { return s.toLowerCase().indexOf(searchKeyword) !== -1; })) ||
-        (c.teachers && c.teachers.some(function (t) { return t.name.toLowerCase().indexOf(searchKeyword) !== -1; }));
+        (c.teachers && c.teachers.some(function (t) { return t.name.toLowerCase().indexOf(searchKeyword) !== -1; })) ||
+        (c.textbooks && c.textbooks.some(function (tb) {
+          var title = (tb && typeof tb === 'object') ? tb.title : tb;
+          return title && title.toLowerCase().indexOf(searchKeyword) !== -1;
+        }));
       return matchGroup && matchSearch;
     });
     renderCards(filtered);

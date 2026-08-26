@@ -17,7 +17,7 @@
  *   suggested  — 建议选修学期（如 '1'、'5 或 7'）
  *   note       — 备注（教学示范课程、二选一等）
  *   teachers   — 授课教师数组，每项 { name, url }，url 可选
- *   textbooks  — 参考教材数组
+ *   textbooks  — 参考教材数组；每项可为字符串（无电子版）或 { title, url }（电子版 PDF）
  *   examScope  — 考试范围说明（可选）
  *   reviewMaterials — 复习资料数组，每项 { title, url }
  *   exams      — 试题数组，每项 { year, title, url }
@@ -43,7 +43,7 @@ const COURSES = [
       { name: '范胜君', url: 'https://math.cumt.edu.cn/6d/9d/c9104a355741/page.htm' },
     ],
     textbooks: [
-      '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社'
+      { title: '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社', url: '/pdfs/books/数学分析(第五版)上册 华东师范大学.pdf' }
     ],
     examScope: '实数集与函数(第一章)、数列极限(第二章)、函数极限(第三章)、函数的连续性(第四章)、导数与微分(第五章)、微分中值定理及其应用(第六章)、实数的完备性(第七章)',
     exams: [
@@ -66,7 +66,8 @@ const COURSES = [
       { name: '陈毅', url: 'https://math.cumt.edu.cn/6d/a4/c9104a355748/page.htm' }
     ],
     textbooks: [
-      '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社、《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
+      { title: '《数学分析》(第五版·上册) 华东师范大学数学系 编，高等教育出版社', url: '/pdfs/books/数学分析(第五版)上册 华东师范大学.pdf' },
+      { title: '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社', url: '/pdfs/books/数学分析(第五版)下册 华东师范大学.pdf' }
     ],
     examScope: '不定积分(第八章)、定积分(第九章)、定积分的应用(第十章)、反常积分(第十一章)、级数(第十二章)、函数列与函数项级数(第十三章)、幂级数(第十四章)、傅里叶级数(第十五章)',
     exams: [
@@ -92,7 +93,7 @@ const COURSES = [
       { name: '杨晓波', url: 'https://math.cumt.edu.cn/6d/e7/c9104a355815/page.htm' }
     ],
     textbooks: [
-      '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社'
+      { title: '《数学分析》(第五版·下册) 华东师范大学数学系 编，高等教育出版社', url: '/pdfs/books/数学分析(第五版)下册 华东师范大学.pdf' }
     ],
     examScope: '多元函数的极限与连续(第十六章)、多元函数微分学(第十七章)、隐函数定理及其应用(第十八章)、含参量积分(第十九章)、曲线积分(第二十章)、重积分(第二十一章)、曲面积分(第二十二章)',
     exams: [
@@ -115,7 +116,7 @@ const COURSES = [
       { name: '夏春光', url: 'https://math.cumt.edu.cn/6d/e4/c9104a355812/page.htm' },
     ],
     textbooks: [
-      '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
+      { title: '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社', url: '/pdfs/books/高等代数(第五版) 北京大学数学系.pdf' }
     ],
     examScope: '多项式(第一章)、行列式(第二章)、线性方程组(第三章)、矩阵(第四章)',
     exams: [
@@ -140,7 +141,7 @@ const COURSES = [
       { name: '夏春光', url: 'https://math.cumt.edu.cn/6d/e4/c9104a355812/page.htm' }
     ],
     textbooks: [
-      '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社'
+      { title: '《高等代数》(第五版) 北京大学数学系 编，高等教育出版社', url: '/pdfs/books/高等代数(第五版) 北京大学数学系.pdf' }
     ],
     examScope: '第五章(二次型)、第六章(线性空间)、第七章(线性变换)、第九章(欧几里得空间)',
     exams: [
@@ -169,7 +170,7 @@ const COURSES = [
       { name: '张玉峰', url: 'https://math.cumt.edu.cn/6d/f1/c9104a355825/page.htm' }
     ],
     textbooks: [
-      '《解析几何教程》(第三版) 廖华奎、王宝富 编，科学出版社'
+      { title: '《解析几何教程》(第三版) 廖华奎、王宝富 编，科学出版社', url: '/pdfs/books/解析几何教程(第三版) 廖华奎 王宝富.pdf' }
     ],
     reviewMaterials: [
       { title: '空间解析几何复习', url: '/pdfs/空间解析几何复习.pdf' }
@@ -204,7 +205,7 @@ const COURSES = [
       { name: '韩苗', url: 'https://math.cumt.edu.cn/6d/ac/c9104a355756/page.htm' }
     ],
     textbooks: [
-      '《概率论与数理统计教程》(第四版) 茆诗松 程依明 濮晓龙 等 编，高等教育出版社'
+      { title: '《概率论与数理统计教程》(第四版) 茆诗松 程依明 濮晓龙 等 编，高等教育出版社', url: '/pdfs/books/概率论与数理统计教程(第四版) 茆诗松.pdf' }
     ],
     examScope: '随机事件与概率(第一章)、随机变量及其分布(第二章)、多维随机变量及其分布(第三章)、大数定律与中心极限定理(第四章)',
     exams: [
@@ -234,7 +235,7 @@ const COURSES = [
       { name: '芮文娟', url: 'https://math.cumt.edu.cn/6d/cd/c9104a355789/page.htm' }
     ],
     textbooks: [
-      '《概率论与数理统计教程》(第四版) 茆诗松 程依明 濮晓龙 等 编，高等教育出版社'
+      { title: '《概率论与数理统计教程》(第四版) 茆诗松 程依明 濮晓龙 等 编，高等教育出版社', url: '/pdfs/books/概率论与数理统计教程(第四版) 茆诗松.pdf' }
     ],
     reviewMaterials: [
       { title: '数理统计基础知识清单(必背)', url: '/pdfs/数理统计基础知识清单(必背).pdf' }
@@ -264,7 +265,7 @@ const COURSES = [
       { name: '田守富', url: 'https://math.cumt.edu.cn/ed/34/c9104a585012/page.htm' }
     ],
     textbooks: [
-      '《Ordinary Differential Equations》(第二版) 张慧星 杨晓波等 主编，中国矿业大学出版社'
+      { title: '《Ordinary Differential Equations》(第二版) 张慧星 杨晓波等 主编，中国矿业大学出版社', url: '/pdfs/books/Ordinary Differential Equations(第二版) 张慧星 杨晓波.pdf' }
     ],
     reviewMaterials: [
       { title: 'Solutions to Ordinary Differential Equations (By Fingolfin)', url: '/pdfs/Solutions to Ordinary Differential Equations (By Fingolfin).pdf' }
@@ -291,7 +292,7 @@ const COURSES = [
       { name: '郭彦', url: 'https://math.cumt.edu.cn/6d/ab/c9104a355755/page.htm' }
     ],
     textbooks: [
-      '《计算方法》(第三版) 曹德欣 曹璎珞 等 编，中国矿业大学出版社'
+      { title: '《计算方法》(第三版) 曹德欣 曹璎珞 等 编，中国矿业大学出版社', url: '/pdfs/books/计算方法(第三版) 曹德欣 曹璎珞.pdf' }
     ],
     reviewMaterials: [
       { title: '数值分析基础知识清单(必背)', url: '/pdfs/数值分析基础知识清单(必背).pdf' },
@@ -324,7 +325,7 @@ const COURSES = [
       { name: '陈小林', url: 'https://math.cumt.edu.cn/6d/a3/c9104a355747/page.htm' }
     ],
     textbooks: [
-      '《实变函数与泛函分析基础》 程其襄 张奠宙 胡善文 薛以锋 编，高等教育出版社'
+      { title: '《实变函数与泛函分析基础》(第四版) 程其襄 张奠宙 胡善文 薛以锋 编，高等教育出版社', url: '/pdfs/books/实变函数与泛函分析基础(第四版) 程其襄.pdf' }
     ],
     reviewMaterials: [
       { title: '实变函数期末知识整理', url: '/pdfs/实变函数期末知识整理.pdf' }
@@ -352,7 +353,8 @@ const COURSES = [
       { name: '付乳燕', url: 'https://math.cumt.edu.cn/6d/aa/c9104a355754/page.htm' }
     ],
     textbooks: [
-      '《Operation Research》'
+      '《Operation Research》',
+      { title: '《运筹学》(第2版) 段滋明 苗连英 主编，中国矿业大学出版社', url: '/pdfs/books/运筹学(第2版) 段滋明 苗连英.pdf' }
     ]
   },
   // ============================================================
@@ -431,7 +433,7 @@ const COURSES = [
       { name: '陈小林', url: 'https://math.cumt.edu.cn/6d/a3/c9104a355747/page.htm' }
     ],
     textbooks: [
-      '《实变函数与泛函分析基础》 程其襄 张奠宙 胡善文 薛以锋 编，高等教育出版社'
+      { title: '《实变函数与泛函分析基础》(第四版) 程其襄 张奠宙 胡善文 薛以锋 编，高等教育出版社', url: '/pdfs/books/实变函数与泛函分析基础(第四版) 程其襄.pdf' }
     ],
     exams: [
       { year: '2025-2026', title: '2025-2026-1泛函分析', url: '/pdfs/2025-2026-1泛函分析.pdf' }
@@ -450,7 +452,7 @@ const COURSES = [
       { name: '张驰', url: 'https://math.cumt.edu.cn/2b/63/c9104a535395/page.htm' }
     ],
     textbooks: [
-      '《抽象代数基础》(第二版) 唐忠明 编，高等教育出版社'
+      { title: '《抽象代数基础》(第二版) 唐忠明 编，高等教育出版社', url: '/pdfs/books/抽象代数基础(第二版) 唐忠明.pdf' }
     ],
     exams: [
       { year: '2021-2022', title: '2021-2022-1抽象代数(A)', url: '/pdfs/2021-2022-1抽象代数(A).pdf' },
@@ -477,7 +479,7 @@ const COURSES = [
       { name: '张杰', url: 'https://math.cumt.edu.cn/6d/eb/c9104a355819/page.htm' }
     ],
     textbooks: [
-      '《复分析基础》廖良文 编，科学出版社'
+      { title: '《复分析基础》 廖良文 编，科学出版社', url: '/pdfs/books/复分析基础 廖良文.pdf' }
     ],
     exams: [
       { year: '2024-2025', title: '2024-2025-2复变函数A卷', url: '/pdfs/2024-2025-2复变函数A卷.pdf' },
@@ -500,7 +502,7 @@ const COURSES = [
       { name: '张玉峰', url: 'https://math.cumt.edu.cn/6d/f1/c9104a355825/page.htm' }
     ],
     textbooks: [
-      '《微分几何》(修订版) 苏步青 胡和生 沈纯理 潘养廉 张国樑 编，高等教育出版社'
+      { title: '《微分几何》(修订版) 苏步青 胡和生 沈纯理 潘养廉 张国樑 编，高等教育出版社', url: '/pdfs/books/微分几何(修订版) 苏步青 胡和生.pdf' }
     ]
   },
   {
@@ -543,7 +545,7 @@ const COURSES = [
     term: '秋',
     suggested: '5',
     textbooks: [
-      '《矩阵计算》(第四版) Gene H. Golub 等 著，人民邮电出版社'
+      { title: '《矩阵计算》(第四版) Gene H. Golub 等 著，人民邮电出版社', url: '/pdfs/books/矩阵计算(第四版) Gene H. Golub.pdf' }
     ]
   },
   {
@@ -586,7 +588,7 @@ const COURSES = [
       { name: '陈太勇', url: 'https://math.cumt.edu.cn/6d/a2/c9104a355746/page.htm' }
     ],
     textbooks: [
-      '《数学物理方程》(第三版) 刘文斌 等 编，中国矿业大学出版社'
+      { title: '《数学物理方程》(第三版) 刘文斌 等 编，中国矿业大学出版社', url: '/pdfs/books/数学物理方程(第三版) 刘文斌.pdf' }
     ]
   },
   {
@@ -602,7 +604,7 @@ const COURSES = [
       { name: '陈小林', url: 'https://math.cumt.edu.cn/6d/a3/c9104a355747/page.htm' }
     ],
     textbooks: [
-      '《点集拓扑讲义》(第四版) 熊金城 编，高等教育出版社'
+      { title: '《点集拓扑讲义》(第五版) 熊金城 编，高等教育出版社', url: '/pdfs/books/点集拓扑讲义(第五版) 熊金城.pdf' }
     ],
     exams: [
       { year: '2025-2026', title: '2025-2026-2-拓扑学-试题(A)(回忆)', url: '/pdfs/2025-2026-2-拓扑学-试题(A)(回忆).pdf' }
