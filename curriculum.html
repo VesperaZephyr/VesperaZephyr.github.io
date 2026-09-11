@@ -14,21 +14,37 @@
 /* ---- 培养方案页专用 ---- */
 .curriculum-toc {
   margin: 1rem 0 1.5rem;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   background: var(--md-default-fg-color--lightest);
   border-radius: 0.3rem;
+}
+.curriculum-toc .toc-columns {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.curriculum-toc .toc-col {
+  flex: 1 1 16rem;
+  min-width: 12rem;
+}
+.curriculum-toc h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  color: var(--md-accent-fg-color);
 }
 .curriculum-toc ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem 1rem;
+}
+.curriculum-toc li {
+  margin: 0.22rem 0;
 }
 .curriculum-toc a {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   text-decoration: none;
+  display: block;
+  line-height: 1.5;
 }
 .curriculum-toc a:hover { text-decoration: underline; }
 .md-typeset .curriculum-body table {
@@ -51,6 +67,15 @@
 .md-typeset .curriculum-body th {
   background: var(--md-default-fg-color--lightest);
   font-weight: 700;
+}
+.md-typeset .curriculum-body a.course-intro-link {
+  color: var(--md-typeset-a-color);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--md-typeset-a-color);
+}
+.md-typeset .curriculum-body a.course-intro-link:hover {
+  text-decoration: none;
+  border-bottom-style: solid;
 }
 .md-typeset .curriculum-body img {
   max-width: 100%;
@@ -123,11 +148,21 @@
           <p>
             数学与应用数学专业与统计学专业的完整培养方案, 含培养目标、毕业要求、学分结构、
             教学进程表、课程体系矩阵与拓扑图. 内容整理自学院发布的培养方案原文.
+            表格中带下划线虚线的课程名可点击查看<a href="/course-intro.html?id=regression-analysis">课程详细介绍</a>.
           </p>
         </div>
 
         <nav class="curriculum-toc" id="curriculumToc" style="display:none">
-          <ul></ul>
+          <div class="toc-columns">
+            <div class="toc-col">
+              <h3>数学与应用数学</h3>
+              <ul id="tocMath"></ul>
+            </div>
+            <div class="toc-col">
+              <h3>统计学</h3>
+              <ul id="tocStat"></ul>
+            </div>
+          </div>
         </nav>
 
         <div class="curriculum-body" id="curriculumBody">
@@ -158,6 +193,7 @@
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="js/data.js?v=20260912"></script>
 <script src="js/theme.js?v=20260827"></script>
 <script>
 (function () {
@@ -174,6 +210,60 @@
     return slug;
   }
 
+  // ============================================================
+  //  课程名 → 课程介绍页链接映射 (来自 js/data.js)
+  // ============================================================
+  var nameToId = {};
+  var aliasToId = {
+    '基础数学综合实践': 'comprehensive-practice',
+    '应用数学综合实践': 'comprehensive-practice',
+    '数学物理方程': 'pde'
+  };
+  if (typeof COURSES !== 'undefined') {
+    for (var ci = 0; ci < COURSES.length; ci++) {
+      nameToId[COURSES[ci].name] = COURSES[ci].id;
+    }
+    for (var alias in aliasToId) {
+      if (!nameToId[alias]) nameToId[alias] = aliasToId[alias];
+    }
+  }
+  // 按名称长度降序匹配, 避免短名抢先 (如"数学分析" vs "数学分析(1)")
+  var courseNames = Object.keys(nameToId).sort(function (a, b) { return b.length - a.length; });
+
+  function linkifyCell(cell) {
+    var walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, null);
+    var textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    for (var n = 0; n < textNodes.length; n++) {
+      var node = textNodes[n];
+      var text = node.nodeValue;
+      var html = '';
+      var rest = text;
+      var changed = false;
+      while (rest.length > 0) {
+        var bestIdx = -1, bestName = null;
+        for (var k = 0; k < courseNames.length; k++) {
+          var idx = rest.indexOf(courseNames[k]);
+          if (idx !== -1 && (bestIdx === -1 || idx < bestIdx ||
+              (idx === bestIdx && courseNames[k].length > bestName.length))) {
+            bestIdx = idx; bestName = courseNames[k];
+          }
+        }
+        if (bestName === null) { html += rest; break; }
+        html += rest.slice(0, bestIdx);
+        html += '<a class="course-intro-link" href="/course-intro.html?id=' +
+          encodeURIComponent(nameToId[bestName]) + '">' + bestName + '</a>';
+        rest = rest.slice(bestIdx + bestName.length);
+        changed = true;
+      }
+      if (changed) {
+        var span = document.createElement('span');
+        span.innerHTML = html;
+        node.parentNode.replaceChild(span, node);
+      }
+    }
+  }
+
   fetch('24级数学系培养方案.md')
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -184,24 +274,32 @@
       var html = marked.parse(md);
       body.innerHTML = html;
 
-      // 给 h2 加锚点并生成目录
+      // 表格中的课程名自动链接到课程介绍页
+      if (typeof COURSES !== 'undefined') {
+        var cells = body.querySelectorAll('td, th');
+        for (var c = 0; c < cells.length; c++) linkifyCell(cells[c]);
+      }
+
+      // 生成两栏目录: 数学与应用数学 / 统计学
       var used = {};
       var headings = body.querySelectorAll('h2');
-      var tocList = tocNav ? tocNav.querySelector('ul') : null;
+      var tocMath = document.getElementById('tocMath');
+      var tocStat = document.getElementById('tocStat');
+      var inStat = false;
       for (var i = 0; i < headings.length; i++) {
         var h = headings[i];
         var id = slugify(h.textContent, used);
         h.id = id;
-        if (tocList) {
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = '#' + id;
-          a.textContent = h.textContent;
-          li.appendChild(a);
-          tocList.appendChild(li);
-        }
+        if (/^统计学专业/.test(h.textContent)) inStat = true;
+        var target = inStat ? tocStat : tocMath;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        target.appendChild(li);
       }
-      if (tocList && headings.length > 0) tocNav.style.display = '';
+      if (headings.length > 0) tocNav.style.display = '';
     })
     .catch(function (err) {
       body.innerHTML = '<p class="curriculum-loading">培养方案加载失败 (' + err.message +

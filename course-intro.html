@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程介绍 — CUMT 数院电子资料库</title>
+<meta name="description" content="CUMT 数院课程详细介绍: 课程简介、教师评价、推荐书籍">
+<meta name="theme-color" content="#ffffff">
+<script>(function(){try{var t=localStorage.getItem('md-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var d=document.documentElement;d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='dark'?'#1e2129':'#ffffff');}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20260827">
+<style>
+/* ---- 课程介绍页专用 ---- */
+.course-intro-wrap {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+.course-intro-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0 1.2rem;
+}
+.course-intro-meta .course-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.2rem;
+  background: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light);
+}
+.course-intro-section {
+  margin-bottom: 1.4rem;
+  padding: 0.9rem 1rem;
+  background: var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  border-left: 3px solid var(--md-accent-fg-color);
+}
+.course-intro-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+.course-intro-section p,
+.course-intro-section ul {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.pending-note {
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<!-- 跳至内容 -->
+<a href="#main" class="md-skip">跳到主内容</a>
+
+<!-- ===== 顶部导航栏 ===== -->
+<header class="md-header">
+  <div class="md-header__inner">
+    <a href="/" class="md-logo">
+      <svg class="md-icon md-icon--logo" viewBox="0 0 32 32" width="24" height="24">
+        <rect x="2" y="20" width="7" height="10" rx="1" fill="currentColor" opacity="0.9"/>
+        <rect x="12" y="13" width="7" height="17" rx="1" fill="currentColor" opacity="0.7"/>
+        <rect x="22" y="7" width="7" height="23" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </a>
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <span class="md-header__topic" id="headerTopic">课程介绍</span>
+        <span class="md-header__topic">CUMT 数院资料库</span>
+      </div>
+    </div>
+    <div class="md-header__option">
+      <button class="md-header__button md-icon" id="themeToggle" aria-label="切换深浅色模式"></button>
+    </div>
+    <div class="md-header__source">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank" class="md-header__button md-icon" title="GitHub 仓库" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 标签页导航 ===== -->
+<nav class="md-tabs">
+  <ul class="md-tabs__list">
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="/" class="md-tabs__link">课程资料</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/curriculum.html" class="md-tabs__link">培养方案</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/notes.html" class="md-tabs__link">数学笔记</a>
+    </li>
+    <li class="md-tabs__item">
+      <a href="/tools.html" class="md-tabs__link">友情链接 / 有用工具</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ===== 主容器 ===== -->
+<div class="md-container">
+  <main class="md-main">
+    <div class="md-main__inner">
+      <div class="md-content md-typeset course-intro-wrap" id="main" style="margin-left:0;">
+
+        <p><a href="/">« 返回课程资料</a> · <a href="/curriculum.html">培养方案</a></p>
+        <div id="courseIntroBody">
+          <p class="pending-note">加载中…</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="md-footer">
+  <div class="md-footer__inner">
+    <p>© 2026 CUMT 数院电子资料库 · 由 VesperaZephyr 维护</p>
+    <p class="md-footer__note">本站资料仅供学习交流使用，请勿用于商业用途</p>
+    <div class="md-footer__links">
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io" target="_blank">📦 GitHub 仓库</a>
+      <a href="https://github.com/VesperaZephyr/vesperazephyr.github.io/issues" target="_blank">💬 反馈与建议</a>
+      <a href="https://www.zhihu.com/people/11-68-36-12" target="_blank">📝 知乎</a>
+    </div>
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button id="myBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5l-8-8z" fill="currentColor"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="js/data.js?v=20260912"></script>
+<script src="js/course-intros.js?v=20260912"></script>
+<script src="js/theme.js?v=20260827"></script>
+<script>
+(function () {
+  'use strict';
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+
+  function getParam(name) {
+    var m = new RegExp('[?&]' + name + '=([^&#]*)').exec(location.search);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  var body = document.getElementById('courseIntroBody');
+  var id = getParam('id');
+  var course = null;
+  for (var i = 0; i < COURSES.length; i++) {
+    if (COURSES[i].id === id) { course = COURSES[i]; break; }
+  }
+
+  document.title = (course ? course.name + ' — ' : '') + '课程介绍 — CUMT 数院电子资料库';
+  var topic = document.getElementById('headerTopic');
+  if (topic && course) topic.textContent = course.name;
+
+  if (!course) {
+    body.innerHTML = '<p class="pending-note">未找到该课程 (id=' + escapeHtml(id) + ')。' +
+      '请从<a href="/curriculum.html">培养方案</a>或<a href="/">课程资料</a>页进入。</p>';
+    return;
+  }
+
+  var detail = COURSE_INTROS[course.id] || {};
+
+  // 基本信息标签
+  var meta = [];
+  if (course.credits) meta.push(course.credits + ' 学分');
+  if (course.term) meta.push(course.term === '全' ? '学期不限' : course.term + '季学期');
+  if (course.suggested) meta.push('建议第 ' + course.suggested + ' 学期');
+  if (course.note) meta.push(course.note);
+
+  // 教师列表
+  var teachersHtml = '<p class="pending-note">暂无授课教师信息</p>';
+  if (course.teachers && course.teachers.length > 0) {
+    teachersHtml = '<ul>';
+    for (var t = 0; t < course.teachers.length; t++) {
+      var tc = course.teachers[t];
+      teachersHtml += '<li>';
+      if (tc.url) {
+        teachersHtml += '<a href="' + escapeAttr(tc.url) + '" target="_blank">' + escapeHtml(tc.name) + '</a>';
+      } else {
+        teachersHtml += escapeHtml(tc.name);
+      }
+      teachersHtml += '</li>';
+    }
+    teachersHtml += '</ul>';
+  }
+
+  // 教材列表
+  var booksHtml = '<p class="pending-note">暂无参考教材信息</p>';
+  if (course.textbooks && course.textbooks.length > 0) {
+    booksHtml = '<ul>';
+    for (var b = 0; b < course.textbooks.length; b++) {
+      var tb = course.textbooks[b];
+      booksHtml += '<li>';
+      if (tb && typeof tb === 'object') {
+        booksHtml += '<a href="' + escapeAttr(tb.url) + '" target="_blank">' + escapeHtml(tb.title) + '</a>';
+      } else {
+        booksHtml += escapeHtml(tb);
+      }
+      booksHtml += '</li>';
+    }
+    booksHtml += '</ul>';
+  }
+
+  function section(title, contentHtml, pending) {
+    return '<div class="course-intro-section">' +
+      '<h2>' + title + '</h2>' +
+      (contentHtml || '<p class="pending-note">' + pending + '</p>') +
+      '</div>';
+  }
+
+  function mdToHtml(md) {
+    if (!md) return '';
+    try { return marked.parse(md); } catch (e) { return '<p>' + escapeHtml(md) + '</p>'; }
+  }
+
+  var html = '<h1>' + escapeHtml(course.name) +
+    (course.nameEn ? '<span class="course-name-en"> ' + escapeHtml(course.nameEn) + '</span>' : '') + '</h1>';
+  html += '<div class="course-intro-meta">';
+  for (var m = 0; m < meta.length; m++) {
+    html += '<span class="course-tag">' + escapeHtml(meta[m]) + '</span>';
+  }
+  html += '</div>';
+
+  html += section('课程简介', mdToHtml(detail.intro), '介绍还在编写中, 欢迎投稿');
+  html += section('授课教师', teachersHtml, '');
+  html += section('教师评价', mdToHtml(detail.teachers), '教师评价还在编写中, 欢迎投稿');
+  html += section('参考教材', booksHtml, '');
+  html += section('推荐书籍', mdToHtml(detail.books), '推荐书目还在整理中, 欢迎投稿');
+
+  html += '<p>历年试题与复习资料见<a href="/#courses">课程资料页</a>。</p>';
+
+  body.innerHTML = html;
+})();
+</script>
+
+</body>
+</html>
