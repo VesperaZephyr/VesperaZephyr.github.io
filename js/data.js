@@ -7,10 +7,14 @@
  *   id         — 唯一标识
  *   name       — 课程中文名
  *   nameEn     — 课程英文名（可选）
- *   section    — 一级分类: 专业大类基础课程 | 专业主干课程 | 专业选修课程 | 专业拓展课程
+ *   majors     — 开设该课程的专业数组（可选）。缺省时: section 为 '专业大类基础课程' 的课程两专业共有,
+ *                其余课程仅属于 '数学与应用数学'
+ *   statSection / statSubsection — 该课程在"统计学"专业视图下的分类覆盖（可选）
+ *   section    — 一级分类: 专业大类基础课程 | 专业主干课程 | 专业选修课程 | 专业拓展课程 | 专业实践课程
  *   subsection — 二级分类（专业主干课程可为数组, 表示课程属于多个课组）:
  *                  专业大类基础必修课程 | 专业大类基础实践课程
  *                  核心数学课组 | 金融数学课组 | 计算、控制与优化课组
+ *                  统计学主干课程 | 统计学选修课程 | 统计学专业实践 | 本专业拓展课程
  *                  所有课组 | 本研一体化课程 | 其他课组拓展课程
  *   credits    — 学分
  *   term       — 开课学期: 秋 | 春
@@ -423,6 +427,9 @@ const COURSES = [
     id: 'functional-analysis',
     name: '泛函分析',
     nameEn: 'Functional Analysis',
+    majors: ['数学与应用数学', '统计学'],
+    statSection: '专业选修课程',
+    statSubsection: '统计学选修课程',
     section: '专业主干课程',
     subsection: ['核心数学课组', '金融数学课组', '计算、控制与优化课组'],
     credits: 3,
@@ -509,6 +516,9 @@ const COURSES = [
     id: 'financial-economics',
     name: '金融经济学',
     nameEn: 'Financial Economics',
+    majors: ['数学与应用数学', '统计学'],
+    statSection: '专业选修课程',
+    statSubsection: '统计学选修课程',
     section: '专业主干课程',
     subsection: '金融数学课组',
     credits: 2.5,
@@ -519,6 +529,8 @@ const COURSES = [
     id: 'derivative-pricing',
     name: '金融衍生产品定价(双语)',
     nameEn: 'Pricing of Financial Derivatives',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学主干课程',
     section: '专业主干课程',
     subsection: '金融数学课组',
     credits: 3.5,
@@ -529,6 +541,8 @@ const COURSES = [
     id: 'stochastic-processes',
     name: '随机过程',
     nameEn: 'Stochastic Processes',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学主干课程',
     section: '专业主干课程',
     subsection: '金融数学课组',
     credits: 3,
@@ -634,6 +648,9 @@ const COURSES = [
     id: 'multivariate-statistics',
     name: '多元统计分析',
     nameEn: 'Multivariate Statistical Analysis',
+    majors: ['数学与应用数学', '统计学'],
+    statSection: '专业主干课程',
+    statSubsection: '统计学主干课程',
     section: '专业选修课程',
     subsection: '金融数学课组',
     credits: 3,
@@ -644,6 +661,8 @@ const COURSES = [
     id: 'financial-modeling',
     name: '金融建模',
     nameEn: 'Financial Modeling',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学选修课程',
     section: '专业选修课程',
     subsection: '金融数学课组',
     credits: 2,
@@ -654,6 +673,8 @@ const COURSES = [
     id: 'data-mining',
     name: '数据挖掘',
     nameEn: 'Data Mining',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学选修课程',
     section: '专业选修课程',
     subsection: '金融数学课组',
     credits: 3,
@@ -677,6 +698,8 @@ const COURSES = [
     id: 'statistical-computing',
     name: '统计计算',
     nameEn: 'Statistical Computing',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学选修课程',
     section: '专业选修课程',
     subsection: '金融数学课组',
     credits: 3,
@@ -687,6 +710,8 @@ const COURSES = [
     id: 'time-series',
     name: '时间序列分析(国际)',
     nameEn: 'Time Series Analysis',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '统计学选修课程',
     section: '专业选修课程',
     subsection: '金融数学课组',
     credits: 2.5,
@@ -838,6 +863,8 @@ const COURSES = [
     id: 'measure-probability',
     name: '测度与概率论',
     nameEn: 'Measure and Probability',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '本专业拓展课程',
     section: '专业拓展课程',
     subsection: '本研一体化课程',
     credits: 3,
@@ -879,6 +906,8 @@ const COURSES = [
     id: 'modern-math-enhancement',
     name: '近代数学理论提升',
     nameEn: 'Advanced Modern Mathematics',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '本专业拓展课程',
     section: '专业拓展课程',
     subsection: '其他课组拓展课程',
     credits: 4,
@@ -890,6 +919,8 @@ const COURSES = [
     id: 'math-foundation-extension',
     name: '数学基础能力拓展',
     nameEn: 'Extension of Mathematical Foundations',
+    majors: ['数学与应用数学', '统计学'],
+    statSubsection: '本专业拓展课程',
     section: '专业拓展课程',
     subsection: '其他课组拓展课程',
     credits: 4,
@@ -905,5 +936,132 @@ const COURSES = [
     credits: 3,
     term: '春',
     suggested: '6'
+  },
+
+  // ============================================================
+  //  统计学专业课程 (2024 版统计学专业培养方案)
+  // ============================================================
+  {
+    id: 'regression-analysis',
+    name: '回归分析',
+    nameEn: 'Regression Analysis',
+    majors: ['统计学'],
+    section: '专业主干课程',
+    subsection: '统计学主干课程',
+    credits: 2.5,
+    term: '秋',
+    suggested: '5'
+  },
+  {
+    id: 'sampling-survey',
+    name: '抽样调查',
+    nameEn: 'Sampling Survey',
+    majors: ['统计学'],
+    section: '专业选修课程',
+    subsection: '统计学选修课程',
+    credits: 2,
+    term: '秋',
+    suggested: '5'
+  },
+  {
+    id: 'data-science-intro',
+    name: '数据科学概论',
+    nameEn: 'Introduction to Data Science',
+    majors: ['统计学'],
+    section: '专业选修课程',
+    subsection: '统计学选修课程',
+    credits: 2,
+    term: '秋',
+    suggested: '5'
+  },
+  {
+    id: 'statistical-forecasting',
+    name: '统计预测与决策',
+    nameEn: 'Statistical Forecasting and Decision Making',
+    majors: ['统计学'],
+    section: '专业选修课程',
+    subsection: '统计学选修课程',
+    credits: 2,
+    term: '秋',
+    suggested: '7'
+  },
+  {
+    id: 'machine-learning',
+    name: '机器学习',
+    nameEn: 'Machine Learning',
+    majors: ['统计学'],
+    section: '专业拓展课程',
+    subsection: '本专业拓展课程',
+    credits: 3,
+    term: '春',
+    suggested: '6',
+    note: 'AI 深融课程'
+  },
+  {
+    id: 'bayesian-statistics',
+    name: '贝叶斯统计',
+    nameEn: 'Bayesian Statistics',
+    majors: ['统计学'],
+    section: '专业拓展课程',
+    subsection: '本专业拓展课程',
+    credits: 2,
+    term: '秋',
+    suggested: '7'
+  },
+  {
+    id: 'stats-software-practice',
+    name: '统计软件实践',
+    nameEn: 'Statistical Software Practice',
+    majors: ['统计学'],
+    section: '专业实践课程',
+    subsection: '统计学专业实践',
+    credits: 1,
+    term: '春',
+    suggested: '4'
+  },
+  {
+    id: 'stats-survey-practice',
+    name: '市场调查与分析实践',
+    nameEn: 'Market Survey and Analysis Practice',
+    majors: ['统计学'],
+    section: '专业实践课程',
+    subsection: '统计学专业实践',
+    credits: 2,
+    term: '秋',
+    suggested: '5',
+    note: '特色课程'
+  },
+  {
+    id: 'stats-analysis-practice',
+    name: '统计分析综合实践',
+    nameEn: 'Comprehensive Statistical Analysis Practice',
+    majors: ['统计学'],
+    section: '专业实践课程',
+    subsection: '统计学专业实践',
+    credits: 1,
+    term: '春',
+    suggested: '6'
+  },
+  {
+    id: 'stats-innovation-practice',
+    name: '统计学专业创新实践',
+    nameEn: 'Innovation Practice in Statistics',
+    majors: ['统计学'],
+    section: '专业实践课程',
+    subsection: '统计学专业实践',
+    credits: 2,
+    term: '秋',
+    suggested: '7'
+  },
+  {
+    id: 'stats-internship',
+    name: '统计学专业实习',
+    nameEn: 'Internship in Statistics',
+    majors: ['统计学'],
+    section: '专业实践课程',
+    subsection: '统计学专业实践',
+    credits: 2,
+    term: '全',
+    suggested: '4-8'
   }
 ];

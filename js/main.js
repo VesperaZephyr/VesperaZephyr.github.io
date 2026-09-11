@@ -27,6 +27,37 @@
   // ---- 状态 ----
   var activeGroup = 'all';
   var searchKeyword = '';
+  var activeMajor = '数学与应用数学';
+  try {
+    var savedMajor = localStorage.getItem('major');
+    if (savedMajor === '数学与应用数学' || savedMajor === '统计学') activeMajor = savedMajor;
+  } catch (e) {}
+
+  // ============================================================
+  //  专业归属与显示分类
+  // ============================================================
+
+  var MAJOR_MATH = '数学与应用数学';
+  var MAJOR_STAT = '统计学';
+
+  function courseMajors(c) {
+    if (Array.isArray(c.majors)) return c.majors;
+    // 缺省规则: 专业大类基础课程两专业共有, 其余仅数学与应用数学
+    if (c.section === '专业大类基础课程') return [MAJOR_MATH, MAJOR_STAT];
+    return [MAJOR_MATH];
+  }
+
+  function displaySection(c) {
+    if (activeMajor === MAJOR_STAT && c.statSection) return c.statSection;
+    return c.section;
+  }
+
+  function displaySubsections(c) {
+    if (activeMajor === MAJOR_STAT && c.statSubsection) {
+      return Array.isArray(c.statSubsection) ? c.statSubsection : [c.statSubsection];
+    }
+    return courseSubsections(c);
+  }
 
   // ============================================================
   //  课程分类键: "一级分类::二级分类"
@@ -38,12 +69,48 @@
   }
 
   function courseKeys(c) {
-    var subs = courseSubsections(c);
+    var subs = displaySubsections(c);
+    var sec = displaySection(c);
     var keys = [];
     for (var i = 0; i < subs.length; i++) {
-      keys.push(c.section + '::' + subs[i]);
+      keys.push(sec + '::' + subs[i]);
     }
     return keys;
+  }
+
+  // ============================================================
+  //  专业切换 (数学与应用数学 / 统计学)
+  // ============================================================
+
+  function applyMajorVisibility() {
+    var mathList = document.getElementById('groupFilter');
+    var statList = document.getElementById('groupFilterStat');
+    if (mathList) mathList.style.display = activeMajor === MAJOR_MATH ? '' : 'none';
+    if (statList) statList.style.display = activeMajor === MAJOR_STAT ? '' : 'none';
+    var buttons = document.querySelectorAll('.major-switch [data-major]');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].classList.toggle('major-switch__btn--active', buttons[i].getAttribute('data-major') === activeMajor);
+    }
+  }
+
+  function switchMajor(major) {
+    if (major !== MAJOR_MATH && major !== MAJOR_STAT) return;
+    if (activeMajor === major) return;
+    activeMajor = major;
+    try { localStorage.setItem('major', major); } catch (e) {}
+    activeGroup = 'all';
+    applyMajorVisibility();
+    setActiveNavLink('all');
+    renderCounts();
+    filterCourses();
+  }
+
+  var majorSwitch = document.querySelector('.major-switch');
+  if (majorSwitch) {
+    majorSwitch.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-major]') : null;
+      if (btn) switchMajor(btn.getAttribute('data-major'));
+    });
   }
 
   // ============================================================
@@ -88,7 +155,7 @@
   function renderMetaLine(c) {
     var parts = [];
     if (c.credits) parts.push(c.credits + ' 学分');
-    if (c.term) parts.push(c.term + '季学期');
+    if (c.term) parts.push(c.term === '全' ? '学期不限' : c.term + '季学期');
     if (c.suggested) parts.push('建议第 ' + c.suggested + ' 学期');
     if (c.note) parts.push(c.note);
     if (parts.length === 0) return '';
@@ -125,8 +192,8 @@
       }
       html += '    </div>';
       html += '    <div class="course-tags">';
-      html += '      <span class="course-tag grade">' + escapeHtml(c.section) + '</span>';
-      var subs = courseSubsections(c);
+      html += '      <span class="course-tag grade">' + escapeHtml(displaySection(c)) + '</span>';
+      var subs = displaySubsections(c);
       for (var si = 0; si < subs.length; si++) {
         html += '      <span class="course-tag category">' + escapeHtml(subs[si]) + '</span>';
       }
@@ -233,6 +300,7 @@
 
   function filterCourses() {
     var filtered = COURSES.filter(function (c) {
+      var matchMajor = courseMajors(c).indexOf(activeMajor) !== -1;
       var matchGroup = activeGroup === 'all' || courseKeys(c).indexOf(activeGroup) !== -1;
       var matchSearch = !searchKeyword ||
         (c.name && c.name.toLowerCase().indexOf(searchKeyword) !== -1) ||
@@ -244,7 +312,7 @@
           var title = (tb && typeof tb === 'object') ? tb.title : tb;
           return title && title.toLowerCase().indexOf(searchKeyword) !== -1;
         }));
-      return matchGroup && matchSearch;
+      return matchMajor && matchGroup && matchSearch;
     });
     renderCards(filtered);
   }
@@ -254,8 +322,10 @@
   // ============================================================
 
   function renderCounts() {
-    var counts = { 'all': COURSES.length };
+    var counts = { 'all': 0 };
     for (var i = 0; i < COURSES.length; i++) {
+      if (courseMajors(COURSES[i]).indexOf(activeMajor) === -1) continue;
+      counts['all']++;
       var keys = courseKeys(COURSES[i]);
       for (var k = 0; k < keys.length; k++) {
         counts[keys[k]] = (counts[keys[k]] || 0) + 1;
@@ -379,6 +449,7 @@
   // ============================================================
   //  初始渲染
   // ============================================================
+  applyMajorVisibility();
   renderCounts();
   filterCourses();
 

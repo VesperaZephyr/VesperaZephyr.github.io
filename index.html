@@ -56,6 +56,9 @@
       <a href="/" class="md-tabs__link">课程资料</a>
     </li>
     <li class="md-tabs__item">
+      <a href="/curriculum.html" class="md-tabs__link">培养方案</a>
+    </li>
+    <li class="md-tabs__item">
       <a href="/notes.html" class="md-tabs__link">数学笔记</a>
     </li>
     <li class="md-tabs__item">
@@ -75,6 +78,12 @@
           <svg viewBox="0 0 24 24"><path d="M14 6v2h6v14H4V6h2V4c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v2h4M8 6h8V4H8v2M6 20h12V10H6v10z"/></svg>
         </span>
         课程体系
+      </div>
+
+      <!-- 专业切换 -->
+      <div class="major-switch" role="tablist" aria-label="选择专业">
+        <button type="button" class="major-switch__btn major-switch__btn--active" data-major="数学与应用数学">数学与应用数学</button>
+        <button type="button" class="major-switch__btn" data-major="统计学">统计学</button>
       </div>
 
       <ul class="md-nav__list">
@@ -129,6 +138,37 @@
         </li>
         <li class="md-nav__item">
           <a href="#courses" class="md-nav__link" data-filter="专业拓展课程::其他课组拓展课程" onclick="setFilter(this); return false;">其他课组拓展课程 <span class="md-nav__count"></span></a>
+        </li>
+      </ul>
+
+      <!-- 统计学专业筛选组 -->
+      <ul class="md-nav__list" id="groupFilterStat" style="display:none">
+        <li class="md-nav__group">专业大类基础课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业大类基础课程::专业大类基础必修课程" onclick="setFilter(this); return false;">必修课程 <span class="md-nav__count"></span></a>
+        </li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业大类基础课程::专业大类基础实践课程" onclick="setFilter(this); return false;">实践课程 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业主干课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业主干课程::统计学主干课程" onclick="setFilter(this); return false;">主干课程 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业选修课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业选修课程::统计学选修课程" onclick="setFilter(this); return false;">选修课程 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业实践课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业实践课程::统计学专业实践" onclick="setFilter(this); return false;">实践课程 <span class="md-nav__count"></span></a>
+        </li>
+
+        <li class="md-nav__group">专业拓展课程</li>
+        <li class="md-nav__item">
+          <a href="#courses" class="md-nav__link" data-filter="专业拓展课程::本专业拓展课程" onclick="setFilter(this); return false;">本专业拓展课程 <span class="md-nav__count"></span></a>
         </li>
       </ul>
 
