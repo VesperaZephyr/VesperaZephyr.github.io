@@ -109,6 +109,9 @@ HEADER = """<!DOCTYPE html>
     <li class="md-tabs__item">
       <a href="/" class="md-tabs__link">课程资料</a>
     </li>
+    <li class="md-tabs__item">
+      <a href="/curriculum.html" class="md-tabs__link">培养方案</a>
+    </li>
     <li class="md-tabs__item md-tabs__item--active">
       <a href="/notes.html" class="md-tabs__link">数学笔记</a>
     </li>

@@ -265,7 +265,7 @@ const COURSES = [
     suggested: '3',
     teachers: [
       { name: '张慧星', url: 'https://math.cumt.edu.cn/6d/ea/c9104a355818/page.htm' },
-      { name: '李争康(暂无教师主页)' },
+      { name: '李争康', url: 'https://faculty.cumt.edu.cn/~BbM3yu/zh_CN/' },
       { name: '田守富', url: 'https://math.cumt.edu.cn/ed/34/c9104a585012/page.htm' }
     ],
     textbooks: [
@@ -543,7 +543,13 @@ const COURSES = [
     subsection: '金融数学课组',
     credits: 3.5,
     term: '秋',
-    suggested: '5'
+    suggested: '5',
+    teachers: [
+      { name: '田德建', url: 'https://faculty.cumt.edu.cn/djtian/zh_CN/index.htm' }
+    ],
+    textbooks: [
+      { title: '《Options, Futures, and Other Derivatives》(9th Edition) John C. Hull 著', url: '/pdfs/books/Options, Futures, and Other Derivatives_9th_Edition.pdf' }
+    ]
   },
   {
     id: 'stochastic-processes',
@@ -555,7 +561,13 @@ const COURSES = [
     subsection: '金融数学课组',
     credits: 3,
     term: '秋',
-    suggested: '5'
+    suggested: '5',
+    teachers: [
+      { name: '张帅琪', url: 'https://faculty.cumt.edu.cn/ZSQ123456/zh_CN/index.htm' }
+    ],
+    textbooks: [
+      { title: '《应用随机过程》(第5版) 张波 商豪 邓军 编，机械工业出版社', url: '/pdfs/books/应用随机过程(第5版) (张波, 商豪, 邓军).pdf' }
+    ]
   },
   {
     id: 'matrix-computation',
@@ -567,7 +579,7 @@ const COURSES = [
     term: '秋',
     suggested: '5',
     textbooks: [
-      { title: '《矩阵计算》(第四版) Gene H. Golub 等 著，人民邮电出版社', url: '/pdfs/books/矩阵计算(第四版) Gene H. Golub.pdf' }
+      { title: '《Numerical Linear Algebra and Its Applications》(Second Edition) Biswa Nath Datta 著', url: '/pdfs/books/Numerical linear algebra and its applications(second edition).pdf' }
     ]
   },
   {
@@ -688,7 +700,11 @@ const COURSES = [
     credits: 3,
     term: '秋',
     suggested: '5 或 7',
+    teachers: [
+      { name: '刘昱', url: 'https://faculty.cumt.edu.cn/liuyu/zh_CN/index/215173/list/index.htm' }
+    ],
     textbooks: [
+      { title: '《Matrix Methods in Data Mining and Pattern Recognition》 Lars Eldén 著，SIAM', url: '/pdfs/books/Matrix Methods in Data Mining and Pattern Recognition Lars Elden.pdf' },
       '《数据挖掘概念与技术》(第三版) Jiawei Han 等 编，机械工业出版社'
     ]
   },
@@ -980,7 +996,10 @@ const COURSES = [
     subsection: '统计学选修课程',
     credits: 2,
     term: '秋',
-    suggested: '5'
+    suggested: '5',
+    textbooks: [
+      { title: '《数据科学概论》 李扬 编', url: '/pdfs/books/数据科学概论_李扬.pdf' }
+    ]
   },
   {
     id: 'statistical-forecasting',
