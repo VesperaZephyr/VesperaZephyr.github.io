@@ -10,6 +10,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=20260827">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
 /* ---- 课程介绍页专用 ---- */
 .course-intro-wrap {
@@ -226,7 +239,24 @@
 
   function mdToHtml(md) {
     if (!md) return '';
-    try { return marked.parse(md); } catch (e) { return '<p>' + escapeHtml(md) + '</p>'; }
+    try {
+      // 先把数学公式与代码段抽出占位, 避免被 marked 当作 markdown 语法处理
+      var math = [];
+      var s = String(md)
+        .replace(/```[\s\S]*?```|`[^`\n]*`/g, function (m) { math.push(m); return '\x00CK' + (math.length - 1) + '\x00'; })
+        .replace(/\$\$[\s\S]*?\$\$/g, function (m) { math.push(m); return '\x00CK' + (math.length - 1) + '\x00'; })
+        .replace(/\$[^$\n]+\$/g, function (m) { math.push(m); return '\x00CK' + (math.length - 1) + '\x00'; });
+      var html = marked.parse(s);
+      html = html.replace(/\x00CK(\d+)\x00/g, function (_, i) { return math[+i]; });
+      return html;
+    } catch (e) { return '<p>' + escapeHtml(md) + '</p>'; }
+  }
+
+  function typesetMath(el) {
+    // MathJax 已就绪时对动态注入的内容排版; 未就绪时其启动流程会处理全文档
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]).catch(function () {});
+    }
   }
 
   var html = '<h1>' + escapeHtml(course.name) +
@@ -246,6 +276,7 @@
   html += '<p>历年试题与复习资料见<a href="/#courses">课程资料页</a>。</p>';
 
   body.innerHTML = html;
+  typesetMath(body);
 })();
 </script>
 
