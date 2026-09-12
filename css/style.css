@@ -1461,3 +1461,17 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #ffffff59;
   color: #fff;
   font-weight: 700;
 }
+
+/* ---- 课程卡片"课程介绍"跳转标签 ---- */
+a.course-tag.intro-tag {
+  background: transparent;
+  color: var(--md-typeset-a-color);
+  border: 1px solid currentColor;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+a.course-tag.intro-tag:hover {
+  background: var(--md-typeset-a-color);
+  color: #fff;
+}

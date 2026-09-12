@@ -197,6 +197,7 @@
       for (var si = 0; si < subs.length; si++) {
         html += '      <span class="course-tag category">' + escapeHtml(subs[si]) + '</span>';
       }
+      html += '      <a class="course-tag intro-tag" href="/course-intro.html?id=' + encodeURIComponent(c.id) + '" title="课程详细介绍: 简介 / 教师评价 / 推荐书籍">课程介绍</a>';
       html += '    </div>';
       html += '  </div>';
 
